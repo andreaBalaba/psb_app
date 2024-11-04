@@ -117,7 +117,7 @@ class _WeMakeItPageState extends State<WeMakeItPage> {
                     ),
                     const SizedBox(height: 10.0),
                     ReusableText(
-                      text: "Let’s identify potential health risks associated with being.",
+                      text: "Consistency turns average into excellence, with planning as its foundation",
                       align: TextAlign.center,
                       size: 18 * autoScale,
                       fontWeight: FontWeight.w300,
