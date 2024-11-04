@@ -22,6 +22,7 @@ class AppColors{
   static const Color pPurpleColor = Color(0xFF651BCD);
   static const Color pOrangeColor = Color(0xFFEE692E);
   static const Color pSOrangeColor = Color(0xFFF53D00);
+  static const Color pBGGreyColor = Color(0xFF868686);
   static const Color pGreyColor = Colors.grey;
   static Color get pGrey100Color => Colors.grey.shade100;
   static Color get pGrey400Color => Colors.grey.shade400;
@@ -29,6 +30,9 @@ class AppColors{
   static const Color pTFColor = Color(0xFFEEDCDC);
   static const Color pDarkGreyColor = Color(0xFF544E4E);
   static const Color pMGreyColor = Color(0xFFBBBBBB);
+  static const Color pLightGreyColor = Color(0xFFE9E9E9);
+
+
 
   static const Color kDarkBg = Color(0xff25252a);
   static const Color kRedAccent = Colors.redAccent;

@@ -5,6 +5,7 @@ import 'package:psb_app/features/home/screen/widget/daily_task_widget.dart';
 import 'package:psb_app/features/home/screen/widget/today_plan_card_widget.dart';
 import 'package:psb_app/features/home/screen/widget/workout_plan_widget.dart';
 import 'package:psb_app/features/library/screen/library_page.dart';
+import 'package:psb_app/features/progress/screen/progress_page.dart';
 import 'package:psb_app/features/scanner/screen/scanner_page.dart';
 import 'package:psb_app/features/settings/screen/setting_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -28,7 +29,8 @@ class _HomePageState extends State<HomePage> {
   double autoScale = Get.width / 400;
 
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey _dailyTaskKey = GlobalKey(); // GlobalKey for Daily Task Section
+  final PageController _pageController = PageController();
+  final GlobalKey _dailyTaskKey = GlobalKey();
 
   @override
   void initState() {
@@ -40,11 +42,12 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
   void _scrollListener() {
-    if (_currentIndex == 0) {
+    if (_currentIndex == 0) { // Only listen for shadow changes in Home
       if (_scrollController.position.pixels > 0 && !_showShadow) {
         setState(() {
           _showShadow = true;
@@ -69,7 +72,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = Get.height;
@@ -78,7 +81,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.pBGWhiteColor,
       appBar: AppBar(
         backgroundColor: AppColors.pBGWhiteColor,
-        elevation: _showShadow ? 4.0 : 0.0,
+        elevation: _currentIndex == 0 && _showShadow ? 4.0 : 0.0, // Shadow only on Home page when scrolled
         surfaceTintColor: AppColors.pNoColor,
         shadowColor: _showShadow ? Colors.black26 : Colors.transparent,
         actions: [
@@ -128,8 +131,17 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          _buildPageContent(),
-
+          PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _buildHomeContent(),
+              LibraryPage(),
+              ScannerPage(), // Direct navigation for ScannerPage
+              ProgressPage(),
+              _buildMealContent(),
+            ],
+          ),
           Positioned(
             top: _isButtonDragged ? _buttonVerticalPosition : 0,
             left: 0, // Flush against the left edge
@@ -161,25 +173,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Define the content methods for each page
-  Widget _buildPageContent() {
-    switch (_currentIndex) {
-      case 0:
-        return _buildHomeContent();
-      case 1:
-        return _buildLibraryContent();
-      case 2:
-        return _buildScannerContent();
-      case 3:
-        return _buildProgressContent();
-      case 4:
-        return _buildMealContent();
-      default:
-        return _buildHomeContent();
-    }
-  }
-
-  // Home Page Content
   Widget _buildHomeContent() {
     return SingleChildScrollView(
       controller: _scrollController,
@@ -209,31 +202,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Library Page Content
-  Widget _buildLibraryContent() {
-    return Center(
-      child: LibraryPage(),
-    );
-  }
-
-  // Scanner Page Content
-  Widget _buildScannerContent() {
-    return Center(
-      child: ScannerPage(),
-    );
-  }
-
-  // Progress Page Content
-  Widget _buildProgressContent() {
-    return Center(
-      child: ReusableText(
-        text: "Track Your Progress Here",
-        fontWeight: FontWeight.w600,
-        size: 20 * (Get.width / 400),
-        color: AppColors.pBlackColor,
-      ),
-    );
-  }
 
   // Meal Page Content
   Widget _buildMealContent() {
@@ -268,11 +236,12 @@ class _HomePageState extends State<HomePage> {
             currentIndex: _currentIndex,
             onTap: (index) {
               if (index == 2) {
-                // Directly navigate to ScannerPage if camera icon is selected
-                Get.to(() => ScannerPage());
+                // Direct navigation to ScannerPage if Scanner tab is selected
+                Get.to(() => ScannerPage(), preventDuplicates: true);
               } else {
                 setState(() {
                   _currentIndex = index;
+                  _pageController.jumpToPage(index); // Navigate in PageView
                 });
               }
             },
@@ -313,12 +282,12 @@ class _HomePageState extends State<HomePage> {
             unselectedItemColor: AppColors.pBlackColor,
             showUnselectedLabels: true,
             selectedLabelStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12 * autoScale,
-              fontFamily: 'Poppins'
+                fontWeight: FontWeight.bold,
+                fontSize: 12 * autoScale,
+                fontFamily: 'Poppins'
             ),
             unselectedLabelStyle: TextStyle(
-              fontSize: 12 * autoScale, fontFamily: 'Poppins'
+                fontSize: 12 * autoScale, fontFamily: 'Poppins'
             ),
           ),
           Positioned(
