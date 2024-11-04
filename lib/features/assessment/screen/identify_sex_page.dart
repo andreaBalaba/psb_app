@@ -83,7 +83,7 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                 child: TextButton(
                   onPressed: () {
                     Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                  },
+                    },
                   child: ReusableText(
                     text: "Skip",
                     color: AppColors.pGreenColor,
