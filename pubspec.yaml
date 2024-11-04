@@ -40,6 +40,12 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   shared_preferences: ^2.3.2
   percent_indicator: ^4.2.3
+  camera: ^0.11.0+2
+  tflite_v2: ^1.0.0
+  pedometer: ^4.0.2
+  permission_handler: ^11.3.1
+  fl_chart: ^0.69.0
+
 
 dev_dependencies:
   flutter_test:
@@ -67,15 +73,37 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/icons/camscan.png
-    - assets/icons/camscan_selected.png
-    - assets/icons/cam.png
-    - assets/icons/Clock.png
-    - assets/icons/Fire.png
-    - assets/images/chest-workout.png
-    - assets/images/daily_one.jpg
-    - assets/images/daily_two.jpg
-    - assets/icons/play.png
+    - assets/ml/
+    - assets/icons/glass.png
+    - assets/icons/glass_water.png
+    - assets/icons/Bed.png
+    - assets/icons/pfire.png
+    - assets/icons/Water.png
+    - assets/icons/ricebowlcolored.png
+    - assets/icons/Goal.png
+    - assets/icons/footsteps.png
+    - assets/images/initialfire.png
+    - assets/images/morefire.png
+    - assets/images/fullfire.png
+    - assets/images/act_sedentary.png
+    - assets/images/act_LightlyActive.png
+    - assets/images/act_Moderately.png
+    - assets/images/act_VeryActive.png
+    - assets/images/flex_far.png
+    - assets/images/flex_middle.png
+    - assets/images/flex_touch.png
+    - assets/images/aerobic_easy.png
+    - assets/images/aerobic_hard.png
+    - assets/images/aerobic_moderate.png
+    - assets/images/SlimMale.png
+    - assets/images/SlimFemale.png
+    - assets/images/AthleticMale.png
+    - assets/images/AthleticFemale.png
+    - assets/images/MuscularMale.png
+    - assets/images/MuscularFemale.png
+    - assets/images/BulkyMale.png
+    - assets/images/BulkyFemale.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -92,6 +120,15 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

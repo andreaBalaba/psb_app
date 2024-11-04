@@ -1,3 +1,5 @@
+//temporary model
+
 // Updated WorkoutPlan Model
 class WorkoutPlan {
   final String imagePath;

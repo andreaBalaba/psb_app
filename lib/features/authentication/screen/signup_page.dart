@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/assessment/screen/getstarted_page.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
@@ -290,7 +291,7 @@ class _SignUpPageState extends State<SignUpPage> {
       height: 50 * autoScale,
       child: ElevatedButton(
         onPressed: () {
-          // Sign-Up action
+          Get.offAll(() => GetStarted(), transition: Transition.noTransition);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.pTFColor,

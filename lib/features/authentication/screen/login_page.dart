@@ -231,7 +231,7 @@ class _LogInPageState extends State<LogInPage> {
       height: 50 * autoScale,
       child: ElevatedButton(
         onPressed: () {
-          Get.offAll(HomePage()); //temporary
+          Get.offAll(() => HomePage(), transition: Transition.noTransition); //temporary
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.pTFColor,

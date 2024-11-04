@@ -5,19 +5,57 @@ import 'package:psb_app/features/library/screen/equipment_page.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
-class LibraryPage extends StatelessWidget {
-  final LibraryController controller = Get.put(LibraryController());
-  final ScrollController scrollController = ScrollController();
+class LibraryPage extends StatefulWidget {
+  const LibraryPage({super.key});
 
-  LibraryPage({super.key}) {
-    scrollController.addListener(() {
-      controller.updateShadow(scrollController.position.pixels);
+  @override
+  State<LibraryPage> createState() => _LibraryPageState();
+}
+
+class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClientMixin {
+  final LibraryController controller = Get.put(LibraryController());
+  bool _showShadow = false; // Local variable to track shadow status
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.scrollController.hasClients && controller.scrollController.offset > 0) {
+        setState(() {
+          _showShadow = true;
+        });
+      }
     });
+
+    controller.scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (controller.scrollController.offset > 0 && !_showShadow) {
+      setState(() {
+        _showShadow = true;
+      });
+    } else if (controller.scrollController.offset <= 0 && _showShadow) {
+      setState(() {
+        _showShadow = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.scrollController.removeListener(_scrollListener);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double autoScale = Get.width / 360; // Define autoScale once here
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
+    double autoScale = Get.width / 360;
 
     return Scaffold(
       backgroundColor: AppColors.pBGWhiteColor,
@@ -25,25 +63,25 @@ class LibraryPage extends StatelessWidget {
         title: ReusableText(
           text: 'Equipment Library',
           fontWeight: FontWeight.bold,
-          size: 20 * autoScale, // Use autoScale for responsive sizing
+          size: 20 * autoScale,
         ),
         backgroundColor: AppColors.pBGWhiteColor,
-        surfaceTintColor: Colors.transparent,
-        elevation: controller.showShadow.value ? 6.0 : 0.0,
+        elevation: _showShadow ? 6.0 : 0.0, // Use the local shadow state
         shadowColor: Colors.black26,
+        surfaceTintColor: AppColors.pNoColor,
         centerTitle: true,
       ),
-      body: Obx(() => ListView.builder(
-        controller: scrollController,
+      body: ListView.builder(
+        controller: controller.scrollController,
         padding: EdgeInsets.symmetric(
-          horizontal: 16.0 * autoScale,
+          horizontal: 20.0 * autoScale,
           vertical: 8.0 * autoScale,
         ),
         itemCount: controller.equipmentList.length,
         itemBuilder: (context, index) {
           final equipment = controller.equipmentList[index];
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.0 * autoScale), // Increased spacing
+            padding: EdgeInsets.symmetric(vertical: 12.0 * autoScale),
             child: GestureDetector(
               onTap: () {
                 Get.to(() => EquipmentDetailsPage(
@@ -53,7 +91,8 @@ class LibraryPage extends StatelessWidget {
                   duration: equipment.duration,
                   calories: equipment.calories,
                   description: equipment.description,
-                ));              },
+                ));
+              },
               child: Container(
                 height: 120 * autoScale,
                 decoration: BoxDecoration(
@@ -118,7 +157,7 @@ class LibraryPage extends StatelessWidget {
             ),
           );
         },
-      )),
+      ),
     );
   }
 }
