@@ -5,6 +5,7 @@ import 'package:psb_app/features/home/screen/widget/daily_task_widget.dart';
 import 'package:psb_app/features/home/screen/widget/today_plan_card_widget.dart';
 import 'package:psb_app/features/home/screen/widget/workout_plan_widget.dart';
 import 'package:psb_app/features/library/screen/library_page.dart';
+import 'package:psb_app/features/meal/screen/meal_page.dart';
 import 'package:psb_app/features/progress/screen/progress_page.dart';
 import 'package:psb_app/features/scanner/screen/scanner_page.dart';
 import 'package:psb_app/features/settings/screen/setting_page.dart';
@@ -60,13 +61,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Method to scroll to the Daily Task section
+
   void _scrollToDailyTask() {
     final RenderBox? renderBox = _dailyTaskKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
       final position = renderBox.localToGlobal(Offset.zero).dy;
       _scrollController.animateTo(
-        _scrollController.offset + position - 100, // Adjust this offset as needed
+        _scrollController.offset + position - 100,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.pBGWhiteColor,
       appBar: AppBar(
         backgroundColor: AppColors.pBGWhiteColor,
-        elevation: _currentIndex == 0 && _showShadow ? 4.0 : 0.0, // Shadow only on Home page when scrolled
+        elevation: _currentIndex == 0 && _showShadow ? 4.0 : 0.0,
         surfaceTintColor: AppColors.pNoColor,
         shadowColor: _showShadow ? Colors.black26 : Colors.transparent,
         actions: [
@@ -137,14 +138,14 @@ class _HomePageState extends State<HomePage> {
             children: [
               _buildHomeContent(),
               LibraryPage(),
-              ScannerPage(), // Direct navigation for ScannerPage
+              ScannerPage(),
               ProgressPage(),
-              _buildMealContent(),
+              MealPage(),
             ],
           ),
           Positioned(
             top: _isButtonDragged ? _buttonVerticalPosition : 0,
-            left: 0, // Flush against the left edge
+            left: 0,
             child: GestureDetector(
               onTap: () {
                 homeController.navigateToCalculator();
@@ -181,11 +182,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 15 * autoScale), // Space between header and PlanCard
+            SizedBox(height: 15 * autoScale),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
               child: GestureDetector(
-                onTap: _scrollToDailyTask, // Scroll to Daily Task
+                onTap: _scrollToDailyTask,
                 child: PlanCardWidget(),
               ),
             ),
@@ -194,7 +195,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 15 * autoScale),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
-              child: DailyTaskList(key: _dailyTaskKey), // Assign the GlobalKey here
+              child: DailyTaskList(key: _dailyTaskKey),
             ),
           ],
         ),
@@ -203,19 +204,6 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  // Meal Page Content
-  Widget _buildMealContent() {
-    return Center(
-      child: ReusableText(
-        text: "Meal Plans and Nutrition",
-        fontWeight: FontWeight.w600,
-        size: 20 * (Get.width / 400),
-        color: AppColors.pBlackColor,
-      ),
-    );
-  }
-
-  // Bottom Navigation Bar
   Widget _buildBottomNavigationBar(double autoScale) {
     return Container(
       decoration: const BoxDecoration(
@@ -236,12 +224,11 @@ class _HomePageState extends State<HomePage> {
             currentIndex: _currentIndex,
             onTap: (index) {
               if (index == 2) {
-                // Direct navigation to ScannerPage if Scanner tab is selected
                 Get.to(() => ScannerPage(), preventDuplicates: true);
               } else {
                 setState(() {
                   _currentIndex = index;
-                  _pageController.jumpToPage(index); // Navigate in PageView
+                  _pageController.jumpToPage(index);
                 });
               }
             },

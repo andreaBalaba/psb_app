@@ -45,6 +45,8 @@ dependencies:
   pedometer: ^4.0.2
   permission_handler: ^11.3.1
   fl_chart: ^0.69.0
+  flutter_switch: ^0.3.2
+  flutter_toggle_tab: ^1.4.1
 
 
 dev_dependencies:
@@ -103,6 +105,7 @@ flutter:
     - assets/images/MuscularFemale.png
     - assets/images/BulkyMale.png
     - assets/images/BulkyFemale.png
+    - assets/images/munggo.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -54,9 +54,26 @@ class Equipment {
     required this.imagePath,
     required this.category,
     required this.description,
-    required this.experienceLevel,
+    this.experienceLevel = "",
     this.duration = "N/A", // Optional duration
     this.calories = "N/A", // Optional calories
     this.isTapped = false,
+  });
+}
+
+// Sample Data Model for Meal
+class MealHistory {
+  final String title;
+  final String imagePath;
+  final String calories;
+  final String weight;
+  late final bool isAdded;
+
+  MealHistory({
+    required this.title,
+    required this.imagePath,
+    required this.calories,
+    required this.weight,
+    this.isAdded = false,
   });
 }

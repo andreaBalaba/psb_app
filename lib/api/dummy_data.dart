@@ -150,3 +150,50 @@ class EquipmentData {
     ];
   }
 }
+
+class MealData {
+  final List<MealHistory> mealHistoryList = [
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+    MealHistory(
+      title: "Ginisang Munggo",
+      imagePath: ImageAssets.dummyPicFour,
+      calories: "300 kcal",
+      weight: "400 grams",
+    ),
+  ];
+}

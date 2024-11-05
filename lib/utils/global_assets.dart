@@ -56,6 +56,7 @@ class ImageAssets {
   static const String dummyPicOne = "assets/images/chest-workout.png";
   static const String dummyPicTwo = "assets/images/daily_one.jpg";
   static const String dummyPicThree = "assets/images/daily_two.jpg";
+  static const String dummyPicFour = "assets/images/munggo.jpg";
 
 }
 

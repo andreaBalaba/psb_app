@@ -14,7 +14,9 @@ class ReusableText extends StatelessWidget {
     this.height,
     this.letterSpacing,
     this.wordSpacing,
-    this.foreground, TextDecoration? decoration, // New foreground parameter
+    this.foreground,
+    this.shadows = const [],
+    this.decoration,
   });
 
   final String text;
@@ -27,7 +29,9 @@ class ReusableText extends StatelessWidget {
   final double? height;
   final double? letterSpacing;
   final double? wordSpacing;
-  final Paint? foreground; // New parameter for custom Paint effects
+  final Paint? foreground;
+  final List<Shadow> shadows;
+  final TextDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +43,13 @@ class ReusableText extends StatelessWidget {
       style: GoogleFonts.poppins(
         fontSize: size,
         fontWeight: fontWeight,
-        color: foreground == null ? color : null, // Use color if no foreground
+        color: foreground == null ? color : null,
         height: height,
         letterSpacing: letterSpacing,
         wordSpacing: wordSpacing,
-        foreground: foreground, // Apply foreground Paint if provided
+        foreground: foreground,
+        shadows: shadows,
+        decoration: decoration,
       ),
     );
   }

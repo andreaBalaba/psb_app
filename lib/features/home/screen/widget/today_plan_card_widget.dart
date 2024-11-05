@@ -53,9 +53,16 @@ class PlanCardWidget extends StatelessWidget {
                 size: 32 * autoScale,
                 fontWeight: FontWeight.bold,
                 color: AppColors.pWhiteColor,
+                shadows: [
+                Shadow(
+                  blurRadius: 5.0,
+                  color: Colors.black26,
+                  offset: Offset(2.0, 2.0),
+                ),],
               ),
               progressColor: AppColors.pGreenColor,
               backgroundColor: AppColors.pMGreyColor,
+              circularStrokeCap: CircularStrokeCap.round,
             ),
           ],
         ),

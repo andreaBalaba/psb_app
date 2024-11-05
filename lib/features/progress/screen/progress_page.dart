@@ -57,7 +57,7 @@ class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required for AutomaticKeepAliveClientMixin
+    super.build(context);
     double autoScale = Get.width / 360;
 
     return Scaffold(
@@ -69,7 +69,7 @@ class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClie
           size: 20 * autoScale,
         ),
         backgroundColor: AppColors.pBGWhiteColor,
-        elevation: _showShadow ? 6.0 : 0.0, // Use the local shadow state
+        elevation: _showShadow ? 6.0 : 0.0,
         shadowColor: Colors.black26,
         surfaceTintColor: AppColors.pNoColor,
         centerTitle: true,
@@ -85,9 +85,9 @@ class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClie
             WorkoutChartWidget(
               weeklyAverage: 70, // Dummy data for weekly average in minutes
               dailyWorkoutMinutes: [20, 30, 45, 60, 25, 40, 55], // Dummy data for daily minutes
-            ), // Weekly progress bar widget
+            ),
             const SizedBox(height: 20),
-            const DailyTaskList(), // Your existing daily task widget
+            const DailyTaskList(),
           ],
         ),
       ),

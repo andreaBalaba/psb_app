@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
+import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 
@@ -21,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(Duration(milliseconds: duration * 6), () {
-        Get.off(()=>const  LogInPage()); //HomePage()); //
+        Get.off(()=>const  HomePage()); //LogInPage());  //
     });
 
   }

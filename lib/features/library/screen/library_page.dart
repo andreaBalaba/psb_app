@@ -54,7 +54,7 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required for AutomaticKeepAliveClientMixin
+    super.build(context);
     double autoScale = Get.width / 360;
 
     return Scaffold(
@@ -66,7 +66,7 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
           size: 20 * autoScale,
         ),
         backgroundColor: AppColors.pBGWhiteColor,
-        elevation: _showShadow ? 6.0 : 0.0, // Use the local shadow state
+        elevation: _showShadow ? 6.0 : 0.0,
         shadowColor: Colors.black26,
         surfaceTintColor: AppColors.pNoColor,
         centerTitle: true,
@@ -124,22 +124,17 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
                     SizedBox(width: 5 * autoScale),
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(right: 8.0 * autoScale),
+                        padding: EdgeInsets.only(right: 8.0 * autoScale, top: 16 * autoScale, bottom: 16 * autoScale),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             ReusableText(
                               text: equipment.name,
                               fontWeight: FontWeight.bold,
                               size: 18.0 * autoScale,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 4 * autoScale),
-                            ReusableText(
-                              text: 'Level: ${equipment.experienceLevel}',
-                              fontWeight: FontWeight.w500,
-                              size: 14.0 * autoScale,
                             ),
                             SizedBox(height: 4 * autoScale),
                             ReusableText(
