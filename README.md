@@ -1,13 +1,13 @@
 # psb_app
 
+App name: PulseStrength Biñan
+
 running naman siya halos ui palang 
 
 i used 
 - flutter beta channel (3.27.0-0.1.pre & dart 3.6.0-334.3.beta)
 - android studio version koala 1.2.12
 - java se jdk 17
-
-Expected: there is an error in tflite dependencies, contact me about it.
 
 
 Directory Structure
