@@ -1,17 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:psb_app/features/scanner/controller/scanner_controller.dart';
 import 'package:psb_app/features/splash/screen/splash_page.dart';
+import 'package:psb_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await requestActivityRecognitionPermission();
 
-  final scannerController = Get.put(ScannerController());//temporary
+  final scannerController = Get.put(ScannerController()); //temporary
   await scannerController.preloadCamera(); //temporary
-
+  await Firebase.initializeApp(
+    name: 'psbapp-32784',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

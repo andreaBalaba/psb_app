@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636669255483",
+    "project_id": "psbapp-32784",
+    "storage_bucket": "psbapp-32784.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636669255483:android:66b3bd3097639a0f79611e",
+        "android_client_info": {
+          "package_name": "com.example.psb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ5gjGWh0D5bynXCq0y483FizrPHd1kkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
