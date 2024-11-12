@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/api/services/add_daily_plan.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
 import 'package:psb_app/features/home/screen/widget/daily_task_widget.dart';
 import 'package:psb_app/features/home/screen/widget/today_plan_card_widget.dart';
@@ -38,6 +39,35 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    getDailyData();
+  }
+
+  bool hasLoaded = false;
+  dynamic dailyData;
+  getDailyData() {
+    FirebaseFirestore.instance
+        .collection('Daily Plan')
+        .where('userId', isEqualTo: userId)
+        .where('day', isEqualTo: DateTime.now().day)
+        .where('month', isEqualTo: DateTime.now().month)
+        .where('year', isEqualTo: DateTime.now().year)
+        .get()
+        .then(
+      (value) {
+        if (value.docs.isNotEmpty) {
+          setState(() {
+            dailyData = value.docs.first;
+            hasLoaded = true;
+          });
+        } else {
+          final json = addDailyPlan();
+          setState(() {
+            dailyData = json;
+            hasLoaded = true;
+          });
+        }
+      },
+    );
   }
 
   @override
@@ -158,7 +188,11 @@ class _HomePageState extends State<HomePage> {
               _buildHomeContent(),
               const LibraryPage(),
               const ScannerPage(),
-              const ProgressPage(),
+              ProgressPage(
+                data: dailyData,
+                id: dailyData['id'],
+                workouts: dailyData['workouts'],
+              ),
               const MealPage(),
             ],
           ),
@@ -202,19 +236,29 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 15 * autoScale),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
-              child: GestureDetector(
-                onTap: _scrollToDailyTask,
-                child: const PlanCardWidget(),
-              ),
-            ),
+            hasLoaded
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
+                    child: GestureDetector(
+                      onTap: _scrollToDailyTask,
+                      child: PlanCardWidget(
+                        count: dailyData['workouts'].length,
+                      ),
+                    ),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
             SizedBox(height: 20 * autoScale),
             const WorkoutPlanList(),
             SizedBox(height: 15 * autoScale),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
-              child: DailyTaskList(key: _dailyTaskKey),
+              child: DailyTaskList(
+                key: _dailyTaskKey,
+                id: dailyData['id'],
+                workouts: dailyData['workouts'],
+              ),
             ),
           ],
         ),

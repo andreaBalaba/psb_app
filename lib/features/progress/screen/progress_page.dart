@@ -8,25 +8,28 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
 class ProgressPage extends StatefulWidget {
-  const ProgressPage({super.key});
+  final String id;
+  final List? workouts;
+  final dynamic data;
+
+  const ProgressPage(
+      {super.key, required this.id, this.workouts, required this.data});
 
   @override
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
-class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClientMixin {
+class _ProgressPageState extends State<ProgressPage> {
   final ProgressController controller = Get.put(ProgressController());
   bool _showShadow = false;
-
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (controller.scrollController.hasClients && controller.scrollController.offset > 0) {
+      if (controller.scrollController.hasClients &&
+          controller.scrollController.offset > 0) {
         setState(() {
           _showShadow = true;
         });
@@ -54,10 +57,8 @@ class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClie
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     double autoScale = Get.width / 360;
 
     return Scaffold(
@@ -80,14 +81,30 @@ class _ProgressPageState extends State<ProgressPage> with AutomaticKeepAliveClie
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ProgressCardsWidget(),
-            const SizedBox(height: 20),
-            WorkoutChartWidget(
-              weeklyAverage: 70, // Dummy data for weekly average in minutes
-              dailyWorkoutMinutes: [20, 30, 45, 60, 25, 40, 55], // Dummy data for daily minutes
+            ProgressCardsWidget(
+              sleep: widget.data['sleep'],
+              calories: widget.data['calories'],
+              steps: widget.data['steps'],
+              water: widget.data['water'],
             ),
             const SizedBox(height: 20),
-            const DailyTaskList(),
+            const WorkoutChartWidget(
+              weeklyAverage: 0, // Dummy data for weekly average in minutes
+              dailyWorkoutMinutes: [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ], // Dummy data for daily minutes
+            ),
+            const SizedBox(height: 20),
+            DailyTaskList(
+              id: widget.id,
+              workouts: widget.workouts,
+            ),
           ],
         ),
       ),

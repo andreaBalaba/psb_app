@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
@@ -7,7 +8,10 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
 class DailyTaskList extends StatelessWidget {
-  const DailyTaskList({super.key});
+  String id;
+  List? workouts;
+
+  DailyTaskList({super.key, required this.id, this.workouts});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class DailyTaskList extends StatelessWidget {
       children: [
         // "Daily Task" Header
         Padding(
-          padding: EdgeInsets.only(left: 5.0),
+          padding: const EdgeInsets.only(left: 5.0),
           child: ReusableText(
             text: "Daily task",
             size: 24 * autoScale,
@@ -30,41 +34,50 @@ class DailyTaskList extends StatelessWidget {
         Obx(() {
           return controller.dailyTasks.isNotEmpty
               ? ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: controller.dailyTasks.length,
-            itemBuilder: (context, index) {
-              final task = controller.dailyTasks[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
-                child: _DailyTaskCard(
-                  task: task,
-                  onTap: () {
-                    task.isCompleted = !task.isCompleted;
-                    controller.dailyTasks.refresh();
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.dailyTasks.length,
+                  itemBuilder: (context, index) {
+                    final task = controller.dailyTasks[index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
+                      child: _DailyTaskCard(
+                        newWorkouts: workouts,
+                        task: task,
+                        onTap: () async {
+                          if (!workouts!.contains(task.title)) {
+                            FirebaseFirestore.instance
+                                .collection('Daily Plan')
+                                .doc(id)
+                                .update({
+                              'workouts': FieldValue.arrayUnion([task.title])
+                            });
+                          }
+                          task.isCompleted = !task.isCompleted;
+                          controller.dailyTasks.refresh();
+                        },
+                      ),
+                    );
                   },
-                ),
-              );
-            },
-          )
+                )
               : const Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.task_alt, color: Colors.grey, size: 50.0),
-                  SizedBox(height: 10.0),
-                  ReusableText(
-                    text: "No tasks for today!",
-                    color: AppColors.pGreyColor,
-                    size: 18.0,
-                    fontWeight: FontWeight.w600,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.task_alt, color: Colors.grey, size: 50.0),
+                        SizedBox(height: 10.0),
+                        ReusableText(
+                          text: "No tasks for today!",
+                          color: AppColors.pGreyColor,
+                          size: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          );
+                );
         }),
       ],
     );
@@ -74,10 +87,11 @@ class DailyTaskList extends StatelessWidget {
 class _DailyTaskCard extends StatelessWidget {
   final DailyTask task;
   final VoidCallback onTap;
-
+  final List? newWorkouts;
   const _DailyTaskCard({
     required this.task,
     required this.onTap,
+    required this.newWorkouts,
   });
 
   @override
@@ -89,7 +103,9 @@ class _DailyTaskCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10 * autoScale),
         decoration: BoxDecoration(
-          color: task.isCompleted ? AppColors.pGreen38Color : AppColors.pNoColor,
+          color: newWorkouts!.contains(task.title)
+              ? AppColors.pGreen38Color
+              : AppColors.pNoColor,
           borderRadius: BorderRadius.circular(12 * autoScale),
         ),
         child: Row(
@@ -118,7 +134,9 @@ class _DailyTaskCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     size: 18 * autoScale,
                     color: AppColors.pBlack87Color,
-                    decoration: task.isCompleted ? TextDecoration.lineThrough : null,
+                    decoration: newWorkouts!.contains(task.title)
+                        ? TextDecoration.lineThrough
+                        : null,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
