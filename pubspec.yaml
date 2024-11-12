@@ -53,6 +53,7 @@ dependencies:
   cloud_firestore:
   firebase_storage:
   firebase_auth:
+  google_sign_in:
 
 
 dev_dependencies:

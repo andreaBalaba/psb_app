@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
 import 'package:psb_app/features/assessment/screen/getstarted_page.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
@@ -177,6 +178,57 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<void> registerWithGoogle(BuildContext context) async {
+    try {
+      // Attempt to sign in the user with Google
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        // User canceled the Google sign-in
+        return;
+      }
+
+      // Get Google authentication details
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign in to Firebase with Google credentials
+      final UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
+      final User? user = userCredential.user;
+
+      if (user != null) {
+        // Check if user is new or existing
+        if (userCredential.additionalUserInfo?.isNewUser ?? false) {
+          // New user: add additional user info to Firestore
+
+          addUser(user.displayName ?? 'Unknown User', user.email ?? '');
+
+          // Optionally, navigate to a welcome or setup page for new users
+        }
+
+        Get.offAll(() => const GetStarted(),
+            transition: Transition.noTransition);
+      }
+    } on FirebaseAuthException catch (e) {
+      // Handle Firebase-specific errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? "Authentication error")),
+      );
+    } on Exception catch (e) {
+      // Handle general errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
+  }
+
   Widget _buildGoogleButton() {
     return SizedBox(
       width: double.infinity,
@@ -184,6 +236,7 @@ class _SignUpPageState extends State<SignUpPage> {
       child: ElevatedButton.icon(
         onPressed: () {
           // Google sign-in logic here
+          registerWithGoogle(context);
         },
         icon: Image.asset(
           IconAssets.pGoogleIcon,

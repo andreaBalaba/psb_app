@@ -189,9 +189,9 @@ class _HomePageState extends State<HomePage> {
               const LibraryPage(),
               const ScannerPage(),
               ProgressPage(
-                data: dailyData,
-                id: dailyData['id'],
-                workouts: dailyData['workouts'],
+                data: dailyData ?? {},
+                id: dailyData['id'] ?? '',
+                workouts: dailyData['workouts'] ?? [],
               ),
               const MealPage(),
             ],
@@ -242,7 +242,9 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: _scrollToDailyTask,
                       child: PlanCardWidget(
-                        count: dailyData['workouts'].length,
+                        count: dailyData['workouts'] == null
+                            ? 0
+                            : dailyData['workouts'].length,
                       ),
                     ),
                   )
@@ -256,8 +258,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
               child: DailyTaskList(
                 key: _dailyTaskKey,
-                id: dailyData['id'],
-                workouts: dailyData['workouts'],
+                id: dailyData['id'] ?? '',
+                workouts: dailyData['workouts'] ?? [],
               ),
             ),
           ],
