@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,8 @@ class _LogInPageState extends State<LogInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode(); // FocusNode for email field
-  final FocusNode _passwordFocusNode = FocusNode(); // FocusNode for password field
+  final FocusNode _passwordFocusNode =
+      FocusNode(); // FocusNode for password field
   bool _isPasswordVisible = false; // State variable for password visibility
 
   double get autoScale => Get.width / 360; // Responsive scaling factor
@@ -42,7 +44,8 @@ class _LogInPageState extends State<LogInPage> {
                   isPasswordField: false,
                   controller: _emailController,
                   focusNode: _emailFocusNode,
-                  nextFocusNode: _passwordFocusNode, // Move to password on 'Next'
+                  nextFocusNode:
+                      _passwordFocusNode, // Move to password on 'Next'
                 ),
                 SizedBox(height: 25 * autoScale),
                 _buildTextField(
@@ -111,10 +114,13 @@ class _LogInPageState extends State<LogInPage> {
         ),
         cursorColor: AppColors.pGrey800Color,
         textAlignVertical: TextAlignVertical.center,
-        textInputAction: isPasswordField ? TextInputAction.done : TextInputAction.next, // Set input action
+        textInputAction: isPasswordField
+            ? TextInputAction.done
+            : TextInputAction.next, // Set input action
         onSubmitted: (value) {
           if (nextFocusNode != null) {
-            FocusScope.of(context).requestFocus(nextFocusNode); // Move focus to the next field
+            FocusScope.of(context)
+                .requestFocus(nextFocusNode); // Move focus to the next field
           }
         },
         decoration: InputDecoration(
@@ -125,20 +131,21 @@ class _LogInPageState extends State<LogInPage> {
           hintStyle: TextStyle(
               color: AppColors.pDarkGreyColor,
               fontFamily: 'Poppins',
-              fontSize: 14 * autoScale
-          ),
+              fontSize: 14 * autoScale),
           suffixIcon: isPasswordField
               ? IconButton(
-            icon: Icon(
-              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              color: AppColors.pGrey800Color,
-            ),
-            onPressed: () {
-              setState(() {
-                _isPasswordVisible = !_isPasswordVisible;
-              });
-            },
-          )
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: AppColors.pGrey800Color,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                )
               : null,
         ),
       ),
@@ -149,11 +156,7 @@ class _LogInPageState extends State<LogInPage> {
     return Row(
       children: [
         const Expanded(
-            child: Divider(
-                thickness: 1,
-                color: AppColors.pBlackColor
-            )
-        ),
+            child: Divider(thickness: 1, color: AppColors.pBlackColor)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8 * autoScale),
           child: ReusableText(
@@ -162,11 +165,7 @@ class _LogInPageState extends State<LogInPage> {
           ),
         ),
         const Expanded(
-            child: Divider(
-                thickness: 1,
-                color: AppColors.pBlackColor
-            )
-        ),
+            child: Divider(thickness: 1, color: AppColors.pBlackColor)),
       ],
     );
   }
@@ -207,8 +206,7 @@ class _LogInPageState extends State<LogInPage> {
         style: TextStyle(
             color: AppColors.pDarkGreyColor,
             fontSize: 12 * autoScale,
-            fontFamily: 'Poppins'
-        ),
+            fontFamily: 'Poppins'),
         children: [
           TextSpan(
             text: "Sign Up",
@@ -218,7 +216,8 @@ class _LogInPageState extends State<LogInPage> {
               fontFamily: 'Poppins',
               decoration: TextDecoration.underline,
             ),
-            recognizer: TapGestureRecognizer()..onTap = () => Get.to(() => const SignUpPage()),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => Get.to(() => const SignUpPage()),
           ),
         ],
       ),
@@ -231,13 +230,12 @@ class _LogInPageState extends State<LogInPage> {
       height: 50 * autoScale,
       child: ElevatedButton(
         onPressed: () {
-          Get.offAll(() => HomePage(), transition: Transition.noTransition); //temporary
+          login(context);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.pTFColor,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18 * autoScale)
-          ),
+              borderRadius: BorderRadius.circular(18 * autoScale)),
         ),
         child: ReusableText(
           text: "Log in",
@@ -247,5 +245,21 @@ class _LogInPageState extends State<LogInPage> {
         ),
       ),
     );
+  }
+
+  login(context) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+
+      Get.offAll(() => const HomePage(),
+          transition: Transition.noTransition); //temporary
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

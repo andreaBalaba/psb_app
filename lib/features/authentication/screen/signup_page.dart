@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/api/services/add_user.dart';
 import 'package:psb_app/features/assessment/screen/getstarted_page.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -18,7 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
@@ -50,13 +53,17 @@ class _SignUpPageState extends State<SignUpPage> {
                   color: AppColors.pDarkGreyColor,
                 ),
                 const SizedBox(height: 30),
-                _buildTextField("Name", _usernameController, false, _usernameFocusNode, _emailFocusNode),
+                _buildTextField("Name", _usernameController, false,
+                    _usernameFocusNode, _emailFocusNode),
                 SizedBox(height: 25 * autoScale),
-                _buildTextField("Email Address", _emailController, false, _emailFocusNode, _passwordFocusNode),
+                _buildTextField("Email Address", _emailController, false,
+                    _emailFocusNode, _passwordFocusNode),
                 SizedBox(height: 25 * autoScale),
-                _buildTextField("Password", _passwordController, true, _passwordFocusNode, _confirmPasswordFocusNode),
+                _buildTextField("Password", _passwordController, true,
+                    _passwordFocusNode, _confirmPasswordFocusNode),
                 SizedBox(height: 25 * autoScale),
-                _buildTextField("Confirm Password", _confirmPasswordController, true, _confirmPasswordFocusNode, null),
+                _buildTextField("Confirm Password", _confirmPasswordController,
+                    true, _confirmPasswordFocusNode, null),
                 if (!_passwordsMatch)
                   Padding(
                     padding: EdgeInsets.only(top: 8 * autoScale),
@@ -85,7 +92,12 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildTextField(String hintText, TextEditingController controller, bool isPasswordField, FocusNode currentFocusNode, FocusNode? nextFocusNode) {
+  Widget _buildTextField(
+      String hintText,
+      TextEditingController controller,
+      bool isPasswordField,
+      FocusNode currentFocusNode,
+      FocusNode? nextFocusNode) {
     return Container(
       height: 50 * autoScale,
       decoration: BoxDecoration(
@@ -104,7 +116,8 @@ class _SignUpPageState extends State<SignUpPage> {
         controller: controller,
         focusNode: currentFocusNode,
         obscureText: isPasswordField && !_isPasswordVisible,
-        textInputAction: nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
+        textInputAction:
+            nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
         onSubmitted: (_) {
           if (nextFocusNode != null) {
             FocusScope.of(context).requestFocus(nextFocusNode);
@@ -128,16 +141,18 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           suffixIcon: isPasswordField
               ? IconButton(
-            icon: Icon(
-              _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-              color: AppColors.pGrey800Color,
-            ),
-            onPressed: () {
-              setState(() {
-                _isPasswordVisible = !_isPasswordVisible;
-              });
-            },
-          )
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: AppColors.pGrey800Color,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                )
               : null,
         ),
       ),
@@ -148,11 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Row(
       children: [
         const Expanded(
-            child: Divider(
-                thickness: 1,
-                color: AppColors.pBlackColor
-            )
-        ),
+            child: Divider(thickness: 1, color: AppColors.pBlackColor)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8 * autoScale),
           child: ReusableText(
@@ -161,11 +172,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         const Expanded(
-            child: Divider(
-                thickness: 1,
-                color: AppColors.pBlackColor
-            )
-        ),
+            child: Divider(thickness: 1, color: AppColors.pBlackColor)),
       ],
     );
   }
@@ -235,7 +242,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 TextSpan(
                   text: " and ",
-                  style: TextStyle(fontSize: 12 * autoScale, fontFamily: 'Poppins'),
+                  style: TextStyle(
+                      fontSize: 12 * autoScale, fontFamily: 'Poppins'),
                 ),
                 TextSpan(
                   text: "Privacy Policy",
@@ -291,7 +299,17 @@ class _SignUpPageState extends State<SignUpPage> {
       height: 50 * autoScale,
       child: ElevatedButton(
         onPressed: () {
-          Get.offAll(() => GetStarted(), transition: Transition.noTransition);
+          if (_isTermsAccepted) {
+            if (_passwordsMatch) {
+              register(context);
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Password do not match!')));
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Terms and condition not accepted.')));
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.pTFColor,
@@ -306,5 +324,28 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  register(context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+
+      // signup(nameController.text, numberController.text, addressController.text,
+      //     emailController.text);
+
+      addUser(_usernameController.text, _emailController.text);
+
+      Get.offAll(() => const GetStarted(), transition: Transition.noTransition);
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
   }
 }

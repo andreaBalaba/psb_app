@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
@@ -48,7 +49,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollListener() {
-    if (_currentIndex == 0) { // Only listen for shadow changes in Home
+    if (_currentIndex == 0) {
+      // Only listen for shadow changes in Home
       if (_scrollController.position.pixels > 0 && !_showShadow) {
         setState(() {
           _showShadow = true;
@@ -61,9 +63,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   void _scrollToDailyTask() {
-    final RenderBox? renderBox = _dailyTaskKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? renderBox =
+        _dailyTaskKey.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox != null) {
       final position = renderBox.localToGlobal(Offset.zero).dy;
       _scrollController.animateTo(
@@ -101,7 +103,8 @@ class _HomePageState extends State<HomePage> {
                   height: 30 * autoScale,
                 ),
                 onPressed: () {
-                  Get.to(() => SettingsPage(), transition: Transition.rightToLeft);
+                  Get.to(() => const SettingsPage(),
+                      transition: Transition.rightToLeft);
                 },
               ),
               const SizedBox(width: 2.0),
@@ -117,15 +120,31 @@ class _HomePageState extends State<HomePage> {
                 radius: 20 * autoScale,
               ),
               const SizedBox(width: 8.0),
-              Flexible(
-                child: ReusableText(
-                  text: userName,
-                  size: 20 * autoScale,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.pBlackColor,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('Users')
+                      .doc(userId)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: Text('Loading'));
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text('Something went wrong'));
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    dynamic data = snapshot.data;
+                    return Flexible(
+                      child: ReusableText(
+                        text: data['name'],
+                        size: 20 * autoScale,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.pBlackColor,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  }),
             ],
           ),
         ),
@@ -137,10 +156,10 @@ class _HomePageState extends State<HomePage> {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               _buildHomeContent(),
-              LibraryPage(),
-              ScannerPage(),
-              ProgressPage(),
-              MealPage(),
+              const LibraryPage(),
+              const ScannerPage(),
+              const ProgressPage(),
+              const MealPage(),
             ],
           ),
           Positioned(
@@ -161,9 +180,9 @@ class _HomePageState extends State<HomePage> {
                   _isButtonDragged = true;
                   _buttonVerticalPosition =
                       (details.globalPosition.dy - 40).clamp(
-                        0,
-                        screenHeight - 250,
-                      );
+                    0,
+                    screenHeight - 250,
+                  );
                 });
               },
             ),
@@ -187,11 +206,11 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
               child: GestureDetector(
                 onTap: _scrollToDailyTask,
-                child: PlanCardWidget(),
+                child: const PlanCardWidget(),
               ),
             ),
             SizedBox(height: 20 * autoScale),
-            WorkoutPlanList(),
+            const WorkoutPlanList(),
             SizedBox(height: 15 * autoScale),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
@@ -202,7 +221,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Widget _buildBottomNavigationBar(double autoScale) {
     return Container(
@@ -224,7 +242,7 @@ class _HomePageState extends State<HomePage> {
             currentIndex: _currentIndex,
             onTap: (index) {
               if (index == 2) {
-                Get.to(() => ScannerPage(), preventDuplicates: true);
+                Get.to(() => const ScannerPage(), preventDuplicates: true);
               } else {
                 setState(() {
                   _currentIndex = index;
@@ -271,11 +289,9 @@ class _HomePageState extends State<HomePage> {
             selectedLabelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12 * autoScale,
-                fontFamily: 'Poppins'
-            ),
-            unselectedLabelStyle: TextStyle(
-                fontSize: 12 * autoScale, fontFamily: 'Poppins'
-            ),
+                fontFamily: 'Poppins'),
+            unselectedLabelStyle:
+                TextStyle(fontSize: 12 * autoScale, fontFamily: 'Poppins'),
           ),
           Positioned(
             top: -4,

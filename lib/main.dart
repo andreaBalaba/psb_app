@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/features/scanner/controller/scanner_controller.dart';
 import 'package:psb_app/features/splash/screen/splash_page.dart';
 import 'package:psb_app/firebase_options.dart';
@@ -65,7 +67,15 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
       ),
-      home: const SplashPage(),
+      home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const HomePage();
+            } else {
+              return const SplashPage();
+            }
+          }),
     );
   }
 }

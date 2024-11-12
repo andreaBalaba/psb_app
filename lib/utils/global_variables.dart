@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-class AppColors{
+class AppColors {
   static const Color pNoColor = Colors.transparent;
   static const Color pBlackColor = Colors.black;
   static const Color pBlack12Color = Colors.black12;
@@ -34,7 +34,6 @@ class AppColors{
   static const Color pVioletColor = Color(0xFF5762FF);
   static const Color pBlueColor = Color(0xFF3299F4);
   static const Color pYellow = Color(0xFFF4B146);
-
-
-
 }
+
+final userId = FirebaseAuth.instance.currentUser!.uid;

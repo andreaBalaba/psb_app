@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
@@ -24,18 +25,21 @@ class _SettingsPageState extends State<SettingsPage> {
   int selectedGenderIndex = 0;
   double height = 170;
 
-
   void _togglePrivacy() {
     setState(() {
       isPrivacyExpanded = !isPrivacyExpanded;
-      if (isPrivacyExpanded) isEditInfoExpanded = false; // Close Edit Information if Privacy is opened
+      if (isPrivacyExpanded)
+        isEditInfoExpanded =
+            false; // Close Edit Information if Privacy is opened
     });
   }
 
   void _toggleEditInfo() {
     setState(() {
       isEditInfoExpanded = !isEditInfoExpanded;
-      if (isEditInfoExpanded) isPrivacyExpanded = false; // Close Privacy if Edit Information is opened
+      if (isEditInfoExpanded)
+        isPrivacyExpanded =
+            false; // Close Privacy if Edit Information is opened
     });
   }
 
@@ -71,35 +75,35 @@ class _SettingsPageState extends State<SettingsPage> {
 
             // Notification Switch
             Obx(() => Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: _buildCustomSwitch(
-                label: "Notification",
-                value: controller.isNotificationEnabled.value,
-                onToggle: controller.toggleNotification,
-              ),
-            )),
+                  padding: const EdgeInsets.all(10.0),
+                  child: _buildCustomSwitch(
+                    label: "Notification",
+                    value: controller.isNotificationEnabled.value,
+                    onToggle: controller.toggleNotification,
+                  ),
+                )),
             Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
             // Warm up Switch
             Obx(() => Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: _buildCustomSwitch(
-                label: "Warm up",
-                value: controller.isWarmUpEnabled.value,
-                onToggle: controller.toggleWarmUp,
-              ),
-            )),
+                  padding: const EdgeInsets.all(10.0),
+                  child: _buildCustomSwitch(
+                    label: "Warm up",
+                    value: controller.isWarmUpEnabled.value,
+                    onToggle: controller.toggleWarmUp,
+                  ),
+                )),
             Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
             // Stretching Switch
             Obx(() => Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: _buildCustomSwitch(
-                label: "Stretching",
-                value: controller.isStretchingEnabled.value,
-                onToggle: controller.toggleStretching,
-              ),
-            )),
+                  padding: const EdgeInsets.all(10.0),
+                  child: _buildCustomSwitch(
+                    label: "Stretching",
+                    value: controller.isStretchingEnabled.value,
+                    onToggle: controller.toggleStretching,
+                  ),
+                )),
             Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
             // Privacy Dropdown
@@ -111,7 +115,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: AppColors.pBlack87Color,
               ),
               trailing: Icon(
-                isPrivacyExpanded ? Icons.keyboard_arrow_down_outlined : Icons.arrow_forward_ios,
+                isPrivacyExpanded
+                    ? Icons.keyboard_arrow_down_outlined
+                    : Icons.arrow_forward_ios,
                 size: 18 * autoScale,
                 color: AppColors.pGreyColor,
               ),
@@ -162,7 +168,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 color: AppColors.pBlack87Color,
               ),
               trailing: Icon(
-                isEditInfoExpanded ? Icons.keyboard_arrow_down : Icons.arrow_forward_ios,
+                isEditInfoExpanded
+                    ? Icons.keyboard_arrow_down
+                    : Icons.arrow_forward_ios,
                 size: 18 * autoScale,
                 color: AppColors.pGreyColor,
               ),
@@ -171,7 +179,8 @@ class _SettingsPageState extends State<SettingsPage> {
             if (isEditInfoExpanded) ...[
               GestureDetector(
                 onTap: _showHeightBottomSheet,
-                child: _buildAccountInfo("Height", "${height.toInt()} cm", AppColors.pOrangeColor),
+                child: _buildAccountInfo(
+                    "Height", "${height.toInt()} cm", AppColors.pOrangeColor),
               ),
               _buildAccountInfo("Weight", "65.0 kg", AppColors.pOrangeColor),
               _buildAccountInfo("Age", "21", AppColors.pOrangeColor),
@@ -205,7 +214,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () => Get.back(result: true),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        Get.back(result: true);
+                      },
                       child: ReusableText(
                         text: "Log out",
                         color: AppColors.pSOrangeColor,
@@ -268,7 +280,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildAccountInfo(String title, String value, Color valueColor) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6 * autoScale, horizontal: 16.0 * autoScale),
+      padding: EdgeInsets.symmetric(
+          vertical: 6 * autoScale, horizontal: 16.0 * autoScale),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -289,12 +302,12 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-
   void _showHeightBottomSheet() {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20 * autoScale)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(20 * autoScale)),
       ),
       isScrollControlled: true,
       builder: (context) {
@@ -379,7 +392,8 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0 * autoScale, vertical: 12 * autoScale),
+            padding: EdgeInsets.symmetric(
+                horizontal: 30.0 * autoScale, vertical: 12 * autoScale),
             child: ReusableText(
               text: 'Save',
               size: 18 * autoScale,
@@ -395,7 +409,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildGenderSelection() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6 * autoScale, horizontal: 16.0 * autoScale),
+      padding: EdgeInsets.symmetric(
+          vertical: 6 * autoScale, horizontal: 16.0 * autoScale),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -403,7 +418,7 @@ class _SettingsPageState extends State<SettingsPage> {
             text: "Gender",
             size: 18 * autoScale,
             fontWeight: FontWeight.w600,
-             color: Colors.black87,
+            color: Colors.black87,
           ),
           SizedBox(height: 10 * autoScale),
           FlutterToggleTab(
@@ -411,7 +426,7 @@ class _SettingsPageState extends State<SettingsPage> {
             borderRadius: 5 * autoScale,
             height: 30 * autoScale,
             selectedIndex: selectedGenderIndex,
-            selectedBackgroundColors: [AppColors.pOrangeColor],
+            selectedBackgroundColors: const [AppColors.pOrangeColor],
             selectedTextStyle: TextStyle(
               color: Colors.white,
               fontSize: 16 * autoScale,
@@ -422,7 +437,7 @@ class _SettingsPageState extends State<SettingsPage> {
               fontSize: 16 * autoScale,
               fontWeight: FontWeight.w400,
             ),
-            labels: ["Male", "Female"],
+            labels: const ["Male", "Female"],
             selectedLabelIndex: (index) {
               setState(() {
                 selectedGenderIndex = index;
