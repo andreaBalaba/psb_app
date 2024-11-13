@@ -215,10 +215,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () async {
-                        await controller.signOut();
-                        Get.back(result: true);
-                      },
+                      onPressed: ()  => Get.back(result: true),
                       child: ReusableText(
                         text: "Log out",
                         color: AppColors.pSOrangeColor,
@@ -229,7 +226,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ));
 
                 if (shouldLogOut == true) {
-                  Get.offAll(const LogInPage());
+                  try {
+                    await controller.signOut();
+                    Get.offAll(() => const LogInPage());
+                  }catch (e) {
+                    // Show error if logout fails
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Logout failed: ${e.toString()}")),
+                    );
+                  }
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -325,6 +330,7 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  //di pa tapos
   Widget _buildHeightDialogContent() {
     return Column(
       mainAxisSize: MainAxisSize.min,

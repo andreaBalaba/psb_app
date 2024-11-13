@@ -33,7 +33,7 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
   @override
   void initState() {
     super.initState();
-    selectedLevel = widget.level; // Set initial level from the passed value
+    selectedLevel = widget.level;
   }
 
   @override
@@ -64,13 +64,13 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 12.0 * autoScale),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.pBGWhiteColor,
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: selectedLevel,
-                        icon: Icon(Icons.arrow_drop_down, color: AppColors.pGreyColor),
+                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.pGreyColor),
                         alignment: Alignment.center,
                         items: ["Beginner", "Intermediate", "Advance"]
                             .map((level) => DropdownMenuItem<String>(

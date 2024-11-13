@@ -123,7 +123,7 @@ class EquipmentData {
         imagePath: ImageAssets.dummyPicThree,
         category: 'Chest Equipment',
         description: 'Engage your pectoral muscles effectively.',
-        experienceLevel: 'Experienced', // New experience level
+        experienceLevel: 'Advance', // New experience level
       ),
       Equipment(
         name: 'Butterfly Machine',
@@ -144,7 +144,7 @@ class EquipmentData {
         imagePath: ImageAssets.dummyPicThree,
         category: 'Hand Weights',
         description: 'Versatile equipment for various exercises.',
-        experienceLevel: 'Experienced',
+        experienceLevel: 'Advance',
       ),
       // Add more items as needed
     ];
