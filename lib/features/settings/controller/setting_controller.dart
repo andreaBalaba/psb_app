@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/utils/global_variables.dart';
 
 class SettingsController extends GetxController {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
   final RxBool isNotificationEnabled = false.obs;
   final RxBool isWarmUpEnabled = false.obs;
   final RxBool isStretchingEnabled = false.obs;
@@ -47,5 +52,19 @@ class SettingsController extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: AppColors.pMGreyColor,
     );
+  }
+
+  Future<void> signOut() async {
+    try {
+      // Sign out from Firebase (works for email/password and Google users)
+      await _auth.signOut();
+
+      // Sign out from Google if the user is signed in through Google
+      await _googleSignIn.signOut();
+
+      // Clear any shared preferences related to the user session if needed.
+    } catch (e) {
+      throw Exception("Logout failed: ${e.toString()}");
+    }
   }
 }

@@ -215,7 +215,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        await FirebaseAuth.instance.signOut();
+                        await controller.signOut();
                         Get.back(result: true);
                       },
                       child: ReusableText(
