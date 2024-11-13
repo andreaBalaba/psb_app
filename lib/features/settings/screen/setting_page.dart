@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
@@ -28,18 +27,20 @@ class _SettingsPageState extends State<SettingsPage> {
   void _togglePrivacy() {
     setState(() {
       isPrivacyExpanded = !isPrivacyExpanded;
-      if (isPrivacyExpanded)
+      if (isPrivacyExpanded) {
         isEditInfoExpanded =
             false; // Close Edit Information if Privacy is opened
+      }
     });
   }
 
   void _toggleEditInfo() {
     setState(() {
       isEditInfoExpanded = !isEditInfoExpanded;
-      if (isEditInfoExpanded)
+      if (isEditInfoExpanded) {
         isPrivacyExpanded =
             false; // Close Privacy if Edit Information is opened
+      }
     });
   }
 
