@@ -63,6 +63,8 @@ class _HomePageState extends State<HomePage> {
           final json = addDailyPlan();
           setState(() {
             dailyData = json;
+
+            dailyData['workouts'] = [];
             hasLoaded = true;
           });
         }

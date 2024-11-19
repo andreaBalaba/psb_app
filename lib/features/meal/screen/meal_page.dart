@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/meal/controller/meal_controller.dart';
+import 'package:psb_app/features/meal/screen/add_meal_page.dart';
 import 'package:psb_app/features/meal/screen/widget/meal_card_widget.dart';
 import 'package:psb_app/features/meal/screen/widget/meal_history_widget.dart';
 import 'package:psb_app/features/meal/screen/widget/search_bar_widget.dart';
@@ -14,7 +15,8 @@ class MealPage extends StatefulWidget {
   State<MealPage> createState() => _MealPageState();
 }
 
-class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin {
+class _MealPageState extends State<MealPage>
+    with AutomaticKeepAliveClientMixin {
   final MealController controller = Get.put(MealController());
   double autoScale = Get.width / 360;
   bool _showShadow = false;
@@ -27,7 +29,8 @@ class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin 
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (controller.scrollController.hasClients && controller.scrollController.offset > 0) {
+      if (controller.scrollController.hasClients &&
+          controller.scrollController.offset > 0) {
         setState(() {
           _showShadow = true;
         });
@@ -73,7 +76,7 @@ class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            MealCardWidget(),
+            const MealCardWidget(),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,6 +85,8 @@ class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin 
                   text: "Create meal",
                   onPressed: () {
                     // Action for Create meal
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddMealPage()));
                   },
                 ),
                 const SizedBox(width: 15),
@@ -94,7 +99,7 @@ class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin 
               ],
             ),
             const SizedBox(height: 20),
-            MealHistoryList()
+            const MealHistoryList()
           ],
         ),
       ),
@@ -102,7 +107,6 @@ class _MealPageState extends State<MealPage> with AutomaticKeepAliveClientMixin 
   }
 
   Widget _buildButton({required String text, required VoidCallback onPressed}) {
-
     return Expanded(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.0 * autoScale),
