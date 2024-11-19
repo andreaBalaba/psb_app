@@ -93,6 +93,7 @@ class _MealPageState extends State<MealPage>
                 _buildButton(
                   text: "Quick add",
                   onPressed: () {
+                    quickMealDialog();
                     // Action for Quick add
                   },
                 ),
@@ -127,6 +128,118 @@ class _MealPageState extends State<MealPage>
           ),
         ),
       ),
+    );
+  }
+
+  quickMealDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Container(
+            width: 300,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 8,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Quick add',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const _InputRow(label: 'Fat'),
+                const SizedBox(height: 12),
+                const _InputRow(label: 'Protein'),
+                const SizedBox(height: 12),
+                const _InputRow(label: 'Calories'),
+                const SizedBox(height: 12),
+                const _InputRow(label: 'Carbohydrates'),
+                const SizedBox(height: 24),
+                const Divider(height: 1, thickness: 1),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const VerticalDivider(
+                      width: 1,
+                      thickness: 1,
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Apply',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _InputRow extends StatelessWidget {
+  final String label;
+
+  const _InputRow({super.key, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Container(
+          width: 100,
+          height: 36,
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ],
     );
   }
 }
