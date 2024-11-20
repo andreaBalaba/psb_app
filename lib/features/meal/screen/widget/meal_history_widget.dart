@@ -1,14 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/meal/controller/meal_controller.dart';
+import 'package:psb_app/features/meal/screen/meal_page.dart';
 import 'package:psb_app/model/exercise_model.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
-class MealHistoryList extends StatelessWidget {
+class MealHistoryList extends StatefulWidget {
   const MealHistoryList({super.key});
 
+  @override
+  State<MealHistoryList> createState() => _MealHistoryListState();
+}
+
+class _MealHistoryListState extends State<MealHistoryList> {
   @override
   Widget build(BuildContext context) {
     double autoScale = Get.width / 360;
@@ -27,52 +34,78 @@ class MealHistoryList extends StatelessWidget {
           ),
         ),
         // Meal History List
-        Obx(() {
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: controller.mealHistoryList.length,
-            itemBuilder: (context, index) {
-              final meal = controller.mealHistoryList[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
-                child: MealHistoryCard(
-                  meal: meal,
-                  onTap: () {
-                    controller.addMeal(meal); // Trigger meal addition
-                  },
-                ),
+        StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('Foods').snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return const Center(child: Text('Error'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Padding(
+                  padding: EdgeInsets.only(top: 50),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.black,
+                  )),
+                );
+              }
+
+              final data = snapshot.requireData;
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.docs.length,
+                itemBuilder: (context, index) {
+                  final meal = data.docs[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
+                    child: MealHistoryCard(
+                      meal: meal,
+                    ),
+                  );
+                },
               );
-            },
-          );
-        }),
+            }),
       ],
     );
   }
 }
 
-class MealHistoryCard extends StatelessWidget {
-  final MealHistory meal;
-  final VoidCallback onTap;
+class MealHistoryCard extends StatefulWidget {
+  final dynamic meal;
 
   const MealHistoryCard({
     super.key,
     required this.meal,
-    required this.onTap,
   });
 
+  @override
+  State<MealHistoryCard> createState() => _MealHistoryCardState();
+}
+
+class _MealHistoryCardState extends State<MealHistoryCard> {
   @override
   Widget build(BuildContext context) {
     double autoScale = Get.width / 360;
 
     return GestureDetector(
-      onTap: (){
-
+      onTap: () {
+        setState(() {
+          if (selected != widget.meal.id) {
+            selected = widget.meal.id;
+          } else {
+            selected = '';
+          }
+        });
       },
       child: Container(
         padding: EdgeInsets.all(10 * autoScale),
         decoration: BoxDecoration(
-          color: meal.isAdded ? AppColors.pGreen38Color : AppColors.pNoColor,
+          color: selected == widget.meal.id
+              ? AppColors.pGreen38Color
+              : AppColors.pNoColor,
           borderRadius: BorderRadius.circular(12 * autoScale),
         ),
         child: Row(
@@ -84,7 +117,7 @@ class MealHistoryCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8 * autoScale),
                 image: DecorationImage(
-                  image: AssetImage(meal.imagePath),
+                  image: NetworkImage(widget.meal['img']),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -98,7 +131,7 @@ class MealHistoryCard extends StatelessWidget {
                 children: [
                   // Meal Title
                   ReusableText(
-                    text: meal.title,
+                    text: widget.meal['name'],
                     fontWeight: FontWeight.w600,
                     size: 18 * autoScale,
                     color: AppColors.pBlack87Color,
@@ -111,44 +144,18 @@ class MealHistoryCard extends StatelessWidget {
                     children: [
                       _buildInfoChip(
                         iconPath: IconAssets.pFireIcon,
-                        label: meal.calories,
+                        label: widget.meal['calories'].toString(),
                         color: AppColors.pDarkOrangeColor,
                       ),
                       SizedBox(width: 8 * autoScale),
                       _buildInfoChip(
                         iconData: Icons.scale,
-                        label: meal.weight,
+                        label: widget.meal['servingSize'].toString(),
                         color: AppColors.pGreyColor,
                       ),
                     ],
                   ),
                 ],
-              ),
-            ),
-
-            // Add Button Icon
-            GestureDetector(
-              onTap: (){
-
-              },
-              child: Container(
-                padding: EdgeInsets.all(6.0 * autoScale),
-                decoration: BoxDecoration(
-                  color: AppColors.pWhiteColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 4.0,
-                      offset: Offset(2.0, 2.0),
-                    ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: 20.0 * autoScale,
-                  color: Colors.black,
-                ),
               ),
             ),
           ],
