@@ -51,7 +51,10 @@ class ScannerController extends GetxController {
 
   // Start the image stream if the camera is ready and not paused, with error checks
   void startImageStream() {
-    if (cameraController != null && isCameraInitialized.value && !cameraController!.value.isStreamingImages && !isPaused) {
+    if (cameraController != null &&
+        isCameraInitialized.value &&
+        !cameraController!.value.isStreamingImages &&
+        !isPaused) {
       try {
         cameraController!.startImageStream((CameraImage img) async {
           if (!isDetecting) {
@@ -65,7 +68,11 @@ class ScannerController extends GetxController {
               );
 
               if (recognitions != null && recognitions.isNotEmpty) {
-                recognitionLabel.value = recognitions[0]['label'];
+                if (recognitions[0]['confidence'] > 0.85) {
+                  recognitionLabel.value = recognitions[0]['label'];
+                } else {
+                  recognitionLabel.value = "No equipment detected";
+                }
               } else {
                 recognitionLabel.value = "No equipment detected";
               }
