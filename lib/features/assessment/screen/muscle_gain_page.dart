@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/what_focus_area_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
@@ -8,7 +9,6 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class MuscleGainPage extends StatefulWidget {
   const MuscleGainPage({super.key});
@@ -22,11 +22,12 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
 
   double autoScale = Get.width / 400;
 
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = Get.width;
     final screenHeight = Get.height;
-
 
     return Scaffold(
       backgroundColor: AppColors.pBGWhiteColor,
@@ -36,14 +37,16 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
         surfaceTintColor: AppColors.pNoColor,
         toolbarHeight: 60,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute items evenly across the row
+          mainAxisAlignment: MainAxisAlignment
+              .spaceBetween, // Distribute items evenly across the row
           children: [
             // Left content (Leading)
             Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  icon: Icon(Icons.arrow_back_rounded,
+                      size: 28 * autoScale, color: AppColors.pBlackColor),
                   padding: const EdgeInsets.all(8.0),
                   onPressed: () {
                     Get.back();
@@ -83,7 +86,8 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
+                    Get.offAll(() => const HomePage(),
+                        transition: Transition.noTransition);
                   },
                   child: ReusableText(
                     text: "Skip",
@@ -104,7 +108,7 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
               Expanded(
                 child: Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -116,7 +120,8 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
                             child: AspectRatio(
                               aspectRatio: 4 / 3,
                               child: Image.asset(
-                                ImageAssets.pGetStrongPic, // Replace with your specific image asset path
+                                ImageAssets
+                                    .pGetStrongPic, // Replace with your specific image asset path
                                 fit: BoxFit.contain,
                               ),
                             ),
@@ -130,18 +135,28 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
                               fontWeight: FontWeight.w700,
                               letterSpacing: 1,
                             ),
-                            children: [
-                              TextSpan(text: "Muscle gain ", style: TextStyle(color: AppColors.pSOrangeColor)),
-                              TextSpan(text: "at ", style: TextStyle(color: AppColors.pBlackColor)),
-                              TextSpan(text: "smart rhythm ", style: TextStyle(color: AppColors.pSOrangeColor)),
+                            children: const [
+                              TextSpan(
+                                  text: "Muscle gain ",
+                                  style: TextStyle(
+                                      color: AppColors.pSOrangeColor)),
+                              TextSpan(
+                                  text: "at ",
+                                  style:
+                                      TextStyle(color: AppColors.pBlackColor)),
+                              TextSpan(
+                                  text: "smart rhythm ",
+                                  style: TextStyle(
+                                      color: AppColors.pSOrangeColor)),
                             ],
                           ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 40.0),
                         ReusableText(
-                          text: "Combining resistance exercises with heart-friendly activities can optimize both muscle growth and cardiovascular function.\n\n"
-                          "Always listen to your body and monitor your heart rate to ensure safe and effective progress.",
+                          text:
+                              "Combining resistance exercises with heart-friendly activities can optimize both muscle growth and cardiovascular function.\n\n"
+                              "Always listen to your body and monitor your heart rate to ensure safe and effective progress.",
                           size: 18 * autoScale,
                           fontWeight: FontWeight.w300,
                           align: TextAlign.center,
@@ -157,7 +172,11 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
         },
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
@@ -167,9 +186,8 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setBool('seenIntro', true);
 
-              Get.to(() => const FocusAreaPage(), transition: Transition.noTransition);
-
-
+              Get.to(() => const FocusAreaPage(),
+                  transition: Transition.noTransition);
             },
             color: AppColors.pGreenColor,
             fontColor: AppColors.pWhiteColor,

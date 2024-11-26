@@ -8,7 +8,6 @@ import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class AnyDiscomfortPage extends StatefulWidget {
   const AnyDiscomfortPage({super.key});
 
@@ -25,7 +24,6 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
     "Knee injury",
     "Cardiomyopathy",
   ];
-
 
   final List<String> icons = [
     IconAssets.pHealthyIcon,
@@ -57,7 +55,8 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  icon: Icon(Icons.arrow_back_rounded,
+                      size: 28 * autoScale, color: AppColors.pBlackColor),
                   padding: const EdgeInsets.all(8.0),
                   onPressed: () {
                     Get.back();
@@ -79,10 +78,12 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                   ),
                   const SizedBox(height: 8.0),
                   SizedBox(
-                    width: screenWidth * 0.4, // Adjusted width for progress bar to center
+                    width: screenWidth *
+                        0.4, // Adjusted width for progress bar to center
                     child: LinearProgressIndicator(
                       value: 1.0,
-                      minHeight: 9.0 * autoScale, // Dynamic height for progress bar
+                      minHeight:
+                          9.0 * autoScale, // Dynamic height for progress bar
                       color: AppColors.pGreenColor,
                       backgroundColor: AppColors.pMGreyColor,
                     ),
@@ -97,7 +98,8 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
+                    Get.offAll(() => const HomePage(),
+                        transition: Transition.noTransition);
                   },
                   child: ReusableText(
                     text: "Skip",
@@ -112,7 +114,7 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01 ),
+        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01),
         child: Column(
           children: [
             const SizedBox(height: 20.0),
@@ -125,12 +127,16 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                   letterSpacing: 1,
                 ),
                 children: const [
-                  TextSpan(text: "Have you suffered any ", style: TextStyle(color: AppColors.pBlackColor)),
-                  TextSpan(text: "discomfort", style: TextStyle(color: AppColors.pSOrangeColor)),
-                  TextSpan(text: "?", style: TextStyle(color: AppColors.pBlackColor)),
+                  TextSpan(
+                      text: "Have you suffered any ",
+                      style: TextStyle(color: AppColors.pBlackColor)),
+                  TextSpan(
+                      text: "discomfort",
+                      style: TextStyle(color: AppColors.pSOrangeColor)),
+                  TextSpan(
+                      text: "?",
+                      style: TextStyle(color: AppColors.pBlackColor)),
                 ],
-
-
               ),
               textAlign: TextAlign.center,
             ),
@@ -141,20 +147,25 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      controller.selectedAnyDiscomfortIndex(index); // Update selected choice in controller
+                      controller.selectedAnyDiscomfortIndex(
+                          index); // Update selected choice in controller
                     },
                     child: Obx(
-                          () => Container(
-                        margin: EdgeInsets.symmetric(vertical: 14.0 * autoScale),
+                      () => Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 14.0 * autoScale),
                         padding: EdgeInsets.all(10.0 * autoScale),
                         decoration: BoxDecoration(
-                          color: controller.selectedAnyDiscomfortIndex.value == index
+                          color: controller.selectedAnyDiscomfortIndex.value ==
+                                  index
                               ? AppColors.pGreen38Color
                               : AppColors.pWhiteColor,
                           border: Border.all(
-                            color: controller.selectedAnyDiscomfortIndex.value == index
-                                ? AppColors.pGreenColor
-                                : AppColors.pMGreyColor,
+                            color:
+                                controller.selectedAnyDiscomfortIndex.value ==
+                                        index
+                                    ? AppColors.pGreenColor
+                                    : AppColors.pMGreyColor,
                           ),
                           borderRadius: BorderRadius.circular(12.0 * autoScale),
                         ),
@@ -186,21 +197,28 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
           child: Obx(
-                () => ReusableButton(
+            () => ReusableButton(
               text: "Next",
               onPressed: controller.selectedAnyDiscomfortIndex.value == -1
                   ? null
                   : () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('seenIntro', true);
+                      // here please
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('seenIntro', true);
 
-                Get.offAll(() => HomePage(), transition: Transition.noTransition);
-              },
+                      Get.offAll(() => const HomePage(),
+                          transition: Transition.noTransition);
+                    },
               color: controller.selectedAnyDiscomfortIndex.value == -1
                   ? AppColors.pNoColor
                   : AppColors.pGreenColor,

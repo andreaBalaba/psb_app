@@ -54,6 +54,8 @@ dependencies:
   firebase_storage:
   firebase_auth:
   google_sign_in:
+  numberpicker:
+  get_storage:
 
 
 dev_dependencies:

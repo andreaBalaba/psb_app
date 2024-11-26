@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/any_special_event_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
@@ -8,7 +9,6 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class FocusAreaPage extends StatefulWidget {
   const FocusAreaPage({super.key});
@@ -28,7 +28,7 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
     "Thigh",
     "Full body",
   ];
-
+  final box = GetStorage();
   final List<String> images = [
     ImageAssets.pArmPic,
     ImageAssets.pChestPic,
@@ -45,7 +45,6 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
     final screenWidth = Get.width;
     final screenHeight = Get.height;
 
-
     return Scaffold(
       backgroundColor: AppColors.pBGWhiteColor,
       appBar: AppBar(
@@ -54,14 +53,16 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
         surfaceTintColor: AppColors.pNoColor,
         toolbarHeight: 60,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Distribute items evenly across the row
+          mainAxisAlignment: MainAxisAlignment
+              .spaceBetween, // Distribute items evenly across the row
           children: [
             // Left content (Leading)
             Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  icon: Icon(Icons.arrow_back_rounded,
+                      size: 28 * autoScale, color: AppColors.pBlackColor),
                   padding: const EdgeInsets.all(8.0),
                   onPressed: () {
                     Get.back();
@@ -83,10 +84,12 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                   ),
                   const SizedBox(height: 8.0),
                   SizedBox(
-                    width: screenWidth * 0.4, // Adjusted width for progress bar to center
+                    width: screenWidth *
+                        0.4, // Adjusted width for progress bar to center
                     child: LinearProgressIndicator(
                       value: 0.2,
-                      minHeight: 9.0 * autoScale, // Dynamic height for progress bar
+                      minHeight:
+                          9.0 * autoScale, // Dynamic height for progress bar
                       color: AppColors.pGreenColor,
                       backgroundColor: AppColors.pMGreyColor,
                     ),
@@ -101,7 +104,8 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
+                    Get.offAll(() => const HomePage(),
+                        transition: Transition.noTransition);
                   },
                   child: ReusableText(
                     text: "Skip",
@@ -116,7 +120,7 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01 ),
+        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01),
         child: Column(
           children: [
             const SizedBox(height: 20.0),
@@ -128,10 +132,16 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
-                children: [
-                  TextSpan(text: "What's your ", style: TextStyle(color: AppColors.pBlackColor)),
-                  TextSpan(text: "focus ", style: TextStyle(color: AppColors.pSOrangeColor)),
-                  TextSpan(text: "area?", style: TextStyle(color: AppColors.pBlackColor)),
+                children: const [
+                  TextSpan(
+                      text: "What's your ",
+                      style: TextStyle(color: AppColors.pBlackColor)),
+                  TextSpan(
+                      text: "focus ",
+                      style: TextStyle(color: AppColors.pSOrangeColor)),
+                  TextSpan(
+                      text: "area?",
+                      style: TextStyle(color: AppColors.pBlackColor)),
                 ],
               ),
               textAlign: TextAlign.center,
@@ -152,14 +162,16 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                     onTap: () {
                       setState(() {
                         controller.selectedFocusAreaIndex(index);
+                        box.write('focus_area', choices[index]);
                       });
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: controller.selectedFocusAreaIndex.value == index
-                              ? AppColors.pGreenColor
-                              : AppColors.pMGreyColor,
+                          color:
+                              controller.selectedFocusAreaIndex.value == index
+                                  ? AppColors.pGreenColor
+                                  : AppColors.pMGreyColor,
                         ),
                         borderRadius: BorderRadius.circular(12.0 * autoScale),
                         color: controller.selectedFocusAreaIndex.value == index
@@ -185,7 +197,8 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                             bottom: -1,
                             left: -1,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0 * autoScale),
+                              borderRadius:
+                                  BorderRadius.circular(12.0 * autoScale),
                               child: Image.asset(
                                 images[index],
                                 width: 100.0 * autoScale,
@@ -198,16 +211,17 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
                             bottom: 2,
                             right: 2,
                             child: Obx(
-                                  () => Radio<int>(
+                              () => Radio<int>(
                                 value: index,
-                                groupValue: controller.selectedFocusAreaIndex.value,
+                                groupValue:
+                                    controller.selectedFocusAreaIndex.value,
                                 onChanged: (int? value) {
-                                  controller.selectedFocusAreaIndex.value = value ?? -1;
+                                  controller.selectedFocusAreaIndex.value =
+                                      value ?? -1;
                                 },
                                 activeColor: AppColors.pGreenColor,
                               ),
                             ),
-
                           ),
                         ],
                       ),
@@ -220,21 +234,27 @@ class _FocusAreaPageState extends State<FocusAreaPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
           child: Obx(
-                () => ReusableButton(
+            () => ReusableButton(
               text: "Next",
               onPressed: controller.selectedFocusAreaIndex.value == -1
                   ? null
                   : () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('seenIntro', true);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('seenIntro', true);
 
-                Get.to(() => AnyEventPage(), transition: Transition.noTransition);
-              },
+                      Get.to(() => const AnyEventPage(),
+                          transition: Transition.noTransition);
+                    },
               color: controller.selectedFocusAreaIndex.value == -1
                   ? AppColors.pNoColor
                   : AppColors.pGreenColor,

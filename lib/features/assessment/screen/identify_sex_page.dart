@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/measure_it_right_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
@@ -19,13 +20,19 @@ class IdentifySexPage extends StatefulWidget {
 class _IdentifySexPageState extends State<IdentifySexPage> {
   final AssessmentController controller = Get.put(AssessmentController());
   final List<String> choices = ["Male", "Female"];
-  final List<String> images = [ImageAssets.pMenGenderPic, ImageAssets.pWomenGenderPic];
+  final List<String> images = [
+    ImageAssets.pMenGenderPic,
+    ImageAssets.pWomenGenderPic
+  ];
   double autoScale = Get.width / 400;
 
   Future<void> saveGenderPreference(int index) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedGender', choices[index]); // Save gender choice
+    await prefs.setString(
+        'selectedGender', choices[index]); // Save gender choice
   }
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,8 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  icon: Icon(Icons.arrow_back_rounded,
+                      size: 28 * autoScale, color: AppColors.pBlackColor),
                   padding: const EdgeInsets.all(8.0),
                   onPressed: () {
                     Get.back();
@@ -82,8 +90,9 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                    },
+                    Get.offAll(() => const HomePage(),
+                        transition: Transition.noTransition);
+                  },
                   child: ReusableText(
                     text: "Skip",
                     color: AppColors.pGreenColor,
@@ -110,9 +119,13 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
-                children: [
-                  TextSpan(text: "Getting there", style: TextStyle(color: AppColors.pBlackColor)),
-                  TextSpan(text: "!", style: TextStyle(color: AppColors.pSOrangeColor)),
+                children: const [
+                  TextSpan(
+                      text: "Getting there",
+                      style: TextStyle(color: AppColors.pBlackColor)),
+                  TextSpan(
+                      text: "!",
+                      style: TextStyle(color: AppColors.pSOrangeColor)),
                 ],
               ),
               textAlign: TextAlign.center,
@@ -135,15 +148,21 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                       setState(() {
                         controller.setGender(index);
                         controller.selectedIdentifySexIndex(index);
+                        box.write('sex', choices[index]);
                       });
-                      await saveGenderPreference(index); // Save preference on selection
+                      await saveGenderPreference(
+                          index); // Save preference on selection
                     },
                     child: Obx(
-                          () => AnimatedScale(
-                        scale: controller.selectedIdentifySexIndex.value == index ? 0.7 : 1.0,
+                      () => AnimatedScale(
+                        scale:
+                            controller.selectedIdentifySexIndex.value == index
+                                ? 0.7
+                                : 1.0,
                         duration: const Duration(milliseconds: 200),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -156,13 +175,17 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                               const SizedBox(height: 10.0),
                               ReusableText(
                                 text: choices[index],
-                                fontWeight: controller.selectedIdentifySexIndex.value == index
-                                    ? FontWeight.bold
-                                    : FontWeight.w300,
+                                fontWeight:
+                                    controller.selectedIdentifySexIndex.value ==
+                                            index
+                                        ? FontWeight.bold
+                                        : FontWeight.w300,
                                 size: 18 * autoScale,
-                                color: controller.selectedIdentifySexIndex.value == index
-                                    ? AppColors.pGreenColor
-                                    : AppColors.pDarkGreyColor,
+                                color:
+                                    controller.selectedIdentifySexIndex.value ==
+                                            index
+                                        ? AppColors.pGreenColor
+                                        : AppColors.pDarkGreyColor,
                               ),
                             ],
                           ),
@@ -177,18 +200,23 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
           child: Obx(
-                () => ReusableButton(
+            () => ReusableButton(
               text: "Next",
               onPressed: controller.selectedIdentifySexIndex.value == -1
                   ? null
                   : () async {
-                Get.to(() => MeasureItRightPage(), transition: Transition.noTransition);
-              },
+                      Get.to(() => const MeasureItRightPage(),
+                          transition: Transition.noTransition);
+                    },
               color: controller.selectedIdentifySexIndex.value == -1
                   ? AppColors.pNoColor
                   : AppColors.pGreenColor,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/features/scanner/controller/scanner_controller.dart';
@@ -11,6 +12,7 @@ import 'package:psb_app/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await GetStorage.init();
   await requestActivityRecognitionPermission();
 
   final scannerController = Get.put(ScannerController()); //temporary

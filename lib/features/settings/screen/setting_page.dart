@@ -215,7 +215,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: ()  => Get.back(result: true),
+                      onPressed: () => Get.back(result: true),
                       child: ReusableText(
                         text: "Log out",
                         color: AppColors.pSOrangeColor,
@@ -229,7 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   try {
                     await controller.signOut();
                     Get.offAll(() => const LogInPage());
-                  }catch (e) {
+                  } catch (e) {
                     // Show error if logout fails
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Logout failed: ${e.toString()}")),

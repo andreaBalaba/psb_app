@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/screen/what_goal_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -19,7 +20,13 @@ class MotivationPage extends StatefulWidget {
 
 class _MotivationPageState extends State<MotivationPage> {
   final AssessmentController controller = Get.put(AssessmentController());
-  final List<String> choices = ["Feel confident", "Release stress", "Improve health", "Boost energy", "Get shaped"];
+  final List<String> choices = [
+    "Feel confident",
+    "Release stress",
+    "Improve health",
+    "Boost energy",
+    "Get shaped"
+  ];
   final List<String> icons = [
     IconAssets.pConfidentIcon,
     IconAssets.pReleaseStressIcon,
@@ -29,6 +36,8 @@ class _MotivationPageState extends State<MotivationPage> {
   ];
 
   double autoScale = Get.width / 400;
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +71,8 @@ class _MotivationPageState extends State<MotivationPage> {
                 children: [
                   ReusableText(
                     text: "Goal",
-                      size: 20 * autoScale,
-                      fontWeight: FontWeight.bold,
+                    size: 20 * autoScale,
+                    fontWeight: FontWeight.bold,
                   ),
                   const SizedBox(height: 8.0),
                   SizedBox(
@@ -85,22 +94,23 @@ class _MotivationPageState extends State<MotivationPage> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
+                    Get.offAll(() => const HomePage(),
+                        transition: Transition.noTransition);
                   },
                   child: ReusableText(
-                      text: "Skip",
-                      color: AppColors.pGreenColor,
-                      fontWeight: FontWeight.w500,
-                      size: 14 * autoScale,
-                    ),
+                    text: "Skip",
+                    color: AppColors.pGreenColor,
+                    fontWeight: FontWeight.w500,
+                    size: 14 * autoScale,
                   ),
                 ),
               ),
-              ],
             ),
+          ],
         ),
+      ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01 ),
+        padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01),
         child: Column(
           children: [
             const SizedBox(height: 20.0),
@@ -112,10 +122,16 @@ class _MotivationPageState extends State<MotivationPage> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                 ),
-                children: [
-                  TextSpan(text: "What ", style: TextStyle(color: AppColors.pBlackColor)),
-                  TextSpan(text: "motivates ", style: TextStyle(color: AppColors.pSOrangeColor)),
-                  TextSpan(text: "you the most?", style: TextStyle(color: AppColors.pBlackColor)),
+                children: const [
+                  TextSpan(
+                      text: "What ",
+                      style: TextStyle(color: AppColors.pBlackColor)),
+                  TextSpan(
+                      text: "motivates ",
+                      style: TextStyle(color: AppColors.pSOrangeColor)),
+                  TextSpan(
+                      text: "you the most?",
+                      style: TextStyle(color: AppColors.pBlackColor)),
                 ],
               ),
               textAlign: TextAlign.center,
@@ -127,18 +143,23 @@ class _MotivationPageState extends State<MotivationPage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      controller.selectedMotivationIndex(index); // Update selected choice in controller
+                      box.write('motivation', choices[index]);
+                      controller.selectedMotivationIndex(
+                          index); // Update selected choice in controller
                     },
                     child: Obx(
-                          () => Container(
-                        margin: EdgeInsets.symmetric(vertical: 14.0 * autoScale),
+                      () => Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 14.0 * autoScale),
                         padding: EdgeInsets.all(10.0 * autoScale),
                         decoration: BoxDecoration(
-                          color: controller.selectedMotivationIndex.value == index
-                              ? AppColors.pGreen38Color
-                              : AppColors.pWhiteColor,
+                          color:
+                              controller.selectedMotivationIndex.value == index
+                                  ? AppColors.pGreen38Color
+                                  : AppColors.pWhiteColor,
                           border: Border.all(
-                            color: controller.selectedMotivationIndex.value == index
+                            color: controller.selectedMotivationIndex.value ==
+                                    index
                                 ? AppColors.pGreenColor
                                 : AppColors.pMGreyColor,
                           ),
@@ -172,21 +193,27 @@ class _MotivationPageState extends State<MotivationPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
           child: Obx(
-                () => ReusableButton(
+            () => ReusableButton(
               text: "Next",
               onPressed: controller.selectedMotivationIndex.value == -1
                   ? null
                   : () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('seenIntro', true);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('seenIntro', true);
 
-                Get.to(() => MainGoalPage(), transition: Transition.noTransition);
-              },
+                      Get.to(() => const MainGoalPage(),
+                          transition: Transition.noTransition);
+                    },
               color: controller.selectedMotivationIndex.value == -1
                   ? AppColors.pNoColor
                   : AppColors.pGreenColor,
