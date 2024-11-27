@@ -21,6 +21,7 @@ void main() async {
     name: 'psbapp-32784',
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 

@@ -13,6 +13,7 @@ Future addUser(name, email) async {
     'isVerified': false,
     'isActive': true,
     'uid': FirebaseAuth.instance.currentUser!.uid,
+    'workouts': [],
   };
 
   await docUser.set(json);

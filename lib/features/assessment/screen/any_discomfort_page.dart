@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:psb_app/api/services/add_daily_plan.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -7,6 +12,7 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class AnyDiscomfortPage extends StatefulWidget {
   const AnyDiscomfortPage({super.key});
@@ -34,6 +40,8 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
   ];
 
   double autoScale = Get.width / 400;
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -216,8 +224,54 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                           await SharedPreferences.getInstance();
                       await prefs.setBool('seenIntro', true);
 
-                      Get.offAll(() => const HomePage(),
-                          transition: Transition.noTransition);
+                      String jsonString = await rootBundle.loadString(
+                          'assets/images/Personalized_Workout_Plan.json');
+
+                      // Parse JSON string into a Map
+                      Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+                      List workouts = jsonData['plan_id'];
+
+                      List updatedWorkouts = workouts.where(
+                        (element) {
+                          return element['user_profile']['special_event'] ==
+                              box.read('special_event');
+                        },
+                      ).where(
+                        (element) {
+                          return element['user_profile']['sex'] ==
+                              box.read('sex');
+                        },
+                      ).where(
+                        (element) {
+                          return element['user_profile']['focus_area'] ==
+                              box.read('focus_area');
+                        },
+                      ).where(
+                        (element) {
+                          return element['user_profile']['main_goal'] ==
+                              box.read('main_goal');
+                        },
+                      ).where(
+                        (element) {
+                          return element['user_profile']['motivation'] ==
+                              box.read('motivation');
+                        },
+                      ).toList();
+
+                      await FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(userId)
+                          .update({
+                        'workouts': updatedWorkouts.first['workout_plan'] ??
+                            workouts.first['workout_plan']
+                      }).whenComplete(
+                        () {
+                          addDailyPlan();
+                          Get.offAll(() => const HomePage(),
+                              transition: Transition.noTransition);
+                        },
+                      );
                     },
               color: controller.selectedAnyDiscomfortIndex.value == -1
                   ? AppColors.pNoColor

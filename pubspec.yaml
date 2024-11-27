@@ -115,6 +115,7 @@ flutter:
     - assets/images/BulkyMale.png
     - assets/images/BulkyFemale.png
     - assets/images/munggo.jpg
+    - assets/images/Personalized_Workout_Plan.json
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
