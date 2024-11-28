@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/api/services/add_daily_plan.dart';
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   getDailyData() {
     FirebaseFirestore.instance
         .collection('Daily Plan')
-        .where('userId', isEqualTo: userId)
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .where('day', isEqualTo: DateTime.now().day)
         .where('month', isEqualTo: DateTime.now().month)
         .where('year', isEqualTo: DateTime.now().year)
@@ -155,7 +156,7 @@ class _HomePageState extends State<HomePage> {
               StreamBuilder<DocumentSnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('Users')
-                      .doc(userId)
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
                       .snapshots(),
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (!snapshot.hasData) {
@@ -190,11 +191,30 @@ class _HomePageState extends State<HomePage> {
               _buildHomeContent(),
               const LibraryPage(),
               const ScannerPage(),
-              ProgressPage(
-                data: dailyData ?? {},
-                id: dailyData['id'] ?? '',
-                workouts: dailyData['workouts'] ?? [],
-              ),
+              StreamBuilder<DocumentSnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('Users')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: Text('Loading'));
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text('Something went wrong'));
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    dynamic data = snapshot.data;
+                    return ProgressPage(
+                      data: dailyData ?? {},
+                      id: dailyData['id'] ??
+                          FirebaseAuth.instance.currentUser!.uid,
+                      workouts: data['workouts']['weekly_schedule']
+                              [DateTime.now().weekday - 1]['exercises'] ??
+                          [],
+                    );
+                  }),
               const MealPage(),
             ],
           ),
@@ -256,14 +276,34 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20 * autoScale),
             const WorkoutPlanList(),
             SizedBox(height: 15 * autoScale),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
-              child: DailyTaskList(
-                key: _dailyTaskKey,
-                id: dailyData['id'] ?? '',
-                workouts: dailyData['workouts'] ?? [],
-              ),
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('Loading'));
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  dynamic data = snapshot.data;
+
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
+                    child: DailyTaskList(
+                      key: _dailyTaskKey,
+                      id: dailyData['id'] ??
+                          FirebaseAuth.instance.currentUser!.uid,
+                      workouts: data['workouts']['weekly_schedule']
+                              [DateTime.now().weekday - 1]['exercises'] ??
+                          [],
+                    ),
+                  );
+                }),
           ],
         ),
       ),

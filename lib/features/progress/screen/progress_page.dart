@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/screen/widget/daily_task_widget.dart';
@@ -57,6 +59,16 @@ class _ProgressPageState extends State<ProgressPage> {
     super.dispose();
   }
 
+  int getWorkouts() {
+    int sum = 0;
+    for (int i = 0; i < widget.workouts!.length; i++) {
+      setState(() {
+        sum += int.parse(widget.workouts![i]['minutes'].toString());
+      });
+    }
+    return sum;
+  }
+
   @override
   Widget build(BuildContext context) {
     double autoScale = Get.width / 360;
@@ -81,24 +93,123 @@ class _ProgressPageState extends State<ProgressPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProgressCardsWidget(
-              sleep: widget.data['sleep'],
-              calories: widget.data['calories'],
-              steps: widget.data['steps'],
-              water: widget.data['water'],
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('Loading'));
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  dynamic data = snapshot.data;
+                  return ProgressCardsWidget(
+                    sleep: data['sleep'],
+                    calories: widget.data['calories'],
+                    steps: widget.data['steps'],
+                    water: data['water'],
+                  );
+                }),
             const SizedBox(height: 20),
-            const WorkoutChartWidget(
-              weeklyAverage: 0, // Dummy data for weekly average in minutes
-              dailyWorkoutMinutes: [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
-              ], // Dummy data for daily minutes
+            StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: Text('Loading'));
+                } else if (snapshot.hasError) {
+                  return const Center(child: Text('Something went wrong'));
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                dynamic data = snapshot.data;
+
+                // Check for data integrity before proceeding
+                if (data == null ||
+                    data['workouts'] == null ||
+                    data['workouts']['weekly_schedule'] == null) {
+                  return const Center(child: Text('Invalid data structure'));
+                }
+
+                int sum1 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][0]['exercises']
+                            .length;
+                    i++) {
+                  sum1 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum2 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][1]['exercises']
+                            .length;
+                    i++) {
+                  sum2 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum3 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][2]['exercises']
+                            .length;
+                    i++) {
+                  sum3 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum4 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][3]['exercises']
+                            .length;
+                    i++) {
+                  sum4 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum5 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][4]['exercises']
+                            .length;
+                    i++) {
+                  sum5 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum6 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][5]['exercises']
+                            .length;
+                    i++) {
+                  sum6 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+                int sum7 = 0;
+                for (int i = 0;
+                    i <
+                        data['workouts']['weekly_schedule'][6]['exercises']
+                            .length;
+                    i++) {
+                  sum7 += int.parse(widget.workouts![i]['minutes'].toString());
+                }
+
+                return WorkoutChartWidget(
+                  weeklyAverage:
+                      (sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7) / 7,
+                  dailyWorkoutMinutes: [
+                    sum1.toDouble(),
+                    sum2.toDouble(),
+                    sum3.toDouble(),
+                    sum4.toDouble(),
+                    sum5.toDouble(),
+                    sum6.toDouble(),
+                    sum7.toDouble(),
+                  ], // Dummy data for daily minutes
+                );
+              },
             ),
             const SizedBox(height: 20),
             DailyTaskList(

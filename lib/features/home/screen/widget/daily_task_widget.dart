@@ -31,55 +31,157 @@ class DailyTaskList extends StatelessWidget {
           ),
         ),
         // Daily Task List
-        Obx(() {
-          return controller.dailyTasks.isNotEmpty
-              ? ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: controller.dailyTasks.length,
-                  itemBuilder: (context, index) {
-                    final task = controller.dailyTasks[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
-                      child: _DailyTaskCard(
-                        newWorkouts: workouts,
-                        task: task,
-                        onTap: () async {
-                          if (!workouts!.contains(task.title)) {
-                            FirebaseFirestore.instance
-                                .collection('Daily Plan')
-                                .doc(id)
-                                .update({
-                              'workouts': FieldValue.arrayUnion([task.title])
-                            });
-                          }
-                          task.isCompleted = !task.isCompleted;
-                          controller.dailyTasks.refresh();
-                        },
-                      ),
-                    );
-                  },
-                )
-              : const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.task_alt, color: Colors.grey, size: 50.0),
-                        SizedBox(height: 10.0),
-                        ReusableText(
-                          text: "No tasks for today!",
-                          color: AppColors.pGreyColor,
-                          size: 18.0,
-                          fontWeight: FontWeight.w600,
+        workouts!.isNotEmpty
+            ? ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: workouts!.length,
+                itemBuilder: (context, index) {
+                  final task = workouts![index];
+
+                  print(task);
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
+                    child: GestureDetector(
+                      onTap: () async {
+                        // if (!workouts!.contains(task.title)) {
+                        //   FirebaseFirestore.instance
+                        //       .collection('Daily Plan')
+                        //       .doc(id)
+                        //       .update({
+                        //     'workouts': FieldValue.arrayUnion([task.title])
+                        //   });
+                        // }
+                        // task.isCompleted = !task.isCompleted;
+                        // controller.dailyTasks.refresh();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10 * autoScale),
+                        decoration: BoxDecoration(
+                          color: AppColors.pNoColor,
+                          borderRadius: BorderRadius.circular(12 * autoScale),
                         ),
-                      ],
+                        child: Row(
+                          children: [
+                            // Task Image
+                            Container(
+                              width: 60.0 * autoScale,
+                              height: 60.0 * autoScale,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(8 * autoScale),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/chest-workout.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 12 * autoScale),
+                            // Task Details
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Task Title
+                                  ReusableText(
+                                    text: task['exercise'],
+                                    fontWeight: FontWeight.w600,
+                                    size: 18 * autoScale,
+                                    color: AppColors.pBlack87Color,
+                                    decoration: null,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  // Task Info Chips
+                                  Row(
+                                    children: [
+                                      _buildInfoChip(
+                                        iconPath: IconAssets.pClockIcon,
+                                        label: task['minutes'].toString(),
+                                        color: AppColors.pDarkGreenColor,
+                                        backgroundColor: AppColors.pNoColor,
+                                      ),
+                                      SizedBox(width: 8 * autoScale),
+                                      _buildInfoChip(
+                                        iconPath: IconAssets.pFireIcon,
+                                        label:
+                                            task['calories_burned'].toString(),
+                                        color: AppColors.pDarkOrangeColor,
+                                        backgroundColor: AppColors.pNoColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // Completion Status Image Icon
+                            Image.asset(
+                              IconAssets.pPlayIcon,
+                              width: 35 * autoScale,
+                              height: 35 * autoScale,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
+                  );
+                },
+              )
+            : const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.task_alt, color: Colors.grey, size: 50.0),
+                      SizedBox(height: 10.0),
+                      ReusableText(
+                        text: "No tasks for today!",
+                        color: AppColors.pGreyColor,
+                        size: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
                   ),
-                );
-        }),
+                ),
+              ),
       ],
+    );
+  }
+
+  Widget _buildInfoChip({
+    required String iconPath,
+    required String label,
+    required Color color,
+    required Color backgroundColor,
+  }) {
+    double autoScale = Get.width / 360;
+
+    return Container(
+      padding: EdgeInsets.all(3.0 * autoScale),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(16 * autoScale),
+      ),
+      child: Row(
+        children: [
+          Image.asset(
+            iconPath,
+            height: 12.0 * autoScale,
+            width: 12.0 * autoScale,
+            color: color,
+          ),
+          SizedBox(width: 4.0 * autoScale),
+          ReusableText(
+            text: label,
+            size: 11.0 * autoScale,
+            fontWeight: FontWeight.w500,
+            color: color,
+          ),
+        ],
+      ),
     );
   }
 }

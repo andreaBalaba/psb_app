@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -261,10 +262,11 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
 
                       await FirebaseFirestore.instance
                           .collection('Users')
-                          .doc(userId)
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
                           .update({
-                        'workouts': updatedWorkouts.first['workout_plan'] ??
-                            workouts.first['workout_plan']
+                        'workouts': updatedWorkouts.isNotEmpty
+                            ? updatedWorkouts.first['workout_plan']
+                            : workouts.first['workout_plan']
                       }).whenComplete(
                         () {
                           addDailyPlan();
