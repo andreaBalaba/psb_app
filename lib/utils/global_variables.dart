@@ -34,6 +34,7 @@ class AppColors {
   static const Color pVioletColor = Color(0xFF5762FF);
   static const Color pBlueColor = Color(0xFF3299F4);
   static const Color pYellow = Color(0xFFF4B146);
+  static const Color pPitchColor = Color(0xFFF9DACF);
 }
 
 final userId = FirebaseAuth.instance.currentUser!.uid;

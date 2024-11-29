@@ -21,14 +21,14 @@ class SearchBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, color: AppColors.pGreyColor),
+          const Icon(Icons.search, color: AppColors.pGreyColor),
           const SizedBox(width: 5),
           Expanded(
             child: TextField(
               controller: textController,
               onChanged: controller.updateSearchQuery,
               cursorColor: AppColors.pBlackColor,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search food',
                 border: InputBorder.none,
                 hintStyle: TextStyle(color: Colors.black54, fontFamily: 'Poppins'),
@@ -41,14 +41,14 @@ class SearchBarWidget extends StatelessWidget implements PreferredSizeWidget {
               controller.clearSearch();
               textController.clear(); // Clears the TextField content
             },
-            child: Icon(Icons.close, color: AppColors.pGreyColor),
+            child: const Icon(Icons.close, color: AppColors.pGreyColor),
           )
-              : SizedBox.shrink()),
+              : const SizedBox.shrink()),
         ],
       ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(50.0); // Height for AppBar
+  Size get preferredSize => const Size.fromHeight(50.0); // Height for AppBar
 }

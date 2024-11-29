@@ -116,6 +116,9 @@ class IconAssets {
   static const String pRiceBowlIcon = "assets/icons/ricebowlcolored.png";
   static const String pGoalIcon = "assets/icons/Goal.png";
 
-
+  static const String pTargetIcon = "assets/icons/target.png";
+  static const String pDurationIcon = "assets/icons/Duration.png";
+  static const String pWaterIntakeIcon = "assets/icons/WaterIntake.png";
+  static const String pBurnCaloriesIcon = "assets/icons/BurnCalories.png";
 
 }

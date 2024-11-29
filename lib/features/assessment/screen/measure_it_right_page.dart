@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/assessment/screen/bmi_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MeasureItRightPage extends StatefulWidget {
   const MeasureItRightPage({super.key});
@@ -73,20 +72,12 @@ class _MeasureItRightPageState extends State<MeasureItRightPage> {
               ),
             ),
 
-            // Right content (Skip button)
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -116,7 +107,7 @@ class _MeasureItRightPageState extends State<MeasureItRightPage> {
             Expanded(
               child: Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -157,9 +148,7 @@ class _MeasureItRightPageState extends State<MeasureItRightPage> {
           width: double.infinity,
           child: ReusableButton(
             text: "Next",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
+            onPressed: () {
 
               Get.to(() => const BmiCalculationPage(), transition: Transition.noTransition);
 

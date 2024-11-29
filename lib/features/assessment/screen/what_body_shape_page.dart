@@ -23,7 +23,7 @@ class _BodyShapePageState extends State<BodyShapePage> {
   String selectedLabel = "Slim Body";
 
   String getImageForSliderValue(double value) {
-    bool isMale = controller.gender.value == "Male"; // Dynamically check gender
+    bool isMale = controller.gender.value == "Male";
     if (isMale) {
       if (value <= 0.25) return ImageAssets.pSlimMalePic;
       if (value <= 0.5) return ImageAssets.pAthleticMalePic;

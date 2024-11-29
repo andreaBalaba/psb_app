@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/aerobic_level_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:psb_app/utils/reusable_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class FlexibilityLevelPage extends StatefulWidget {
   const FlexibilityLevelPage({super.key});
@@ -100,19 +99,12 @@ class _FlexibilityLevelPageState extends State<FlexibilityLevelPage> {
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -168,6 +160,7 @@ class _FlexibilityLevelPageState extends State<FlexibilityLevelPage> {
                           child: Image.asset(
                             getImageForSliderValue(sliderValue),
                             fit: BoxFit.contain,
+                              color: AppColors.pSOrangeColor
                           ),
                         ),
                       ),
@@ -213,11 +206,9 @@ class _FlexibilityLevelPageState extends State<FlexibilityLevelPage> {
           width: double.infinity,
           child: ReusableButton(
             text: "Next",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
-              controller.selectedFlexibilityLevel.value = selectedLabel;
+            onPressed: () {
 
+              controller.selectedFlexibilityLevel.value = selectedLabel;
               Get.to(() => const AerobicLevelPage(), transition: Transition.noTransition);
 
             },
@@ -337,7 +328,7 @@ class GradientTrackShape extends SliderTrackShape {
     );
 
     final activePaint = Paint()
-      ..shader = LinearGradient(
+      ..shader = const LinearGradient(
         colors: [AppColors.pSOrangeColor, Colors.white],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
@@ -346,12 +337,12 @@ class GradientTrackShape extends SliderTrackShape {
     final inactivePaint = Paint()..color = sliderTheme.inactiveTrackColor ?? AppColors.pGreyColor;
 
     context.canvas.drawRRect(
-      RRect.fromRectAndRadius(Rect.fromLTRB(trackRect.left, trackRect.top, thumbCenter.dx, trackRect.bottom), Radius.circular(10)),
+      RRect.fromRectAndRadius(Rect.fromLTRB(trackRect.left, trackRect.top, thumbCenter.dx, trackRect.bottom), const Radius.circular(10)),
       activePaint,
     );
 
     context.canvas.drawRRect(
-      RRect.fromRectAndRadius(Rect.fromLTRB(thumbCenter.dx, trackRect.top, trackRect.right, trackRect.bottom), Radius.circular(10)),
+      RRect.fromRectAndRadius(Rect.fromLTRB(thumbCenter.dx, trackRect.top, trackRect.right, trackRect.bottom), const Radius.circular(10)),
       inactivePaint,
     );
   }

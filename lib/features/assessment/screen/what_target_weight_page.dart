@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/we_make_it_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class TargetWeightPage extends StatefulWidget {
   const TargetWeightPage({super.key});
@@ -57,41 +56,48 @@ class _TargetWeightPageState extends State<TargetWeightPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ReusableText(
-                  text: "Body data",
-                  size: 20 * autoScale,
-                  fontWeight: FontWeight.bold,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  padding: const EdgeInsets.all(8.0),
+                  onPressed: () {
+                    Get.back();
+                  },
                 ),
-                const SizedBox(height: 8.0),
-                SizedBox(
-                  width: screenWidth * 0.4,
-                  child: LinearProgressIndicator(
-                    value: 0.5,
-                    minHeight: 9.0 * autoScale,
-                    color: AppColors.pGreenColor,
-                    backgroundColor: AppColors.pMGreyColor,
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ReusableText(
+                    text: "Body data",
+                    size: 20 * autoScale,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ],
+                  const SizedBox(height: 8.0),
+                  SizedBox(
+                    width: screenWidth * 0.4,
+                    child: LinearProgressIndicator(
+                      value: 0.5,
+                      minHeight: 9.0 * autoScale,
+                      color: AppColors.pGreenColor,
+                      backgroundColor: AppColors.pMGreyColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            TextButton(
-              onPressed: () {
-                Get.offAll(() => HomePage(), transition: Transition.noTransition);
-              },
-              child: ReusableText(
-                text: "Skip",
-                color: AppColors.pGreenColor,
-                fontWeight: FontWeight.w500,
-                size: 14 * autoScale,
+            const Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
+                ),
               ),
             ),
           ],
@@ -237,9 +243,7 @@ class _TargetWeightPageState extends State<TargetWeightPage> {
           height: screenHeight * 0.065,
           child: ReusableButton(
             text: "Next",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
+            onPressed: () {
               Get.to(() => const WeMakeItPage(), transition: Transition.noTransition);
             },
             color: AppColors.pGreenColor,

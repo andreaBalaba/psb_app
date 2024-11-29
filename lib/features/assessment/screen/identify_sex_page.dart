@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/measure_it_right_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class IdentifySexPage extends StatefulWidget {
   const IdentifySexPage({super.key});
@@ -85,20 +85,12 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => const HomePage(),
-                        transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -213,7 +205,7 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
               text: "Next",
               onPressed: controller.selectedIdentifySexIndex.value == -1
                   ? null
-                  : () async {
+                  : () {
                       Get.to(() => const MeasureItRightPage(),
                           transition: Transition.noTransition);
                     },

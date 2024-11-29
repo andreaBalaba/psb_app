@@ -5,24 +5,23 @@ import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class GetStarted extends StatefulWidget {
-  const GetStarted({super.key});
+
+class StartAssessment extends StatefulWidget {
+  const StartAssessment({super.key});
 
   @override
-  State<GetStarted> createState() => _GetStartedState();
+  State<StartAssessment> createState() => _StartAssessmentState();
 }
 
-class _GetStartedState extends State<GetStarted> {
-  double autoScale = Get.width / 400; // Responsive scaling based on screen width
+class _StartAssessmentState extends State<StartAssessment> {
+  double autoScale = Get.width / 400;
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = Get.width;
     final screenHeight = Get.height;
 
-    // Adjusted padding and button height
 
     return Scaffold(
       backgroundColor: AppColors.pBGWhiteColor,
@@ -34,21 +33,17 @@ class _GetStartedState extends State<GetStarted> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: screenHeight * 0.04),
-
-                // Logo Section
                 SizedBox(
                   width: screenWidth * 0.85,
-                  height: screenWidth * 0.63, // Maintains aspect ratio
+                  height: screenWidth * 0.63,
                   child: AspectRatio(
                     aspectRatio: 4 / 3,
                     child: Image.asset(
-                      ImageAssets.pGetStartedPic, // Replace with your specific image asset path
+                      ImageAssets.pGetStartedPic,
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
-
-                // Title Section
                 RichText(
                   text: TextSpan(
                     style: TextStyle(
@@ -58,15 +53,14 @@ class _GetStartedState extends State<GetStarted> {
                       wordSpacing: 5,
                       letterSpacing: 1,
                     ),
-                    children: [
+                    children: const [
                       TextSpan(text: "Assess ", style: TextStyle(color: AppColors.pSOrangeColor)),
                       TextSpan(text: "it First!", style: TextStyle(color: AppColors.pBlackColor)),
                     ],
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 40.0 * autoScale), // Adjust spacing between elements
-
+                SizedBox(height: 40.0 * autoScale),
                 // Description Section
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3.0 * autoScale),
@@ -90,11 +84,8 @@ class _GetStartedState extends State<GetStarted> {
           height: screenHeight * 0.065,
           width: double.infinity,
           child: ReusableButton(
-            text: "Get Started",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
-              // Navigation (uncomment if needed)
+            text: "Start Assessment",
+            onPressed: ()  {
               Get.offAll(() => const MotivationPage(), transition: Transition.noTransition);
             },
             color: AppColors.pGreenColor,
@@ -102,7 +93,7 @@ class _GetStartedState extends State<GetStarted> {
             borderRadius: 0,
             size: 18 * autoScale,
             weight: FontWeight.w600,
-            removePadding: true, // Set this to remove internal padding and fixed height
+            removePadding: true,
           ),
         ),
       ),

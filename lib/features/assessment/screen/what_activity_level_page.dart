@@ -166,6 +166,7 @@ class _ActivityLevelPageState extends State<ActivityLevelPage> {
                           child: Image.asset(
                             getImageForSliderValue(sliderValue),
                             fit: BoxFit.contain,
+                              color: AppColors.pSOrangeColor
                           ),
                         ),
                       ),

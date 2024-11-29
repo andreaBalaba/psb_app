@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/what_focus_area_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MuscleGainPage extends StatefulWidget {
   const MuscleGainPage({super.key});
@@ -81,20 +80,12 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
             ),
 
             // Right content (Skip button)
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => const HomePage(),
-                        transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -182,9 +173,7 @@ class _MuscleGainPageState extends State<MuscleGainPage> {
           width: double.infinity,
           child: ReusableButton(
             text: "Next",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
+            onPressed: () {
 
               Get.to(() => const FocusAreaPage(),
                   transition: Transition.noTransition);

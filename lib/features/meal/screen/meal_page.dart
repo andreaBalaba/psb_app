@@ -138,7 +138,7 @@ class _MealPageState extends State<MealPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _buildButton(
-                        text: "Create meal",
+                        text: "Add food",
                         onPressed: () {
                           // Action for Create meal
                           setState(() {

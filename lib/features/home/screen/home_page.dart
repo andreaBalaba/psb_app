@@ -121,28 +121,17 @@ class _HomePageState extends State<HomePage> {
         surfaceTintColor: AppColors.pNoColor,
         shadowColor: _showShadow ? Colors.black26 : Colors.transparent,
         actions: [
-          Row(
-            children: [
-              IconButton(
-                icon: Image.asset(
-                  IconAssets.pChatBotIcon,
-                  height: 30 * autoScale,
-                ),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Image.asset(
-                  IconAssets.pSettingIcon,
-                  height: 30 * autoScale,
-                ),
-                onPressed: () {
-                  Get.to(() => const SettingsPage(),
-                      transition: Transition.rightToLeft);
-                },
-              ),
-              const SizedBox(width: 2.0),
-            ],
+          IconButton(
+            icon: Image.asset(
+              IconAssets.pSettingIcon,
+              height: 30 * autoScale,
+            ),
+            onPressed: () {
+              Get.to(() => const SettingsPage(),
+                  transition: Transition.rightToLeft);
+            },
           ),
+          const SizedBox(width: 2.0),
         ],
         title: GestureDetector(
           onTap: () {},

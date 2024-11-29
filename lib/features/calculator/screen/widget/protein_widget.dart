@@ -55,7 +55,7 @@ class ProteinWidget extends StatelessWidget {
                   ReusableText( text: "kg", size: 18 * autoScale),
                   const SizedBox(width: 10),
                   ReusableText(
-                    text: "÷ 0.8g",
+                    text: "x 0.8g",
                     fontWeight: FontWeight.bold,
                     size: 28 * autoScale,
                   ),
@@ -105,7 +105,7 @@ class ProteinWidget extends StatelessWidget {
                     ReusableText(
                       text: 'For adults: The RDA for adults is\n approximately 0.8 grams of protein per Kg of body weight. '
                           'To calculate this, divide your weight in kilograms by 0.8. '
-                          'For example, a person weighing 68 kilograms would need about 54 grams of protein per day (68 kg ÷ 0.8 = 54 g).',
+                          'For example, a person weighing 68 kilograms would need about 54 grams of protein per day (68 kg x 0.8 = 54 g).',
                       color: AppColors.pWhiteColor,
                       size: 14 * autoScale,
                       align: TextAlign.center,

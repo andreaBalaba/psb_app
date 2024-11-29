@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/where_you_workout_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../controller/assessment_controller.dart';
 
 class StopGoalPage extends StatefulWidget {
   const StopGoalPage({super.key});
@@ -91,19 +89,12 @@ class _StopGoalPageState extends State<StopGoalPage> {
             ),
 
             // Right content (Skip button)
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -192,11 +183,8 @@ class _StopGoalPageState extends State<StopGoalPage> {
               text: "Next",
               onPressed: controller.selectedStopGoalIndex.value == -1
                   ? null
-                  : () async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                await prefs.setBool('seenIntro', true);
-
-                Get.to(() => WhereYouWorkoutPage(), transition: Transition.noTransition);
+                  : () {
+                Get.to(() => const WhereYouWorkoutPage(), transition: Transition.noTransition);
               },
               color: controller.selectedStopGoalIndex.value == -1
                   ? AppColors.pNoColor

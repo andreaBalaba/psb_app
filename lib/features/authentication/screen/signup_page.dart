@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
-import 'package:psb_app/features/assessment/screen/getstarted_page.dart';
+import 'package:psb_app/features/assessment/screen/get_started_page.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';

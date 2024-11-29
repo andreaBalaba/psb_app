@@ -6,6 +6,7 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+
 class MealCardWidget extends StatefulWidget {
   const MealCardWidget({super.key});
 
@@ -38,7 +39,7 @@ class _MealCardWidgetState extends State<MealCardWidget> {
         SmoothPageIndicator(
           controller: _pageController,
           count: 3,
-          effect: ScrollingDotsEffect(
+          effect: const ScrollingDotsEffect(
             dotWidth: 6,
             dotHeight: 6,
             activeDotColor: AppColors.pBlackColor,
@@ -85,7 +86,7 @@ class _MealCardWidgetState extends State<MealCardWidget> {
                             size: 30 * autoScale,
                             fontWeight: FontWeight.bold,
                             color: AppColors.pWhiteColor,
-                            shadows: [
+                            shadows: const [
                               Shadow(
                                 blurRadius: 5.0,
                                 color: Colors.black26,
@@ -148,7 +149,7 @@ class _MealCardWidgetState extends State<MealCardWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ReusableText(
-                                text: "Food",
+                                text: "Calories",
                                 size: 16 * autoScale,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -195,17 +196,17 @@ class _MealCardWidgetState extends State<MealCardWidget> {
                 children: [
                   Expanded(
                     child: _buildMacroIndicator(
-                        "Undefined", AppColors.pBlueColor, 0.6),
+                        "Carbs", AppColors.pBlueColor, 0.6),
                   ),
                   SizedBox(width: 10 * autoScale),
                   Expanded(
                     child: _buildMacroIndicator(
-                        "Undefined", AppColors.pVioletColor, 0.4),
+                        "Fats", AppColors.pVioletColor, 0.4),
                   ),
                   SizedBox(width: 10 * autoScale),
                   Expanded(
                     child: _buildMacroIndicator(
-                        "Undefined", AppColors.pYellow, 0.8),
+                        "Protein", AppColors.pYellow, 0.8),
                   ),
                 ],
               ),
@@ -230,7 +231,7 @@ class _MealCardWidgetState extends State<MealCardWidget> {
           size: 12 * autoScale,
           fontWeight: FontWeight.bold,
           color: AppColors.pWhiteColor,
-          shadows: [
+          shadows: const [
             Shadow(
               blurRadius: 5.0,
               color: Colors.black26,
@@ -267,61 +268,139 @@ class _MealCardWidgetState extends State<MealCardWidget> {
               children: [
                 Expanded(
                   child: Column(
-                    children: List.generate(3, (index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 3.0 * autoScale),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ReusableText(
-                              text: "Undefined",
-                              size: 12 * autoScale,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Fat",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
                             ),
-                            SizedBox(height: 3 * autoScale),
-                            SizedBox(
-                              height: 10 * autoScale,
-                              width: 120 * autoScale,
-                              child: LinearProgressIndicator(
-                                value: index == 0 ? 0.5 : (index == 1 ? 0.8 : 0.3),
-                                backgroundColor: AppColors.pMGreyColor,
-                                color: AppColors.pGreenColor,
-                                minHeight: 8 * autoScale,
-                              ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5 * autoScale),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Sodium",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
                             ),
-                          ],
-                        ),
-                      );
-                    }),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5 * autoScale),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Cholesterol",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(width: 12 * autoScale),
                 Expanded(
                   child: Column(
-                    children: List.generate(3, (index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 3.0 * autoScale),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ReusableText(
-                              text: "Undefined",
-                              size: 12 * autoScale,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Sugar",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
                             ),
-                            SizedBox(height: 3 * autoScale),
-                            SizedBox(
-                              height: 10 * autoScale,
-                              width: 120 * autoScale,
-                              child: LinearProgressIndicator(
-                                value: index == 0 ? 0.7 : (index == 1 ? 0.6 : 0.4),
-                                backgroundColor: AppColors.pMGreyColor,
-                                color: AppColors.pGreenColor,
-                                minHeight: 8 * autoScale,
-                              ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5 * autoScale),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Fiber",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
                             ),
-                          ],
-                        ),
-                      );
-                    }),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5 * autoScale),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ReusableText(
+                            text: "Carbohydrates",
+                            size: 14 * autoScale,
+                          ),
+                          SizedBox(height: 3 * autoScale),
+                          SizedBox(
+                            height: 10 * autoScale,
+                            width: 120 * autoScale,
+                            child: LinearProgressIndicator(
+                              value: 0.5,
+                              backgroundColor: AppColors.pMGreyColor,
+                              color: AppColors.pGreenColor,
+                              minHeight: 8 * autoScale,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

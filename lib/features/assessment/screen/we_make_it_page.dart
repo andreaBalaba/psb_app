@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/assessment/screen/what_body_shape_page.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class WeMakeItPage extends StatefulWidget {
   const WeMakeItPage({super.key});
@@ -67,19 +66,12 @@ class _WeMakeItPageState extends State<WeMakeItPage> {
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => HomePage(), transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -144,9 +136,7 @@ class _WeMakeItPageState extends State<WeMakeItPage> {
           width: double.infinity,
           child: ReusableButton(
             text: "Next",
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('seenIntro', true);
+            onPressed: () {
               Get.to(() => const BodyShapePage(), transition: Transition.noTransition);
             },
             color: AppColors.pGreenColor,

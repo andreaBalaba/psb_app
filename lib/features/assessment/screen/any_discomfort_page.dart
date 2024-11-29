@@ -7,13 +7,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:psb_app/api/services/add_daily_plan.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
-import 'package:psb_app/features/home/screen/home_page.dart';
+import 'package:psb_app/features/assessment/screen/summary_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart' show rootBundle;
+
 
 class AnyDiscomfortPage extends StatefulWidget {
   const AnyDiscomfortPage({super.key});
@@ -59,7 +59,6 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Left content (Leading)
             Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -74,7 +73,6 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
               ),
             ),
 
-            // Center content (Goal text and progress bar)
             Expanded(
               flex: 4,
               child: Column(
@@ -88,11 +86,11 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                   const SizedBox(height: 8.0),
                   SizedBox(
                     width: screenWidth *
-                        0.4, // Adjusted width for progress bar to center
+                        0.4,
                     child: LinearProgressIndicator(
                       value: 1.0,
                       minHeight:
-                          9.0 * autoScale, // Dynamic height for progress bar
+                          9.0 * autoScale,
                       color: AppColors.pGreenColor,
                       backgroundColor: AppColors.pMGreyColor,
                     ),
@@ -101,21 +99,12 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
               ),
             ),
 
-            // Right content (Skip button)
-            Expanded(
+            const Expanded(
               child: Align(
                 alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    Get.offAll(() => const HomePage(),
-                        transition: Transition.noTransition);
-                  },
-                  child: ReusableText(
-                    text: "Skip",
-                    color: AppColors.pGreenColor,
-                    fontWeight: FontWeight.w500,
-                    size: 14 * autoScale,
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: SizedBox(height: 20.0),
                 ),
               ),
             ),
@@ -157,7 +146,7 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                   return GestureDetector(
                     onTap: () {
                       controller.selectedAnyDiscomfortIndex(
-                          index); // Update selected choice in controller
+                          index);
                     },
                     child: Obx(
                       () => Container(
@@ -220,15 +209,10 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
               onPressed: controller.selectedAnyDiscomfortIndex.value == -1
                   ? null
                   : () async {
-                      // here please
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setBool('seenIntro', true);
 
                       String jsonString = await rootBundle.loadString(
                           'assets/images/Personalized_Workout_Plan.json');
 
-                      // Parse JSON string into a Map
                       Map<String, dynamic> jsonData = jsonDecode(jsonString);
 
                       List workouts = jsonData['plan_id'];
@@ -270,7 +254,7 @@ class _AnyDiscomfortPageState extends State<AnyDiscomfortPage> {
                       }).whenComplete(
                         () {
                           addDailyPlan();
-                          Get.offAll(() => const HomePage(),
+                          Get.offAll(() => const SummaryPage(),
                               transition: Transition.noTransition);
                         },
                       );
