@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
@@ -68,191 +70,240 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
-        child: ListView(
-          children: [
-            const SizedBox(height: 10),
+      body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('Users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: Text('Loading'));
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong'));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            dynamic data = snapshot.data;
 
-            // Notification Switch
-            Obx(() => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: _buildCustomSwitch(
-                    label: "Notification",
-                    value: controller.isNotificationEnabled.value,
-                    onToggle: controller.toggleNotification,
-                  ),
-                )),
-            Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
+            controller.isNotificationEnabled.value = data['notif'];
+            controller.isWarmUpEnabled.value = data['warmup'];
+            controller.isStretchingEnabled.value = data['stretching'];
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
+              child: ListView(
+                children: [
+                  const SizedBox(height: 10),
 
-            // Warm up Switch
-            Obx(() => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: _buildCustomSwitch(
-                    label: "Warm up",
-                    value: controller.isWarmUpEnabled.value,
-                    onToggle: controller.toggleWarmUp,
-                  ),
-                )),
-            Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // Notification Switch
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: _buildCustomSwitch(
+                          label: "Notification",
+                          value: controller.isNotificationEnabled.value,
+                          onToggle: (p0) async {
+                            await FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              'notif': p0,
+                            });
+                          },
+                        ),
+                      )),
+                  Divider(
+                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-            // Stretching Switch
-            Obx(() => Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: _buildCustomSwitch(
-                    label: "Stretching",
-                    value: controller.isStretchingEnabled.value,
-                    onToggle: controller.toggleStretching,
-                  ),
-                )),
-            Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // Warm up Switch
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: _buildCustomSwitch(
+                          label: "Warm up",
+                          value: controller.isWarmUpEnabled.value,
+                          onToggle: (p0) async {
+                            await FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              'warmup': p0,
+                            });
+                          },
+                        ),
+                      )),
+                  Divider(
+                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-            // Privacy Dropdown
-            ListTile(
-              title: ReusableText(
-                text: "Privacy",
-                size: 20 * autoScale,
-                fontWeight: FontWeight.w600,
-                color: AppColors.pBlack87Color,
-              ),
-              trailing: Icon(
-                isPrivacyExpanded
-                    ? Icons.keyboard_arrow_down_outlined
-                    : Icons.arrow_forward_ios,
-                size: 18 * autoScale,
-                color: AppColors.pGreyColor,
-              ),
-              onTap: _togglePrivacy,
-            ),
-            if (isPrivacyExpanded) ...[
-              ListTile(
-                title: ReusableText(
-                  text: "Privacy Policy",
-                  size: 18 * autoScale,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.pBlack87Color,
-                ),
-                onTap: () {
-                  // Handle Privacy Policy tap
-                },
-              ),
-              ListTile(
-                title: ReusableText(
-                  text: "Terms and Conditions",
-                  size: 18 * autoScale,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.pBlack87Color,
-                ),
-                onTap: () {
-                  // Handle Terms and Conditions tap
-                },
-              ),
-            ],
-            Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // Stretching Switch
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: _buildCustomSwitch(
+                          label: "Stretching",
+                          value: controller.isStretchingEnabled.value,
+                          onToggle: (p0) async {
+                            await FirebaseFirestore.instance
+                                .collection('Users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({
+                              'stretching': p0,
+                            });
+                          },
+                        ),
+                      )),
+                  Divider(
+                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-            // Account Section
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0 * autoScale),
-              child: ReusableText(
-                text: "Account",
-                size: 18 * autoScale,
-                fontWeight: FontWeight.w600,
-                color: AppColors.pGreyColor,
-              ),
-            ),
-
-            ListTile(
-              title: ReusableText(
-                text: "Edit information",
-                size: 20 * autoScale,
-                fontWeight: FontWeight.w600,
-                color: AppColors.pBlack87Color,
-              ),
-              trailing: Icon(
-                isEditInfoExpanded
-                    ? Icons.keyboard_arrow_down
-                    : Icons.arrow_forward_ios,
-                size: 18 * autoScale,
-                color: AppColors.pGreyColor,
-              ),
-              onTap: _toggleEditInfo,
-            ),
-            if (isEditInfoExpanded) ...[
-              GestureDetector(
-                onTap: _showHeightBottomSheet,
-                child: _buildAccountInfo(
-                    "Height", "${height.toInt()} cm", AppColors.pOrangeColor),
-              ),
-              _buildAccountInfo("Weight", "65.0 kg", AppColors.pOrangeColor),
-              _buildAccountInfo("Age", "21", AppColors.pOrangeColor),
-              _buildGenderSelection(),
-            ],
-            Divider(thickness: 1 * autoScale, color: AppColors.pBlackColor),
-
-            const SizedBox(height: 60),
-
-            // Log Out Button
-            ElevatedButton(
-              onPressed: () async {
-                bool? shouldLogOut = await Get.dialog<bool>(AlertDialog(
-                  backgroundColor: AppColors.pBGWhiteColor,
-                  title: ReusableText(
-                    text: "Confirmation",
-                    size: 18 * autoScale,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  content: ReusableText(
-                    text: "Are you sure you want to log out?",
-                    size: 16 * autoScale,
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Get.back(result: false),
-                      child: ReusableText(
-                        text: "Cancel",
-                        color: AppColors.pSOrangeColor,
-                        size: 16 * autoScale,
-                      ),
+                  // Privacy Dropdown
+                  ListTile(
+                    title: ReusableText(
+                      text: "Privacy",
+                      size: 20 * autoScale,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.pBlack87Color,
                     ),
-                    TextButton(
-                      onPressed: () => Get.back(result: true),
-                      child: ReusableText(
-                        text: "Log out",
-                        color: AppColors.pSOrangeColor,
-                        size: 16 * autoScale,
+                    trailing: Icon(
+                      isPrivacyExpanded
+                          ? Icons.keyboard_arrow_down_outlined
+                          : Icons.arrow_forward_ios,
+                      size: 18 * autoScale,
+                      color: AppColors.pGreyColor,
+                    ),
+                    onTap: _togglePrivacy,
+                  ),
+                  if (isPrivacyExpanded) ...[
+                    ListTile(
+                      title: ReusableText(
+                        text: "Privacy Policy",
+                        size: 18 * autoScale,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.pBlack87Color,
                       ),
+                      onTap: () {
+                        // Handle Privacy Policy tap
+                      },
+                    ),
+                    ListTile(
+                      title: ReusableText(
+                        text: "Terms and Conditions",
+                        size: 18 * autoScale,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.pBlack87Color,
+                      ),
+                      onTap: () {
+                        // Handle Terms and Conditions tap
+                      },
                     ),
                   ],
-                ));
+                  Divider(
+                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-                if (shouldLogOut == true) {
-                  try {
-                    await controller.signOut();
-                    Get.offAll(() => const LogInPage());
-                  } catch (e) {
-                    // Show error if logout fails
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Logout failed: ${e.toString()}")),
-                    );
-                  }
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.pSOrangeColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10 * autoScale),
-                ),
+                  // Account Section
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.0 * autoScale),
+                    child: ReusableText(
+                      text: "Account",
+                      size: 18 * autoScale,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.pGreyColor,
+                    ),
+                  ),
+
+                  ListTile(
+                    title: ReusableText(
+                      text: "Edit information",
+                      size: 20 * autoScale,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.pBlack87Color,
+                    ),
+                    trailing: Icon(
+                      isEditInfoExpanded
+                          ? Icons.keyboard_arrow_down
+                          : Icons.arrow_forward_ios,
+                      size: 18 * autoScale,
+                      color: AppColors.pGreyColor,
+                    ),
+                    onTap: _toggleEditInfo,
+                  ),
+                  if (isEditInfoExpanded) ...[
+                    GestureDetector(
+                      onTap: _showHeightBottomSheet,
+                      child: _buildAccountInfo("Height", "${data['height']} cm",
+                          AppColors.pOrangeColor),
+                    ),
+                    _buildAccountInfo(
+                        "Weight", data['weight'], AppColors.pOrangeColor),
+                    _buildAccountInfo(
+                        "Age", data['age'], AppColors.pOrangeColor),
+                    _buildGenderSelection(),
+                  ],
+                  Divider(
+                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
+
+                  const SizedBox(height: 60),
+
+                  // Log Out Button
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool? shouldLogOut = await Get.dialog<bool>(AlertDialog(
+                        backgroundColor: AppColors.pBGWhiteColor,
+                        title: ReusableText(
+                          text: "Confirmation",
+                          size: 18 * autoScale,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        content: ReusableText(
+                          text: "Are you sure you want to log out?",
+                          size: 16 * autoScale,
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Get.back(result: false),
+                            child: ReusableText(
+                              text: "Cancel",
+                              color: AppColors.pSOrangeColor,
+                              size: 16 * autoScale,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => Get.back(result: true),
+                            child: ReusableText(
+                              text: "Log out",
+                              color: AppColors.pSOrangeColor,
+                              size: 16 * autoScale,
+                            ),
+                          ),
+                        ],
+                      ));
+
+                      if (shouldLogOut == true) {
+                        try {
+                          await controller.signOut();
+                          Get.offAll(() => const LogInPage());
+                        } catch (e) {
+                          // Show error if logout fails
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content:
+                                    Text("Logout failed: ${e.toString()}")),
+                          );
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.pSOrangeColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10 * autoScale),
+                      ),
+                    ),
+                    child: ReusableText(
+                      text: 'Log out',
+                      size: 18 * autoScale,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
-              child: ReusableText(
-                text: 'Log out',
-                size: 18 * autoScale,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 
