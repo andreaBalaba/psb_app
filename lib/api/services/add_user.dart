@@ -16,6 +16,14 @@ Future addUser(name, email) async {
     'workouts': [],
     'sleep': 0,
     'water': 0,
+    'notif': false,
+    'warmup': false,
+    'stretching': false,
+    'height': 0,
+    'weight': 0,
+    'age': 0,
+    'bmi': 0,
+    'gender': '',
   };
 
   await docUser.set(json);

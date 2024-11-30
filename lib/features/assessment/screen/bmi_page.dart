@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/assessment/controller/assessment_controller.dart';
 import 'package:psb_app/features/assessment/screen/what_target_weight_page.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-
 
 class BmiCalculationPage extends StatefulWidget {
   const BmiCalculationPage({super.key});
@@ -36,7 +37,8 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_rounded, size: 28 * autoScale, color: AppColors.pBlackColor),
+                  icon: Icon(Icons.arrow_back_rounded,
+                      size: 28 * autoScale, color: AppColors.pBlackColor),
                   padding: const EdgeInsets.all(8.0),
                   onPressed: () {
                     Get.back();
@@ -82,7 +84,8 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01),
+            padding:
+                EdgeInsets.only(left: 20, right: 20, top: screenWidth * 0.01),
             child: Column(
               children: [
                 const SizedBox(height: 20.0),
@@ -95,8 +98,12 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
                       letterSpacing: 1,
                     ),
                     children: const [
-                      TextSpan(text: "Measure ", style: TextStyle(color: AppColors.pSOrangeColor)),
-                      TextSpan(text: "it right!", style: TextStyle(color: Colors.black)),
+                      TextSpan(
+                          text: "Measure ",
+                          style: TextStyle(color: AppColors.pSOrangeColor)),
+                      TextSpan(
+                          text: "it right!",
+                          style: TextStyle(color: Colors.black)),
                     ],
                   ),
                   textAlign: TextAlign.center,
@@ -115,14 +122,16 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
                       label: "Height (cm)",
                       controller: controller.heightController,
                       focusNode: controller.heightFocus,
-                      textInputAction: TextInputAction.next, // "Next" for Height
+                      textInputAction:
+                          TextInputAction.next, // "Next" for Height
                     ),
                     SizedBox(height: 40 * autoScale),
                     _buildInputRow(
                       label: "Weight (kg)",
                       controller: controller.weightController,
                       focusNode: controller.weightFocus,
-                      textInputAction: TextInputAction.next, // "Next" for Weight
+                      textInputAction:
+                          TextInputAction.next, // "Next" for Weight
                     ),
                     SizedBox(height: 40 * autoScale),
                     _buildInputRow(
@@ -147,20 +156,37 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
           child: Obx(
-                () => ElevatedButton(
+            () => ElevatedButton(
               onPressed: controller.bmi.value != null
-                  ? () {
-
-                Get.to(() => const TargetWeightPage(), transition: Transition.noTransition);
-              }
+                  ? () async {
+                      await FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .update({
+                        'height': controller.heightController.text,
+                        'weight': controller.weightController.text,
+                        'age': controller.ageController.text,
+                      }).whenComplete(
+                        () {
+                          Get.to(() => const TargetWeightPage(),
+                              transition: Transition.noTransition);
+                        },
+                      );
+                    }
                   : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: controller.bmi.value != null ? AppColors.pGreenColor : AppColors.pNoColor,
+                backgroundColor: controller.bmi.value != null
+                    ? AppColors.pGreenColor
+                    : AppColors.pNoColor,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,
                 ),
@@ -246,29 +272,31 @@ class _BmiCalculationPageState extends State<BmiCalculationPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Obx(() => Column(
-                children: [
-                  ReusableText(
-                    text: controller.bmi.value?.toStringAsFixed(1) ?? "--",
-                    size: 32 * autoScale,
-                    color: controller.getBMIResultColor(),
-                    fontWeight: FontWeight.bold,
-                  ),
-                  Obx(() => ReusableText(
-                    text: controller.bmiCategory.value.isNotEmpty ? controller.bmiCategory.value : "",
-                    size: 12 * autoScale,
-                    color: controller.getBMIResultColor(),
-                    fontWeight: FontWeight.w500,
+                    children: [
+                      ReusableText(
+                        text: controller.bmi.value?.toStringAsFixed(1) ?? "--",
+                        size: 32 * autoScale,
+                        color: controller.getBMIResultColor(),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Obx(() => ReusableText(
+                            text: controller.bmiCategory.value.isNotEmpty
+                                ? controller.bmiCategory.value
+                                : "",
+                            size: 12 * autoScale,
+                            color: controller.getBMIResultColor(),
+                            fontWeight: FontWeight.w500,
+                          )),
+                    ],
                   )),
-                ],
-              )),
               const SizedBox(width: 20.0),
               Expanded(
                 child: Obx(() => ReusableText(
-                  text: controller.getBMIMessage(),
-                  size: 18 * autoScale,
-                  color: AppColors.pDarkGreyColor,
-                  fontWeight: FontWeight.normal,
-                )),
+                      text: controller.getBMIMessage(),
+                      size: 18 * autoScale,
+                      color: AppColors.pDarkGreyColor,
+                      fontWeight: FontWeight.normal,
+                    )),
               ),
             ],
           ),
