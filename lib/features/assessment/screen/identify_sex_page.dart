@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,7 +10,6 @@ import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class IdentifySexPage extends StatefulWidget {
   const IdentifySexPage({super.key});
@@ -205,9 +206,20 @@ class _IdentifySexPageState extends State<IdentifySexPage> {
               text: "Next",
               onPressed: controller.selectedIdentifySexIndex.value == -1
                   ? null
-                  : () {
-                      Get.to(() => const MeasureItRightPage(),
-                          transition: Transition.noTransition);
+                  : () async {
+                      await FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .update({
+                        'gender': controller.selectedIdentifySexIndex.value == 0
+                            ? 'Male'
+                            : 'Female',
+                      }).whenComplete(
+                        () {
+                          Get.to(() => const MeasureItRightPage(),
+                              transition: Transition.noTransition);
+                        },
+                      );
                     },
               color: controller.selectedIdentifySexIndex.value == -1
                   ? AppColors.pNoColor

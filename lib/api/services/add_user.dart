@@ -23,6 +23,7 @@ Future addUser(name, email) async {
     'weight': 0,
     'age': 0,
     'bmi': 0,
+    'gender': '',
   };
 
   await docUser.set(json);

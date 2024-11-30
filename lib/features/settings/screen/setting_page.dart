@@ -26,6 +26,8 @@ class _SettingsPageState extends State<SettingsPage> {
   int selectedGenderIndex = 0;
   double height = 170;
 
+  double weight = 170;
+
   void _togglePrivacy() {
     setState(() {
       isPrivacyExpanded = !isPrivacyExpanded;
@@ -88,6 +90,11 @@ class _SettingsPageState extends State<SettingsPage> {
             controller.isNotificationEnabled.value = data['notif'];
             controller.isWarmUpEnabled.value = data['warmup'];
             controller.isStretchingEnabled.value = data['stretching'];
+
+            selectedGenderIndex = data['gender'] == 'Male' ? 0 : 1;
+
+            height = double.parse(data['height']);
+            weight = double.parse(data['weight']);
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
               child: ListView(
@@ -228,8 +235,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       child: _buildAccountInfo("Height", "${data['height']} cm",
                           AppColors.pOrangeColor),
                     ),
-                    _buildAccountInfo(
-                        "Weight", data['weight'], AppColors.pOrangeColor),
+                    GestureDetector(
+                      onTap: () {
+                        _showWeightBottomSheet();
+                      },
+                      child: _buildAccountInfo("Weight", '${data['weight']} kg',
+                          AppColors.pOrangeColor),
+                    ),
                     _buildAccountInfo(
                         "Age", data['age'], AppColors.pOrangeColor),
                     _buildGenderSelection(),
@@ -383,86 +395,202 @@ class _SettingsPageState extends State<SettingsPage> {
 
   //di pa tapos
   Widget _buildHeightDialogContent() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ReusableText(
-          text: "Height",
-          fontWeight: FontWeight.bold,
-          size: 20 * autoScale,
-        ),
-        SizedBox(height: 10 * autoScale),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "cm",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16 * autoScale,
-              ),
-            ),
-            Switch(
-              value: true, // This would toggle between cm/ft
-              onChanged: (bool value) {},
-            ),
-            Text(
-              "ft",
-              style: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 16 * autoScale,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10 * autoScale),
-        Text(
-          "${height.toInt()} cm",
-          style: TextStyle(
-            fontSize: 40 * autoScale,
-            color: AppColors.pOrangeColor,
+    return StatefulBuilder(builder: (context, setState) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ReusableText(
+            text: "Height",
             fontWeight: FontWeight.bold,
+            size: 20 * autoScale,
           ),
-        ),
-        Slider(
-          value: height,
-          min: 100,
-          max: 230,
-          divisions: 130,
-          label: "${height.toInt()}",
-          onChanged: (value) {
-            setState(() {
-              height = value;
-            });
-          },
-        ),
-        SizedBox(height: 20 * autoScale),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.pSOrangeColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10 * autoScale),
-            ),
+          SizedBox(height: 10 * autoScale),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "cm",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16 * autoScale,
+                ),
+              ),
+              Switch(
+                value: true, // This would toggle between cm/ft
+                onChanged: (bool value) {},
+              ),
+              Text(
+                "ft",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16 * autoScale,
+                ),
+              ),
+            ],
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 30.0 * autoScale, vertical: 12 * autoScale),
-            child: ReusableText(
-              text: 'Save',
-              size: 18 * autoScale,
-              color: Colors.white,
+          SizedBox(height: 10 * autoScale),
+          Text(
+            "${height.toInt()} cm",
+            style: TextStyle(
+              fontSize: 40 * autoScale,
+              color: AppColors.pOrangeColor,
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        SizedBox(height: 10 * autoScale),
-      ],
+          Slider(
+            value: height,
+            min: 100,
+            max: 230,
+            divisions: 130,
+            label: "${height.toInt()}",
+            onChanged: (value) {
+              setState(() {
+                height = value;
+              });
+            },
+          ),
+          SizedBox(height: 20 * autoScale),
+          ElevatedButton(
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .update({
+                'height': '$height',
+              }).whenComplete(
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.pSOrangeColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10 * autoScale),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 30.0 * autoScale, vertical: 12 * autoScale),
+              child: ReusableText(
+                text: 'Save',
+                size: 18 * autoScale,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 10 * autoScale),
+        ],
+      );
+    });
+  }
+
+  void _showWeightBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(20 * autoScale)),
+      ),
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            top: 20 * autoScale,
+            left: 16 * autoScale,
+            right: 16 * autoScale,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: _buildWeightDialogContent(),
+        );
+      },
     );
+  }
+
+  //di pa tapos
+  Widget _buildWeightDialogContent() {
+    return StatefulBuilder(builder: (context, setState) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ReusableText(
+            text: "Weight",
+            fontWeight: FontWeight.bold,
+            size: 20 * autoScale,
+          ),
+          SizedBox(height: 10 * autoScale),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "kg",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16 * autoScale,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10 * autoScale),
+          Text(
+            "${weight.toInt()} kg",
+            style: TextStyle(
+              fontSize: 40 * autoScale,
+              color: AppColors.pOrangeColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Slider(
+            value: weight,
+            min: 10,
+            max: 150,
+            divisions: 130,
+            label: "${weight.toInt()}",
+            onChanged: (value) {
+              setState(() {
+                weight = value;
+              });
+            },
+          ),
+          SizedBox(height: 20 * autoScale),
+          ElevatedButton(
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .update({
+                'weight': weight.toStringAsFixed(0),
+              }).whenComplete(
+                () {
+                  Navigator.pop(context);
+                },
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.pSOrangeColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10 * autoScale),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 30.0 * autoScale, vertical: 12 * autoScale),
+              child: ReusableText(
+                text: 'Save',
+                size: 18 * autoScale,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 10 * autoScale),
+        ],
+      );
+    });
   }
 
   Widget _buildGenderSelection() {
@@ -496,9 +624,12 @@ class _SettingsPageState extends State<SettingsPage> {
               fontWeight: FontWeight.w400,
             ),
             labels: const ["Male", "Female"],
-            selectedLabelIndex: (index) {
-              setState(() {
-                selectedGenderIndex = index;
+            selectedLabelIndex: (index) async {
+              await FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .update({
+                'gender': index == 0 ? 'Male' : 'Female',
               });
             },
           ),
