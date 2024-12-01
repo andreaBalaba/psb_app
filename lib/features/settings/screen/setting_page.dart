@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/authentication/screen/legal%20docs/privacy_policy.dart';
+import 'package:psb_app/features/authentication/screen/legal%20docs/terms_and_condition.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
 import 'package:psb_app/features/settings/controller/setting_controller.dart';
 import 'package:psb_app/utils/global_variables.dart';
@@ -184,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: AppColors.pBlack87Color,
                       ),
                       onTap: () {
-                        // Handle Privacy Policy tap
+                        Get.to(() => const PrivacyPolicyPage());
                       },
                     ),
                     ListTile(
@@ -195,7 +197,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         color: AppColors.pBlack87Color,
                       ),
                       onTap: () {
-                        // Handle Terms and Conditions tap
+                        Get.to(() => const TermsAndConditionsPage());
                       },
                     ),
                   ],

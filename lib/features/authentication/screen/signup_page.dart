@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
 import 'package:psb_app/features/assessment/screen/get_started_page.dart';
+import 'package:psb_app/features/authentication/screen/legal%20docs/privacy_policy.dart';
+import 'package:psb_app/features/authentication/screen/legal%20docs/terms_and_condition.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
@@ -290,7 +292,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      // Add Terms and Conditions logic
+                      Get.to(() => const TermsAndConditionsPage());
                     },
                 ),
                 TextSpan(
@@ -308,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      // Add Privacy Policy logic
+                      Get.to(() => const PrivacyPolicyPage());
                     },
                 ),
               ],
