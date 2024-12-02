@@ -136,7 +136,8 @@ class _HomePageState extends State<HomePage> {
         ],
         title: GestureDetector(
           onTap: () {
-            Get.to(() => const ProfilePage(), transition: Transition.noTransition);
+            Get.to(() => const ProfilePage(),
+                transition: Transition.noTransition);
           },
           child: Row(
             children: [
@@ -288,8 +289,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
                     child: DailyTaskList(
                       key: _dailyTaskKey,
-                      id: dailyData['id'] ??
-                          FirebaseAuth.instance.currentUser!.uid,
+                      id: FirebaseAuth.instance.currentUser!.uid,
                       workouts: data['workouts']['weekly_schedule']
                               [DateTime.now().weekday - 1]['exercises'] ??
                           [],

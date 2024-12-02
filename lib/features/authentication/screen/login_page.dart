@@ -69,7 +69,7 @@ class _LogInPageState extends State<LogInPage> {
                               TextEditingController();
 
                           return AlertDialog(
-                            backgroundColor: Colors.grey[100],
+                            backgroundColor: Colors.grey[300],
                             title: const ReusableText(
                               text: 'Forgot Password',
                               color: Colors.black,
@@ -80,6 +80,11 @@ class _LogInPageState extends State<LogInPage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   TextFieldWidget(
+                                    width: 300,
+                                    hintColor: Colors.black,
+                                    radius: 10,
+                                    color: Colors.black,
+                                    borderColor: Colors.black,
                                     hint: 'Email',
                                     textCapitalization: TextCapitalization.none,
                                     inputType: TextInputType.emailAddress,
