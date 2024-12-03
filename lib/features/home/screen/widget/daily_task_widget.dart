@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
+import 'package:psb_app/features/home/screen/daily_task_page.dart';
 import 'package:psb_app/model/exercise_model.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
@@ -39,11 +40,12 @@ class DailyTaskList extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final task = workouts![index];
 
-                  print(task);
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 4 * autoScale),
                     child: GestureDetector(
                       onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const DailyTaskPage()));
                         // if (!workouts!.contains(task.title)) {
                         //   FirebaseFirestore.instance
                         //       .collection('Daily Plan')
