@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/authentication/screen/login_page.dart';
@@ -21,7 +22,15 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     Future.delayed(Duration(milliseconds: duration * 6), () {
-      Get.off(() => const LogInPage()); //LogInPage());  //
+      Get.off(() => StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const HomePage();
+            } else {
+              return const LogInPage();
+            }
+          })); //LogInPage());  //
     });
   }
 

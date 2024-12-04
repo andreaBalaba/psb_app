@@ -130,71 +130,40 @@ class _ProgressPageState extends State<ProgressPage> {
                     ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
+
                 dynamic data = snapshot.data;
 
                 // Check for data integrity before proceeding
                 if (data == null ||
                     data['workouts'] == null ||
-                    data['workouts']['weekly_schedule'] == null) {
+                    data['workouts']['weekly_schedule'] == null ||
+                    widget.workouts == null) {
                   return const Center(child: Text('Invalid data structure'));
                 }
 
-                int sum1 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][0]['exercises']
-                            .length;
-                    i++) {
-                  sum1 += int.parse(widget.workouts![i]['minutes'].toString());
+                // Helper method to calculate sum for a specific day
+                int calculateDailySum(int dayIndex) {
+                  List<dynamic> exercises = data['workouts']['weekly_schedule']
+                      [dayIndex]['exercises'];
+                  int sum = 0;
+                  for (int i = 0; i < exercises.length; i++) {
+                    if (i < widget.workouts!.length &&
+                        widget.workouts![i]['minutes'] != null) {
+                      sum +=
+                          int.parse(widget.workouts![i]['minutes'].toString());
+                    }
+                  }
+                  return sum;
                 }
-                int sum2 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][1]['exercises']
-                            .length;
-                    i++) {
-                  sum2 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
-                int sum3 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][2]['exercises']
-                            .length;
-                    i++) {
-                  sum3 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
-                int sum4 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][3]['exercises']
-                            .length;
-                    i++) {
-                  sum4 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
-                int sum5 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][4]['exercises']
-                            .length;
-                    i++) {
-                  sum5 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
-                int sum6 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][5]['exercises']
-                            .length;
-                    i++) {
-                  sum6 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
-                int sum7 = 0;
-                for (int i = 0;
-                    i <
-                        data['workouts']['weekly_schedule'][6]['exercises']
-                            .length;
-                    i++) {
-                  sum7 += int.parse(widget.workouts![i]['minutes'].toString());
-                }
+
+                // Calculate sums for each day of the week
+                int sum1 = calculateDailySum(0);
+                int sum2 = calculateDailySum(1);
+                int sum3 = calculateDailySum(2);
+                int sum4 = calculateDailySum(3);
+                int sum5 = calculateDailySum(4);
+                int sum6 = calculateDailySum(5);
+                int sum7 = calculateDailySum(6);
 
                 return WorkoutChartWidget(
                   weeklyAverage:
@@ -207,7 +176,7 @@ class _ProgressPageState extends State<ProgressPage> {
                     sum5.toDouble(),
                     sum6.toDouble(),
                     sum7.toDouble(),
-                  ], // Dummy data for daily minutes
+                  ],
                 );
               },
             ),

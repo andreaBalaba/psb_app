@@ -199,10 +199,10 @@ class _HomePageState extends State<HomePage> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     dynamic data = snapshot.data;
+
                     return ProgressPage(
                       data: dailyData ?? {},
-                      id: dailyData['id'] ??
-                          FirebaseAuth.instance.currentUser!.uid,
+                      id: FirebaseAuth.instance.currentUser!.uid,
                       workouts: data['workouts']['weekly_schedule']
                               [DateTime.now().weekday - 1]['exercises'] ??
                           [],

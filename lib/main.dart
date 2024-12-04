@@ -10,13 +10,12 @@ import 'package:psb_app/features/splash/screen/splash_page.dart';
 import 'package:psb_app/firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   await GetStorage.init();
   await requestActivityRecognitionPermission();
 
   final scannerController = Get.put(ScannerController()); //temporary
   await scannerController.preloadCamera(); //temporary
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     name: 'psbapp-32784',
     options: DefaultFirebaseOptions.currentPlatform,
