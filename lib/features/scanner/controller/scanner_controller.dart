@@ -1,5 +1,7 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/home/screen/equipment_page.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
 class ScannerController extends GetxController {
@@ -70,6 +72,10 @@ class ScannerController extends GetxController {
               if (recognitions != null && recognitions.isNotEmpty) {
                 if (recognitions[0]['confidence'] > 0.85) {
                   recognitionLabel.value = recognitions[0]['label'];
+
+                  Get.to(() => EquipmentPage(
+                        data: recognitions[0]['label'],
+                      ));
                 } else {
                   recognitionLabel.value = "No equipment detected";
                 }

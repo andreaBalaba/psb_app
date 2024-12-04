@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/home/screen/equipment_page.dart';
 import 'package:psb_app/features/scanner/controller/scanner_controller.dart';
 import 'package:psb_app/features/scanner/screen/widget/camera_widget.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -42,7 +46,8 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
       if (controller.isCameraInitialized.value) {
         controller.startImageStream();
       }
-    } else if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
       // Stop the image stream when the app goes to background
       if (controller.isCameraInitialized.value) {
         controller.stopImageStream();
@@ -103,7 +108,7 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
         elevation: 0,
         toolbarHeight: 80 * autoScale,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.pBlackColor),
+          icon: const Icon(Icons.arrow_back, color: AppColors.pBlackColor),
           onPressed: () => Get.back(),
         ),
         centerTitle: true,
@@ -113,14 +118,14 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
             onTap: showLevelSelectionDialog,
             child: Column(
               children: [
-                Icon(Icons.arrow_drop_up, color: AppColors.pBlackColor),
+                const Icon(Icons.arrow_drop_up, color: AppColors.pBlackColor),
                 ReusableText(
                   text: selectedLevel,
                   size: 18 * autoScale,
                   fontWeight: FontWeight.bold,
                   align: TextAlign.center,
                 ),
-                Icon(Icons.arrow_drop_down, color: AppColors.pBlackColor),
+                const Icon(Icons.arrow_drop_down, color: AppColors.pBlackColor),
               ],
             ),
           ),
@@ -165,31 +170,36 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
         ],
       ),
       bottomNavigationBar: Container(
-        height: 180 * autoScale, // Adjusted height for a responsive navigation bar
+        height:
+            180 * autoScale, // Adjusted height for a responsive navigation bar
         color: AppColors.pBGGreyColor,
         child: Center(
           child: LayoutBuilder(
             builder: (context, constraints) {
-              double buttonSize = constraints.maxHeight * 0.45; // Make button 60% of the navbar height
+              double buttonSize = constraints.maxHeight *
+                  0.45; // Make button 60% of the navbar height
 
               return Material(
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 elevation: 10.0,
                 shadowColor: Colors.black26,
                 child: Container(
                   height: buttonSize, // Responsive height for the button
-                  width: buttonSize,  // Responsive width for the button
-                  decoration: BoxDecoration(
+                  width: buttonSize, // Responsive width for the button
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.pWhiteColor,
                   ),
                   child: IconButton(
                     icon: Image.asset(
                       IconAssets.pCamIconSelected,
-                      height: buttonSize * 0.55, // Icon size relative to button size
+                      height: buttonSize *
+                          0.55, // Icon size relative to button size
                     ),
-                    onPressed: () {
-                      // Implement scan action here
+                    onPressed: () async {
+                      // Get.to(() => EquipmentPage(
+                      //       data: 'Abdominal Crunch Machine',
+                      //     ));
                     },
                   ),
                 ),

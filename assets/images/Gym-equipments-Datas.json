@@ -1,0 +1,1113 @@
+{
+  "equipment": [
+    {
+      "exercise": "Abdominal Crunch Machine",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FAbdominal%20Crucnh%20Machine.jpg?alt=media&token=bb647355-65e2-4b84-af56-9aee30f731a9",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Abdominal Crunch Machine",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 5,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fseated-crunch-machine-min.gif?alt=media&token=34c02139-1817-427e-b0ff-4ffbdb1e6b83"
+            }
+          ],
+          "overview": "For beginners, the Abdominal Crunch Machine can help build foundational strength in the abdominal muscles, especially the rectus abdominis. The focus should be on proper form and control throughout the movement.",
+          "basics_and_alternatives": {
+            "alternative": "Basic crunches on the floor, seated leg raises, or pelvic tilts."
+          },
+          "correct_execution": [
+            "Sit down on the machine with your back flat against the pad.",
+            "Place your feet securely under the foot pads, ensuring your knees are bent at a 90-degree angle.",
+            "Grip the handles or place hands on the support.",
+            "Exhale and gently curl your torso toward your thighs, focusing on contracting the abdominal muscles.",
+            "Slowly return to the starting position, maintaining control and avoiding jerky movements."
+          ],
+          "step_by_step_instructions": [
+            "Adjust the seat height so the pads sit at your mid-back.",
+            "Set a light resistance to avoid overexertion.",
+            "Keep your feet flat and knees bent at a 90-degree angle.",
+            "Engage your core and exhale as you curl your torso toward your thighs.",
+            "Squeeze your abs at the lowest point and slowly return to the start."
+          ],
+          "common_mistakes": [
+            "Over-relying on momentum to complete the movement.",
+            "Arching the lower back.",
+            "Not adjusting the seat height correctly for proper alignment."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=fuPFq2EYswE"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Abdominal Crunch Machine",
+              "sets": 4,
+              "reps": 20,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fseated-crunch-machine-min.gif?alt=media&token=34c02139-1817-427e-b0ff-4ffbdb1e6b83"
+            }
+          ],
+          "overview": "At the intermediate level, focus on improving core strength and endurance. Increase the range of motion and resistance gradually while ensuring proper control of the movement.",
+          "basics_and_alternatives": {
+            "alternative": "Cable crunches, resistance band crunches, or decline crunches."
+          },
+          "correct_execution": [
+            "Sit down on the machine with your back flat against the pad.",
+            "Adjust the foot pads to ensure the knees are bent at a 90-degree angle and the feet are securely in place.",
+            "Grip the handles firmly, engaging your core throughout the movement.",
+            "Exhale and bring your torso down toward your thighs, emphasizing contraction in the abs.",
+            "Control the movement on the way back to the start position."
+          ],
+          "step_by_step_instructions": [
+            "Set the seat height so the pads align with your mid-back and adjust resistance to a moderate level.",
+            "Keep feet flat, knees bent, and engage the core.",
+            "Exhale as you crunch the torso toward the thighs.",
+            "Squeeze the abdominal muscles at the bottom of the movement, then return with control to the starting position."
+          ],
+          "common_mistakes": [
+            "Using the arms or legs to pull the machine down rather than relying on the abs.",
+            "Moving too quickly and sacrificing control.",
+            "Arching the back excessively during the movement."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=fuPFq2EYswE"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Abdominal Crunch Machine",
+              "sets": 5,
+              "reps": 25,
+              "minutes": 15,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fseated-crunch-machine-min.gif?alt=media&token=34c02139-1817-427e-b0ff-4ffbdb1e6b83"
+            }
+          ],
+          "overview": "Advanced users should aim to increase both the range of motion and the resistance to continue challenging the abdominal muscles. Focus on high-intensity contractions and maintaining control of the movement, ensuring maximal engagement of the core.",
+          "basics_and_alternatives": {
+            "alternative": "Weighted crunches, cable crunches, hanging leg raises, or ab rollers."
+          },
+          "correct_execution": [
+            "Sit down on the machine with your back flat against the pad and adjust the foot pads so that the knees are bent at a 90-degree angle.",
+            "Grip the handles firmly, ensuring the shoulders are relaxed, and the torso is upright.",
+            "Exhale and forcefully contract the abdominal muscles as you curl your torso toward your thighs, achieving a full range of motion.",
+            "Pause for a second at the bottom of the movement to maximize the contraction, then return with control to the starting position."
+          ],
+          "step_by_step_instructions": [
+            "Adjust the seat height so the pads align with the mid-back and select a higher resistance.",
+            "Ensure your feet are securely positioned, and your knees are bent at 90 degrees.",
+            "Engage your core and exhale as you crunch your torso down toward the thighs.",
+            "Squeeze your abs at the lowest point for a brief moment, then return with full control."
+          ],
+          "common_mistakes": [
+            "Not controlling the return motion, allowing the machine to snap back too quickly.",
+            "Overextending the lower back, leading to a risk of injury.",
+            "Using too much weight, resulting in poor form or overcompensation with other muscle groups."
+          ],
+          "video_tutorial": [
+            "https://www.youtube.com/watch?v=V7p_DmkYLZw",
+            "https://www.youtube.com/watch?v=fuPFq2EYswE"
+          ]
+        }
+      ]
+    },
+    {
+      "exercise": "Barbell",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FBarbell.png?alt=media&token=7067ed14-c6b1-46d9-80b6-41f57e6bc416",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Barbell Deadlift",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 6,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbarbell-deadlift-front-view-min.gif?alt=media&token=613fef53-19fd-4bdb-a902-0cd7fc6fbb89"
+            }
+          ],
+          "overview": "For beginners, the barbell is an excellent tool for building strength through basic compound movements. Focus on mastering form and technique before increasing weight.",
+          "basics_and_alternatives": {
+            "alternative": "Dumbbells, resistance bands, or bodyweight exercises like squats and push-ups."
+          },
+          "correct_execution": [
+            "Deadlift: Stand with feet shoulder-width apart, grip the bar just outside your knees, and lift using your legs and hips. Keep your back straight and avoid using your lower back.",
+            "Squats: Position the barbell on your upper back, keeping your chest up, and squat down by bending at your knees and hips. Return to standing by driving through your heels.",
+            "Bench Press: Lie flat on the bench, grip the bar slightly wider than shoulder-width, lower it to your chest, and press back up."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Always start with dynamic stretches or mobility exercises.",
+            "Choose appropriate weight: Start with light weights to master form.",
+            "Ensure a neutral spine: Keep your back straight during deadlifts and squats.",
+            "Controlled movements: Focus on slow, controlled reps, especially when lowering the bar.",
+            "Breathing: Exhale as you press or lift, and inhale as you lower the weight."
+          ],
+          "common_mistakes": [
+            "Using too much weight too soon, leading to poor form.",
+            "Rounding the back during deadlifts.",
+            "Not keeping a stable and controlled movement when bench pressing."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=lKHGBuanBsY"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Barbell Full Squat",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbarbell-full-squat-min.gif?alt=media&token=e5a930c3-68b8-4e38-8bab-e65eb8a97bc5"
+            }
+          ],
+          "overview": "Intermediate users should focus on improving strength, form, and gradually increasing weight. Proper technique is crucial to prevent injury as intensity increases.",
+          "basics_and_alternatives": {
+            "alternative": "Kettlebells, resistance bands, or using machines for a more controlled movement (e.g., Smith machine squats)."
+          },
+          "correct_execution": [
+            "Deadlift: Focus on keeping the bar close to your body throughout the lift. Engage the core and drive through your legs to lift the bar, keeping your back straight.",
+            "Squats: Keep your core tight and chest up as you squat, lowering until your thighs are parallel to the ground (or lower if mobility allows). Focus on pushing through your heels.",
+            "Bench Press: Focus on maintaining control of the bar and avoid bouncing it off your chest. Keep your feet flat on the floor and avoid arching your lower back."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up properly with dynamic stretches or lighter sets before increasing intensity.",
+            "Increase resistance gradually, focusing on maintaining proper form.",
+            "Focus on bracing your core during lifts like deadlifts and squats for added stability.",
+            "Use a full range of motion, especially during squats and bench presses.",
+            "Control the descent of the barbell, especially when lowering it during the bench press and squat."
+          ],
+          "common_mistakes": [
+            "Lifting heavier weights than you can handle without proper technique.",
+            "Not maintaining an engaged core during deadlifts and squats.",
+            "Using excessive arch in the back during the bench press."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=JjhAfIPfQOg"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Flat Barbell Bench Press",
+              "sets": 5,
+              "reps": 8,
+              "minutes": 15,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fflat-barbell-bench-press.gif?alt=media&token=a65d8642-1ca5-4c7d-a62c-186ee6897437"
+            }
+          ],
+          "overview": "Advanced users should focus on pushing strength limits, refining technique, and increasing intensity. Heavy lifting requires meticulous attention to form and control.",
+          "basics_and_alternatives": {
+            "alternative": "Olympic lifting (e.g., snatch, clean and jerk), heavy kettlebell swings, or using advanced variations of exercises."
+          },
+          "correct_execution": [
+            "Deadlift: Maintain a strong grip on the bar and keep it close to your shins. Engage your core and keep your back neutral throughout the lift, driving the hips forward at the top of the movement.",
+            "Squats: Ensure the bar is securely positioned on your upper traps (for back squats). Squat down as low as possible while keeping your chest up and knees tracking over toes. Maintain full control when coming back up.",
+            "Bench Press: Use a controlled, slow descent with a slight pause at the bottom before pressing the bar back up. Keep your elbows at a 45-degree angle to your body and avoid overextending your arms at the top."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up with mobility exercises and lighter sets to prepare for heavy lifting.",
+            "Gradually increase weight to challenge your muscles without compromising form.",
+            "Engage your core and stabilize your body throughout each movement.",
+            "Use full range of motion, especially in squats and bench presses, to target all muscle fibers.",
+            "Focus on tempo, maintaining control on both the lifting and lowering phases of the movement."
+          ],
+          "common_mistakes": [
+            "Lifting too quickly and sacrificing form for speed.",
+            "Not maintaining a stable and neutral spine during deadlifts and squats.",
+            "Overextending the arms during the bench press, which can lead to shoulder strain."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=hJDqffL1EmQ"
+        }
+      ]
+    },
+    {
+      "name": "Cable Machine",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FCable%20Machine.jpg?alt=media&token=e839881e-29c6-4672-8efa-46eaddb4ccaf",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Cable Fly",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 8,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-fly.gif?alt=media&token=e44cbaa7-faa3-4d5b-ad9a-3eaa0ade5eae"
+            }
+          ],
+          "overview": "For beginners, the cable machine is a great tool for learning basic movement patterns and engaging different muscle groups. The focus should be on mastering form, controlling the weights, and gradually increasing resistance as you become more comfortable.",
+          "basics_and_alternatives": {
+            "alternative": "Resistance bands, dumbbells, or machines (e.g., lat pulldown machine)."
+          },
+          "correct_execution": [
+            "Setup: Adjust the pulley to the desired height for the exercise. Ensure the cable is securely attached to the right handle (e.g., rope, single handle, bar).",
+            "Movement: Maintain good posture with your core engaged. Perform movements in a slow and controlled manner to focus on muscle engagement.",
+            "Focus: For exercises like cable rows, squeeze your back muscles at the peak contraction. For tricep pushdowns, focus on extending your arms fully, contracting the triceps at the bottom."
+          ],
+          "step_by_step_instructions": [
+            "Set the cable machine to the desired resistance.",
+            "Choose the appropriate attachment based on your exercise.",
+            "For Cable Rows: Stand with feet shoulder-width apart, grip the handle, and pull it toward your body while squeezing your back muscles.",
+            "For Tricep Pushdowns: Use the high pulley, grip the rope or bar, and extend your arms downward, fully engaging the triceps at the bottom of the movement.",
+            "Control the return phase, allowing the weight to move slowly back to the start position."
+          ],
+          "common_mistakes": [
+            "Using too much weight, causing jerky movements.",
+            "Not maintaining a neutral spine and rounding the back during exercises like rows.",
+            "Failing to control the weight during the return phase, which can reduce the effectiveness of the movement."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=nYfz-jZ-2mM"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Cable Fly",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 10,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-fly.gif?alt=media&token=e44cbaa7-faa3-4d5b-ad9a-3eaa0ade5eae"
+            }
+          ],
+          "overview": "Intermediate users should focus on increasing the intensity of the exercises while maintaining control of the movement. Begin to incorporate more complex exercises and slightly heavier weights to challenge the muscles.",
+          "basics_and_alternatives": {
+            "alternative": "Kettlebells, dumbbells, or a Smith Machine."
+          },
+          "correct_execution": [
+            "Setup: Adjust the pulley height for the target muscle group and set the appropriate resistance for your current strength level.",
+            "Movement: Keep the core tight throughout the exercise to maintain posture. Perform each rep in a controlled manner, focusing on full muscle engagement.",
+            "Focus: Squeeze the target muscle at the peak of each movement (e.g., squeeze the back muscles in cable rows or the triceps in pushdowns)."
+          ],
+          "step_by_step_instructions": [
+            "Set the cable machine to a moderate resistance level.",
+            "Select the appropriate attachment (rope, single handle, or bar).",
+            "For Cable Rows: Keep your back straight and shoulders back. Pull the handle toward your torso, keeping elbows close to your body and squeezing the shoulder blades together.",
+            "For Tricep Pushdowns: Use the high pulley, grip the attachment firmly, and extend your arms downward while engaging the triceps fully.",
+            "Control the return phase, allowing the cable to pull back slowly, maintaining tension in the muscles."
+          ],
+          "common_mistakes": [
+            "Using too much weight, which leads to loss of form and jerky movements.",
+            "Not engaging the core enough, leading to instability and improper execution.",
+            "Not fully expanding or contracting muscles at the peak of each movement."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=nYfz-jZ-2mM"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Cable Fly",
+              "sets": 4,
+              "reps": 12,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-fly.gif?alt=media&token=e44cbaa7-faa3-4d5b-ad9a-3eaa0ade5eae"
+            }
+          ],
+          "overview": "At the advanced level, the focus should be on maximizing muscle activation, performing more complex movements, and increasing the resistance while maintaining impeccable form. Advanced users may also experiment with supersets or drop sets for added intensity.",
+          "basics_and_alternatives": {
+            "alternative": "Olympic lifts, kettlebells, or functional training equipment."
+          },
+          "correct_execution": [
+            "Setup: Adjust the pulley to the ideal height for each specific exercise. Select heavier resistance while ensuring you can perform the full range of motion with control.",
+            "Movement: Focus on tempo (slow down the negative phase of the exercise), keep the core engaged, and aim for controlled, deliberate movements to ensure maximal muscle contraction and form.",
+            "Focus: For cable rows, use a wider grip or incorporate variations (e.g., single-arm rows). For tricep pushdowns, add an extra squeeze at the bottom to engage the triceps fully."
+          ],
+          "step_by_step_instructions": [
+            "Select a heavy resistance for the target exercise.",
+            "Choose the appropriate attachment (e.g., rope, bar, single handle).",
+            "For Cable Rows: Stand with feet shoulder-width apart, chest up, and core tight. Pull the handle toward you, squeezing the shoulder blades together. Hold briefly at the peak and slowly return to the start.",
+            "For Tricep Pushdowns: Use the high pulley, engage the core, and extend your arms downward while keeping elbows tight to the body. Focus on a full contraction and slow return.",
+            "Increase intensity by varying the grip, angle, or resistance and incorporating advanced techniques like supersets or pyramid sets."
+          ],
+          "common_mistakes": [
+            "Using improper posture, such as rounding the back during rows, which can lead to injury.",
+            "Performing the movement too quickly, not allowing time for muscle contraction and the full range of motion.",
+            "Using excessive weight that leads to compromised form and muscle engagement."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=nYfz-jZ-2mM"
+        }
+      ]
+    },
+    {
+      "name": "Dumbbell",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FDumbbell.jpg?alt=media&token=65eed280-619c-4157-bf38-2a2f2cbf9ffb",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Dumbbell Bicep Curl",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 8,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-bicep-curl-min.gif?alt=media&token=d6538cfa-ed1e-4679-af4e-f3b3432b0ddd"
+            }
+          ],
+          "overview": "Dumbbells are great for beginners to start strength training. They help build foundational strength and are easy to use for a variety of movements.",
+          "basics_and_alternatives": {
+            "alternative": "Resistance bands, bodyweight exercises, or kettlebells.",
+            "goal": "Focus on learning proper form and technique."
+          },
+          "correct_execution": [
+            "Grip dumbbells firmly with palms facing forward or neutral, depending on the movement.",
+            "Keep feet shoulder-width apart for stability.",
+            "Perform movements slowly and control the weights throughout the entire range of motion."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Start with a light warm-up (e.g., bodyweight squats or light cardio).",
+            "Perform Exercises: Start with basic movements like bicep curls, shoulder presses, or goblet squats with light weights.",
+            "Controlled Movement: Focus on the eccentric (lowering) phase of the movement.",
+            "Reps & Sets: Begin with 2-3 sets of 10-12 reps using light weights to learn form."
+          ],
+          "common_mistakes": [
+            "Using too heavy weights too soon.",
+            "Rushing through movements or using momentum.",
+            "Not maintaining proper posture (e.g., arching the back during presses)."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=oZVCBM9f8Eo"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Dumbbell Bicep Curl",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 10,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-bicep-curl-min.gif?alt=media&token=d6538cfa-ed1e-4679-af4e-f3b3432b0ddd"
+            }
+          ],
+          "overview": "At the intermediate level, you can challenge your muscles more with increased weight and variety in exercises. The focus shifts to muscle growth and improving technique under heavier load.",
+          "basics_and_alternatives": {
+            "alternative": "Barbells, kettlebells, cable machines.",
+            "goal": "Build strength while refining form and increasing intensity."
+          },
+          "correct_execution": [
+            "Maintain a firm grip on the dumbbells with appropriate hand positioning (palms forward or neutral).",
+            "Keep your core engaged and your posture stable.",
+            "Focus on controlling both the concentric (lifting) and eccentric (lowering) phases of each movement."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Do a dynamic warm-up (e.g., light cardio, mobility drills).",
+            "Progressive Overload: Increase weights progressively each week.",
+            "Perform Exercises: Incorporate compound movements (e.g., dumbbell bench press, dumbbell deadlifts, rows).",
+            "Reps & Sets: Aim for 3-4 sets of 8-10 reps with moderate to heavy weights."
+          ],
+          "common_mistakes": [
+            "Compromising form for heavier weights.",
+            "Relying on momentum during exercises like curls and presses.",
+            "Not resting enough between sets, leading to fatigue."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=oZVCBM9f8Eo"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Dumbbell Bicep Curl",
+              "sets": 4,
+              "reps": 12,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-bicep-curl-min.gif?alt=media&token=d6538cfa-ed1e-4679-af4e-f3b3432b0ddd"
+            }
+          ],
+          "overview": "Advanced dumbbell training is about pushing your strength limits and improving muscular endurance and definition. Focus on adding variety and intensity to your training routine.",
+          "basics_and_alternatives": {
+            "alternative": "Barbell training, plyometrics, kettlebells, and Olympic lifting.",
+            "goal": "Strength, hypertrophy, and endurance."
+          },
+          "correct_execution": [
+            "Engage your core and maintain a neutral spine throughout all exercises.",
+            "Use a full range of motion, making sure each repetition is controlled and deliberate.",
+            "Focus on maximizing muscle tension with each movement, especially in advanced exercises like overhead presses or split squats."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Dynamic stretches and functional movement drills.",
+            "Advanced Movements: Incorporate advanced exercises like Bulgarian split squats, single-arm overhead presses, or Renegade Rows.",
+            "Intensity Techniques: Use drop sets, supersets, and tempo variations (slow eccentric movements).",
+            "Reps & Sets: Perform 4-5 sets of 6-8 reps with heavy weights. Use progressive overload and variations in your exercises."
+          ],
+          "common_mistakes": [
+            "Using improper technique under high intensity.",
+            "Not paying attention to recovery and overtraining.",
+            "Neglecting accessory movements that improve weak spots or imbalances."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=oZVCBM9f8Eo"
+        }
+      ]
+    },
+    {
+      "name": "Kettlebell",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2Fkettlebell380_jpg.rf.ba6a2bb8468466ad111de57c52f13dcc.jpg?alt=media&token=0ab2a255-d575-4125-bf54-d6c6949f1041",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Russian Kettlebell Swing",
+              "sets": 2,
+              "reps": 12,
+              "minutes": 8,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Frussian-kettlebell-swing-min.gif?alt=media&token=6d429010-5c65-4cfc-a737-634c47af26a0"
+            }
+          ],
+          "overview": "Kettlebells are ideal for building foundational strength and introducing dynamic movements. Start with basic exercises that emphasize form and technique.",
+          "basics_and_alternatives": {
+            "alternative": "Dumbbells, resistance bands, or medicine balls.",
+            "goal": "Learn proper hip-hinge mechanics and basic kettlebell movements."
+          },
+          "correct_execution": [
+            "Grip the handle firmly and keep your core engaged throughout the movement.",
+            "Focus on hinging at the hips, keeping the back straight, and avoiding overuse of your arms."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Perform dynamic stretches, such as leg swings and arm circles.",
+            "Practice Deadlifts: Start with kettlebell deadlifts to understand the hip-hinge motion.",
+            "Perform Basic Swings: Use a light kettlebell (8–12 kg) and practice two-handed swings.",
+            "Hinge at the hips, swing the kettlebell back, and use hip power to bring it forward to chest height.",
+            "Reps & Sets: Begin with 2-3 sets of 10-12 reps."
+          ],
+          "common_mistakes": [
+            "Lifting with the arms instead of driving through the hips.",
+            "Rounding the back during movements.",
+            "Using weights that are too heavy for proper form."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=KVVnrLj63hg"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Russian Kettlebell Swing",
+              "sets": 3,
+              "reps": 15,
+              "minutes": 10,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Frussian-kettlebell-swing-min.gif?alt=media&token=6d429010-5c65-4cfc-a737-634c47af26a0"
+            }
+          ],
+          "overview": "Intermediate kettlebell training incorporates more complex exercises and builds strength, power, and endurance.",
+          "basics_and_alternatives": {
+            "alternative": "Medicine ball slams, barbell cleans, or sandbag training.",
+            "goal": "Add variety to your routine and increase intensity."
+          },
+          "correct_execution": [
+            "Maintain a strong, neutral spine during all movements.",
+            "Keep the kettlebell close to your body for control.",
+            "Focus on breathing rhythmically, exhaling during the effort phase of each exercise."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Do dynamic mobility work and light kettlebell swings.",
+            "Advanced Swings: Progress to single-arm swings and alternating swings.",
+            "Incorporate Complex Movements: Add kettlebell cleans and presses or Turkish get-ups.",
+            "Reps & Sets: Perform 3-4 sets of 8-10 reps for strength or 12-15 reps for endurance. Use a heavier kettlebell (12–16 kg)."
+          ],
+          "common_mistakes": [
+            "Letting the kettlebell drift too far from the body.",
+            "Not using proper wrist positioning during cleans or presses.",
+            "Fatiguing without taking proper rest breaks."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=KVVnrLj63hg"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Russian Kettlebell Swing",
+              "sets": 4,
+              "reps": 15,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Frussian-kettlebell-swing-min.gif?alt=media&token=6d429010-5c65-4cfc-a737-634c47af26a0"
+            }
+          ],
+          "overview": "Advanced kettlebell training focuses on maximizing power, strength, and coordination with highly dynamic and technical movements.",
+          "basics_and_alternatives": {
+            "alternative": "Olympic lifting, battle ropes, or weighted plyometrics.",
+            "goal": "Improve performance with explosive, full-body exercises."
+          },
+          "correct_execution": [
+            "Ensure mastery of intermediate techniques before attempting advanced exercises.",
+            "Keep your movements controlled, even under high intensity.",
+            "Engage your entire body, with particular focus on the hips, core, and shoulders."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Use foam rolling and dynamic stretches to prep your joints.",
+            "Power Movements: Perform snatches, double kettlebell swings, or jerk presses.",
+            "Complexes: Try kettlebell flow workouts, combining moves like swings, cleans, and presses in a single sequence.",
+            "Reps & Sets: Perform 4-5 sets of 6-8 reps with heavier kettlebells (16–24 kg). Focus on explosive power and precision."
+          ],
+          "common_mistakes": [
+            "Overextending the lower back during swings and snatches.",
+            "Using too much weight without proper control.",
+            "Neglecting recovery, leading to fatigue and potential injury."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=KVVnrLj63hg"
+        }
+      ]
+    },
+    {
+      "name": "Leg Press Machine",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FLegpress.jpg?alt=media&token=e2f98154-9005-405e-ad10-a6b63f40a830",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Leg Press Calf Raise",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 8,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fleg-press-calf-raise-min.gif?alt=media&token=913b4d2b-6a94-493d-a4d9-f542556e9702"
+            }
+          ],
+          "overview": "The leg press machine is great for beginners to safely target the quadriceps, hamstrings, and glutes while building strength and learning correct form.",
+          "basics_and_alternatives": {
+            "alternative": "Squats, lunges, or Smith machine squats.",
+            "goal": "Master the basic movement and build leg strength without overloading the joints."
+          },
+          "correct_execution": [
+            "Sit with your back flat against the seat and your feet placed shoulder-width apart on the platform.",
+            "Ensure your knees are at a 90-degree angle at the start of the movement.",
+            "Press the platform up by extending your legs, making sure to stop just short of locking the knees."
+          ],
+          "step_by_step_instructions": [
+            "Adjust the Seat: Set the seat so your knees are bent at 90 degrees when starting.",
+            "Foot Placement: Place your feet shoulder-width apart on the platform.",
+            "Press the Weight: Slowly extend your legs without locking your knees.",
+            "Return: Bend your knees slowly, bringing the weight back towards you while maintaining full control.",
+            "Reps & Sets: Start with 2-3 sets of 10-12 reps with a moderate weight."
+          ],
+          "common_mistakes": [
+            "Locking the knees at the top of the movement.",
+            "Placing feet too high or too low, leading to improper activation of leg muscles.",
+            "Using too much weight, which may cause lower back strain or limit your range of motion."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=qCR9bN3G1t4"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Leg Press Calf Raise",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 10,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fleg-press-calf-raise-min.gif?alt=media&token=913b4d2b-6a94-493d-a4d9-f542556e9702"
+            }
+          ],
+          "overview": "Intermediate leg press training involves increasing resistance and focusing on form and muscle engagement, as well as adding variety to the movement.",
+          "basics_and_alternatives": {
+            "alternative": "Bulgarian split squats, lunges, or dumbbell squats.",
+            "goal": "Build muscle strength and endurance while refining technique."
+          },
+          "correct_execution": [
+            "Maintain proper foot placement and avoid letting your knees collapse inward.",
+            "Keep your back flat against the seat, and do not arch or round it during the exercise.",
+            "Focus on controlling both the upward and downward phases of the movement."
+          ],
+          "step_by_step_instructions": [
+            "Adjust Seat Position: Ensure your knees are at 90 degrees at the starting position.",
+            "Foot Placement: Place feet shoulder-width apart or slightly wider, ensuring your toes point straight ahead.",
+            "Perform Movement: Push the platform away by extending your knees, but stop just short of locking them.",
+            "Return with Control: Slowly return to the starting position by bending your knees, ensuring full control.",
+            "Reps & Sets: Perform 3-4 sets of 8-10 reps with moderate to heavy weight."
+          ],
+          "common_mistakes": [
+            "Arching the back or lifting the buttocks off the seat during the movement.",
+            "Using too much weight without maintaining control.",
+            "Allowing knees to cave inward during the upward phase of the press."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=qCR9bN3G1t4"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Leg Press Calf Raise",
+              "sets": 5,
+              "reps": 10,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fleg-press-calf-raise-min.gif?alt=media&token=913b4d2b-6a94-493d-a4d9-f542556e9702"
+            }
+          ],
+          "overview": "Advanced leg press training incorporates heavy weights and a variety of techniques to increase power, strength, and muscle size. Focus on full range of motion and intensity.",
+          "basics_and_alternatives": {
+            "alternative": "Barbell squats, deadlifts, or step-ups.",
+            "goal": "Maximize muscle activation and improve strength while minimizing injury risk."
+          },
+          "correct_execution": [
+            "Use a full range of motion, bending your knees deeply while keeping your feet in a stable position.",
+            "Focus on smooth, controlled movements and avoid jerky or rapid motions.",
+            "Engage your core to protect your lower back during the press."
+          ],
+          "step_by_step_instructions": [
+            "Adjust the Seat: Position the seat so your knees are at a 90-degree angle at the start, then adjust if you are aiming for deeper flexion.",
+            "Foot Placement: Position your feet higher or lower on the platform to target different muscles (e.g., higher for glutes, lower for quads).",
+            "Perform Movement: Press the weight up explosively using your legs while keeping your back flat and core engaged.",
+            "Controlled Descent: Slowly return the platform to its starting position, controlling the downward movement.",
+            "Reps & Sets: Perform 4-5 sets of 6-8 reps with heavy weight to stimulate strength and hypertrophy."
+          ],
+          "common_mistakes": [
+            "Locking the knees fully at the top of the movement, which can lead to joint stress.",
+            "Not using a full range of motion, which limits muscle engagement.",
+            "Lifting excessive weight that forces poor form, especially in the lower back."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=qCR9bN3G1t4"
+        }
+      ]
+    },
+    {
+      "name": "Punching Bag",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2Fpunchingbag216_jpg.rf.e96bfab8d4795f14525ad0aefcfe68bc.jpg?alt=media&token=d33d4b77-6117-48f8-aac6-f76ba652b25d",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Boxing",
+              "sets": 3,
+              "reps": 5,
+              "minutes": 5,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fboxing-muscles-min.gif?alt=media&token=799920c2-d4a5-479b-8900-2ea0b438efeb"
+            }
+          ],
+          "overview": "The punching bag is an excellent tool for building foundational strength, speed, and technique in combat sports. Beginners focus on learning proper form and technique without overexerting themselves.",
+          "basics_and_alternatives": {
+            "alternative": "Speed bag, shadow boxing, or kickboxing drills.",
+            "goal": "Learn the basic punches (jab, cross, hook) and develop hand-foot coordination."
+          },
+          "correct_execution": [
+            "Stand with feet shoulder-width apart and fists raised to protect the face.",
+            "Punch with proper form, focusing on technique over force.",
+            "Keep the core engaged and move fluidly without forcing the punches."
+          ],
+          "step_by_step_instructions": [
+            "Hand Protection: Wrap your hands and wrists before starting to prevent injury.",
+            "Proper Stance: Stand in front of the bag with feet shoulder-width apart and a slight bend in your knees.",
+            "Start with Basic Punches: Begin with the jab, cross, and hook, ensuring each punch is thrown with controlled force.",
+            "Focus on Technique: Keep your fists up, elbows slightly bent, and rotate your hips for power while maintaining balance.",
+            "Reps & Sets: Start with 2-3 rounds of 2-3 minutes of punching, focusing on form."
+          ],
+          "common_mistakes": [
+            "Punching too hard or too fast, which sacrifices form.",
+            "Failing to wrap hands properly, risking wrist and knuckle injuries.",
+            "Over-rotating the torso, losing balance and stability."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Boxing",
+              "sets": 4,
+              "reps": 8,
+              "minutes": 7,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fboxing-muscles-min.gif?alt=media&token=799920c2-d4a5-479b-8900-2ea0b438efeb"
+            }
+          ],
+          "overview": "Intermediate punching bag training focuses on improving punching speed, power, and combinations. Emphasis shifts from just form to integrating more complex movements and combinations.",
+          "basics_and_alternatives": {
+            "alternative": "Kickboxing drills, focus mitt work, or heavy bag training.",
+            "goal": "Build power, refine punches, and integrate footwork with punching combinations."
+          },
+          "correct_execution": [
+            "Maintain a balanced stance and throw combinations of punches (jab-cross-hook, jab-cross-uppercut).",
+            "Use your legs and hips for added power, not just your arms.",
+            "Ensure proper rotation of the body to maintain momentum and accuracy."
+          ],
+          "step_by_step_instructions": [
+            "Hand Protection: Continue using hand wraps to prevent injury.",
+            "Position and Stance: Position yourself with knees slightly bent, standing a little further from the bag for added reach.",
+            "Punching Combinations: Practice combos like jab-cross, jab-cross-hook, or jab-cross-uppercut.",
+            "Incorporate Footwork: Move around the bag, pivoting with your punches and staying light on your feet.",
+            "Reps & Sets: Perform 3-4 rounds of 3 minutes with 30-second breaks between rounds, increasing speed and power."
+          ],
+          "common_mistakes": [
+            "Not rotating the body with punches, relying too much on arm strength.",
+            "Keeping the hands low between punches, which exposes your head.",
+            "Not maintaining balance while throwing punches, leading to poor technique."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Boxing",
+              "sets": 5,
+              "reps": 10,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fboxing-muscles-min.gif?alt=media&token=799920c2-d4a5-479b-8900-2ea0b438efeb"
+            }
+          ],
+          "overview": "Advanced punching bag training emphasizes power, speed, and endurance with complex techniques and explosive combinations. It integrates footwork, head movement, and defensive maneuvers with attacking strikes.",
+          "basics_and_alternatives": {
+            "alternative": "Muay Thai pads, sparring, or plyometric training.",
+            "goal": "Maximize punching power, speed, and precision while enhancing overall conditioning."
+          },
+          "correct_execution": [
+            "Focus on smooth combinations, incorporating body movement and head movement.",
+            "Use the legs and hips to generate explosive power, adding kicks when appropriate.",
+            "Incorporate defensive movements (slipping, bobbing, weaving) between punches."
+          ],
+          "step_by_step_instructions": [
+            "Hand Protection: Continue with hand wraps, and consider using gloves if heavier punches are being thrown.",
+            "Advanced Stance and Movement: Use a more dynamic stance, ready to move in any direction, and incorporate head and body movement.",
+            "Complex Combinations: Throw explosive combinations like jab-cross-hook-uppercut-kick, or jab-hook-uppercut-jab.",
+            "Power & Speed: Focus on punching with both speed and power, while staying light on your feet.",
+            "Reps & Sets: Perform 4-5 rounds of 3-5 minutes, pushing for increased intensity with active rest in between."
+          ],
+          "common_mistakes": [
+            "Throwing punches too fast without maintaining form and accuracy.",
+            "Failing to integrate footwork and head movement, leaving you open to counterattacks.",
+            "Overextending punches, causing imbalance or overuse injuries."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        }
+      ]
+    },
+    {
+      "name": "Slam Ball",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FSlamball.png?alt=media&token=dcdd934f-c5be-4c4d-861e-3a1b68c3a7e4",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Slam Ball",
+              "sets": 2,
+              "reps": 8,
+              "minutes": 5,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Foverhead-slam.gif?alt=media&token=a2ca7db0-2c3b-40f4-ac3a-5ef82781597a"
+            }
+          ],
+          "overview": "A slam ball is a dynamic training tool designed for explosive movements. Beginners will focus on learning the basic mechanics of the slam while building strength and coordination.",
+          "basics_and_alternatives": {
+            "alternative": "Medicine ball slams, kettlebell swings, or dumbbell exercises.",
+            "goal": "Learn to execute the slam with proper technique and develop core strength."
+          },
+          "correct_execution": [
+            "Grip the slam ball firmly with both hands.",
+            "Stand with feet shoulder-width apart and knees slightly bent.",
+            "Lift the ball overhead and slam it to the ground with controlled force, focusing on engaging your legs and core."
+          ],
+          "step_by_step_instructions": [
+            "Hand Protection: No special protection is needed, but ensure your hands have a firm grip on the ball.",
+            "Stance: Stand with feet shoulder-width apart, knees slightly bent.",
+            "Lift and Slam: Squat slightly and lift the ball overhead, then throw it down explosively, using your legs and core.",
+            "Catch and Repeat: Catch the ball as it bounces up and immediately repeat the movement.",
+            "Reps & Sets: Start with 2-3 sets of 5-8 slams, focusing on form."
+          ],
+          "common_mistakes": [
+            "Using too much arm strength and not engaging the core or legs.",
+            "Throwing the ball too hard, leading to poor form or injury.",
+            "Not controlling the movement, resulting in unnecessary strain on the back."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Slam Ball",
+              "sets": 3,
+              "reps": 10,
+              "minutes": 7,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Foverhead-slam.gif?alt=media&token=a2ca7db0-2c3b-40f4-ac3a-5ef82781597a"
+            }
+          ],
+          "overview": "Intermediate training focuses on increasing power and speed while refining technique. Athletes at this level incorporate more explosive movements and begin to focus on endurance.",
+          "basics_and_alternatives": {
+            "alternative": "CrossFit-style medicine ball slams, kettlebell swings, or box jumps.",
+            "goal": "Increase the intensity of the slam and develop explosive power and core stability."
+          },
+          "correct_execution": [
+            "Maintain a stable stance with your feet flat on the ground.",
+            "Perform a faster, more explosive slam, ensuring to engage the whole body, especially the core and legs.",
+            "Begin to integrate more powerful squats to assist the upward movement."
+          ],
+          "step_by_step_instructions": [
+            "Grip & Stance: Grip the ball firmly and stand with feet shoulder-width apart, knees bent.",
+            "Lift & Explode: Squat down slightly and lift the ball overhead, using your legs and core.",
+            "Slam with Power: Throw the ball forcefully to the ground, ensuring that the core remains tight.",
+            "Catch and Repeat: As the ball bounces back, catch it and immediately repeat.",
+            "Reps & Sets: Perform 4-5 sets of 8-12 slams, increasing speed and explosiveness."
+          ],
+          "common_mistakes": [
+            "Not engaging the core and relying too much on the arms.",
+            "Using improper foot positioning, which reduces the power of the slam.",
+            "Failing to maintain a neutral back during the movement, risking lower back strain."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Slam Ball",
+              "sets": 4,
+              "reps": 12,
+              "minutes": 10,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Foverhead-slam.gif?alt=media&token=a2ca7db0-2c3b-40f4-ac3a-5ef82781597a"
+            }
+          ],
+          "overview": "Advanced slam ball training involves high-intensity, explosive movements that challenge full-body strength, power, and endurance. It integrates complex mechanics and speed for maximum efficiency.",
+          "basics_and_alternatives": {
+            "alternative": "Advanced CrossFit exercises, kettlebell clean and presses, or burpees with medicine ball slams.",
+            "goal": "Maximize explosive power and improve coordination while maintaining form and core engagement."
+          },
+          "correct_execution": [
+            "Perform explosive slams with a focus on generating maximum force from your hips, legs, and core.",
+            "Ensure full-body engagement, integrating dynamic movements such as squats and rotations with the slam.",
+            "Keep a stable base and rotate your torso to help with the explosive power."
+          ],
+          "step_by_step_instructions": [
+            "Stance and Grip: Stand with feet slightly wider than shoulder-width and knees bent. Grip the ball tightly.",
+            "Explosive Movement: Squat deeply, then use the legs and hips to powerfully lift and throw the ball.",
+            "Maximal Force: Focus on generating as much power as possible when throwing the ball down, keeping the core tight.",
+            "Control the Catch: As the ball bounces, control your catch and immediately reset for the next slam.",
+            "Reps & Sets: Perform 5-6 sets of 12-15 slams, ensuring maximum intensity and focus on explosive power."
+          ],
+          "common_mistakes": [
+            "Over-extending the back when lifting the ball, leading to strain.",
+            "Using excessive arm strength, instead of full-body engagement.",
+            "Failing to generate enough explosive force, reducing the effectiveness of the exercise."
+          ],
+          "video_tutorial": "https://www.youtube.com/shorts/BkTWWuN5fVY"
+        }
+      ]
+    },
+    {
+      "name": "Treadmill",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FTreadmill.jpg?alt=media&token=89f99dbf-7202-4a5c-aaa9-33ce69de7e59",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Treadmill",
+              "sets": 1,
+              "reps": 0,
+              "minutes": 15,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Ftreadmill-min.gif?alt=media&token=b2cd0104-ffe0-4d27-97f1-37062ea5191b"
+            }
+          ],
+          "overview": "The treadmill is a simple, effective cardio machine that helps beginners improve cardiovascular health and stamina. The goal at this level is to build endurance and get comfortable with the movement.",
+          "basics_and_alternatives": {
+            "alternative": "Outdoor walking or running, cycling, elliptical.",
+            "goal": "Build cardiovascular endurance and learn the basic mechanics of treadmill use."
+          },
+          "correct_execution": [
+            "Start with a slow pace to avoid injury and gradually build intensity.",
+            "Focus on maintaining an upright posture and using a natural stride.",
+            "Keep your core engaged and avoid holding onto the handrails."
+          ],
+          "step_by_step_instructions": [
+            "Set the Speed: Start with a comfortable walking speed (2-3 mph).",
+            "Warm-up: Begin with 5-10 minutes of easy walking to warm up your muscles.",
+            "Gradual Increase: Slowly increase the speed or incline after a few minutes to raise intensity.",
+            "Posture: Keep your back straight, shoulders relaxed, and core slightly engaged.",
+            "Cool Down: End with 5 minutes of slower walking to bring your heart rate down."
+          ],
+          "common_mistakes": [
+            "Holding onto the handrails while walking or running.",
+            "Slouching while running or walking, leading to poor posture.",
+            "Not adjusting speed or incline, missing out on a more effective workout."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=K6I24WgiiPw"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Treadmill",
+              "sets": 1,
+              "reps": 0,
+              "minutes": 30,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Ftreadmill-min.gif?alt=media&token=b2cd0104-ffe0-4d27-97f1-37062ea5191b"
+            }
+          ],
+          "overview": "Intermediate treadmill training focuses on increasing endurance and intensity through interval training and moderate inclines. At this level, users start to challenge themselves with faster paces and higher inclines.",
+          "basics_and_alternatives": {
+            "alternative": "Interval running outdoors, cycling, or stair climber.",
+            "goal": "Increase cardiovascular capacity and endurance with varied speeds and inclines."
+          },
+          "correct_execution": [
+            "Mix walking and running with different speed intervals to build endurance.",
+            "Use the incline to simulate hill running and increase the intensity.",
+            "Maintain good form and avoid slouching during running."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Start with a 5-minute walk at a moderate pace.",
+            "Interval Training: Alternate between 2 minutes of walking (3 mph) and 2 minutes of running (5-6 mph).",
+            "Increase the Incline: Add a 2-5% incline to simulate hill running during your intervals.",
+            "Maintain Posture: Ensure you stand tall with shoulders relaxed and core engaged.",
+            "Cool Down: After intervals, slow down to a light walk for 5 minutes."
+          ],
+          "common_mistakes": [
+            "Not controlling your breathing during intervals, causing fatigue.",
+            "Running with poor posture (slouching) when increasing speed.",
+            "Not adjusting the incline to challenge the muscles properly."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=K6I24WgiiPw"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Treadmill",
+              "sets": 1,
+              "reps": 0,
+              "minutes": 45,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Ftreadmill-min.gif?alt=media&token=b2cd0104-ffe0-4d27-97f1-37062ea5191b"
+            }
+          ],
+          "overview": "At the advanced level, treadmill workouts focus on high-intensity interval training (HIIT), long endurance runs, and hill sprints to maximize cardiovascular fitness, strength, and stamina.",
+          "basics_and_alternatives": {
+            "alternative": "HIIT outdoor running, long-distance cycling, or outdoor hill sprints.",
+            "goal": "Maximize cardiovascular endurance and power through high-intensity intervals and sustained effort."
+          },
+          "correct_execution": [
+            "Perform high-intensity sprints at maximum effort followed by short recovery periods.",
+            "Use steeper inclines to simulate hill sprints and challenge the legs.",
+            "Maintain excellent posture throughout to prevent fatigue and injury."
+          ],
+          "step_by_step_instructions": [
+            "Warm-up: Start with a light 5-minute jog to activate muscles.",
+            "HIIT: Alternate 30-60 seconds of sprinting (7-10 mph) with 1-2 minutes of walking at 3-4 mph.",
+            "Increase the Incline: Use a 5-10% incline to simulate running uphill during sprints.",
+            "Posture: Keep shoulders back, head up, and core engaged during sprints.",
+            "Cool Down: Slow to a brisk walk for 5 minutes, focusing on steady breathing."
+          ],
+          "common_mistakes": [
+            "Running too fast without a proper warm-up, leading to injury.",
+            "Not using enough incline to simulate a challenging terrain.",
+            "Holding the handrails while sprinting, which reduces intensity and effectiveness."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=K6I24WgiiPw"
+        }
+      ]
+    },
+    {
+      "name": "Hip Abductor Machine",
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2Fhip-abductor%20(1).jpg?alt=media&token=6301e982-ed67-4503-afc2-a75c49b82762",
+      "levels": [
+        {
+          "level": "Beginner",
+          "workouts": [
+            {
+              "exercise": "Hip Abductor Machine",
+              "sets": 2,
+              "reps": 10,
+              "minutes": 5,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fhip-abduction-machine.gif?alt=media&token=c94480ab-88ae-4409-bf55-368dc26bd61f"
+            }
+          ],
+          "overview": "The Hip Abductor Machine helps strengthen the outer hip muscles, including the gluteus medius, gluteus minimus, and tensor fasciae latae (TFL). As a beginner, you’ll focus on mastering the form and engaging the correct muscles while building lower body strength.",
+          "basics_and_alternatives": {
+            "alternative_exercises": "Standing Band Lateral Walks, Lateral Lunges, Clamshells, Side-Lying Leg Lifts, Cable Hip Abductions with ankle attachments.",
+            "goal": "Learn the correct form and control the movement while gradually increasing resistance."
+          },
+          "correct_execution": [
+            "Sit on the machine with your back supported and knees at about a 90-degree angle.",
+            "Position your feet comfortably against the footpads, and place the padded leg rests above your knees.",
+            "Engage your core and sit upright, ensuring a stable posture.",
+            "Push your legs outward slowly, focusing on using your outer hips and glutes.",
+            "Control the return movement, bringing your legs back together slowly.",
+            "Keep your feet flexed and knees slightly bent, focusing on slow, controlled reps."
+          ],
+          "step_by_step_instructions": [
+            "Set up the machine: Adjust the seat so your knees are bent at about a 90-degree angle, and the pads are above your knees.",
+            "Select the weight: Choose a light resistance that allows for good form and focus.",
+            "Position yourself: Sit upright, keeping your core engaged. Place feet flat and knees slightly bent.",
+            "Perform the exercise: Push your legs outward with controlled force, engaging your hip abductors.",
+            "Control the return: Slowly bring your legs back together, focusing on the muscle contraction.",
+            "Repeat: Perform 2-3 sets of 10-12 reps, focusing on form."
+          ],
+          "common_mistakes": [
+            "Using too heavy a weight that compromises form.",
+            "Rounding the back and slouching.",
+            "Rushing through the movement without control."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=_ARUxqrII3Y"
+        },
+        {
+          "level": "Intermediate",
+          "workouts": [
+            {
+              "exercise": "Hip Abductor Machine",
+              "sets": 3,
+              "reps": 12,
+              "minutes": 8,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fhip-abduction-machine.gif?alt=media&token=c94480ab-88ae-4409-bf55-368dc26bd61f"
+            }
+          ],
+          "overview": "As an intermediate, your goal is to increase resistance and challenge the muscle engagement. Focus on improving both form and power while pushing your limits.",
+          "basics_and_alternatives": {
+            "alternative_exercises": "Cross-lateral Band Walks, Lateral Lunges with Dumbbells, Clamshells with Resistance Bands, Cable Hip Abductions.",
+            "goal": "Increase resistance while maintaining control over the movement and maximizing muscle activation."
+          },
+          "correct_execution": [
+            "Adjust the machine to ensure your knees are bent at 90 degrees, and your feet are comfortable.",
+            "Choose a moderate resistance that challenges you but still allows control.",
+            "Maintain an upright posture and engage your core.",
+            "Push your legs outward, ensuring a strong contraction in your glutes and hip abductors.",
+            "Slowly return to the starting position, resisting the urge to let your legs snap back."
+          ],
+          "step_by_step_instructions": [
+            "Set up the machine: Adjust the seat so knees are bent at 90 degrees, feet flat on the footpads.",
+            "Select the weight: Choose a moderate resistance that challenges you without sacrificing form.",
+            "Position yourself: Sit upright, engaging the core. Feet flat, knees bent.",
+            "Perform the exercise: Push your legs outward while focusing on muscle engagement.",
+            "Control the return: Bring your legs back together slowly.",
+            "Repeat: Perform 3 sets of 12-15 reps, focusing on control and muscle contraction."
+          ],
+          "common_mistakes": [
+            "Using excessive weight that leads to poor form.",
+            "Not engaging the core, leading to instability.",
+            "Moving too fast, which reduces the effectiveness of the exercise."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=_ARUxqrII3Y"
+        },
+        {
+          "level": "Advanced",
+          "workouts": [
+            {
+              "exercise": "Hip Abductor Machine",
+              "sets": 4,
+              "reps": 15,
+              "minutes": 12,
+              "img": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fhip-abduction-machine.gif?alt=media&token=c94480ab-88ae-4409-bf55-368dc26bd61f"
+            }
+          ],
+          "overview": "At the advanced level, you’re pushing for maximum strength and control. Focus on heavy resistance and ensuring perfect form for optimal results.",
+          "basics_and_alternatives": {
+            "alternative_exercises": "Weighted Lateral Lunges, Cable Machine Hip Abductions, Resistance Band Lateral Walks.",
+            "goal": "Maximize resistance while maintaining proper technique and controlling the movement."
+          },
+          "correct_execution": [
+            "Select a challenging resistance that forces your glutes and hip abductors to engage fully while maintaining proper form.",
+            "Push your legs outward with maximum control, focusing on muscle engagement throughout the full range of motion.",
+            "Slow down the return to the starting position to maintain muscle tension and control."
+          ],
+          "step_by_step_instructions": [
+            "Set up the machine: Adjust the seat for correct alignment with knees bent at 90 degrees and feet positioned on the footpads.",
+            "Select the weight: Choose a challenging resistance that requires you to maintain full control during each rep.",
+            "Position yourself: Sit upright, engage the core, and keep your knees bent at 90 degrees.",
+            "Perform the exercise: Push your legs outward while focusing on glute and hip abductor activation.",
+            "Control the return: Slowly return your legs to the starting position.",
+            "Repeat: Complete 3-4 sets of 15-20 reps with heavy resistance."
+          ],
+          "common_mistakes": [
+            "Using too much weight, which compromises form and stability.",
+            "Rounding the back or slouching, which leads to poor posture.",
+            "Moving too quickly, which reduces the effectiveness of the exercise and increases the risk of injury."
+          ],
+          "video_tutorial": "https://www.youtube.com/watch?v=_ARUxqrII3Y"
+        }
+      ]
+    }    
+  ]
+}
