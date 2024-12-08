@@ -9,7 +9,7 @@ import 'package:psb_app/features/home/screen/widget/today_plan_card_widget.dart'
 import 'package:psb_app/features/home/screen/widget/workout_plan_widget.dart';
 import 'package:psb_app/features/library/screen/library_page.dart';
 import 'package:psb_app/features/meal/screen/meal_page.dart';
-import 'package:psb_app/features/profile/profile_page.dart';
+import 'package:psb_app/features/profile/screen/profile_page.dart';
 import 'package:psb_app/features/progress/screen/progress_page.dart';
 import 'package:psb_app/features/scanner/screen/scanner_page.dart';
 import 'package:psb_app/features/settings/screen/setting_page.dart';

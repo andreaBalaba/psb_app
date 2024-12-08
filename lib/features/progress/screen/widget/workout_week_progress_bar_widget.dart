@@ -58,7 +58,7 @@ class WorkoutChartWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: "$weeklyHours ", style: TextStyle(color: AppColors.pBlackColor)),
+                          TextSpan(text: "$weeklyHours ", style: const TextStyle(color: AppColors.pBlackColor)),
                           TextSpan(text: weeklyHours == 1 ? "hr" : "hrs", style: TextStyle(fontSize: 14 * autoScale, color: AppColors.pBGGreyColor)),
                         ],
                       ),
@@ -75,7 +75,7 @@ class WorkoutChartWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: weeklyMinutes > 0 ? "$weeklyMinutes " : "", style: TextStyle(color: AppColors.pBlackColor)),
+                          TextSpan(text: weeklyMinutes > 0 ? "$weeklyMinutes " : "", style: const TextStyle(color: AppColors.pBlackColor)),
                           TextSpan(text: (weeklyMinutes == 1) ? "min" : "mins", style: TextStyle(fontSize: 14 * autoScale, color: AppColors.pBGGreyColor)),
                         ],
                       ),
@@ -108,15 +108,15 @@ class WorkoutChartWidget extends StatelessWidget {
                 ),
                 titlesData: FlTitlesData(
                   show: true,
-                  topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide top labels
-                  rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide right labels
+                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide top labels
+                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide right labels
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (double value, TitleMeta meta) {
                         const days = ["S", "M", "T", "W", "T", "F", "S"];
                         return Padding(
-                          padding: EdgeInsets.only(top: 8.0),
+                          padding: const EdgeInsets.only(top: 8.0),
                           child: ReusableText(
                             text: days[value.toInt()],
                             size: 14 * autoScale
@@ -126,11 +126,11 @@ class WorkoutChartWidget extends StatelessWidget {
                       reservedSize: 28,
                     ),
                   ),
-                  leftTitles: AxisTitles(
+                  leftTitles: const AxisTitles(
                     sideTitles: SideTitles(showTitles: false),
                   ),
                 ),
-                gridData: FlGridData(show: false),
+                gridData: const FlGridData(show: false),
                 borderData: FlBorderData(show: false),
                 barGroups: dailyWorkoutMinutes.asMap().entries.map((entry) {
                   int index = entry.key;
