@@ -104,61 +104,61 @@ class _SettingsPageState extends State<SettingsPage> {
                   const SizedBox(height: 10),
 
                   // Notification Switch
-                  Obx(() => Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: _buildCustomSwitch(
-                          label: "Notification",
-                          value: controller.isNotificationEnabled.value,
-                          onToggle: (p0) async {
-                            await FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .update({
-                              'notif': p0,
-                            });
-                          },
-                        ),
-                      )),
-                  Divider(
-                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // Obx(() => Padding(
+                  //       padding: const EdgeInsets.all(10.0),
+                  //       child: _buildCustomSwitch(
+                  //         label: "Notification",
+                  //         value: controller.isNotificationEnabled.value,
+                  //         onToggle: (p0) async {
+                  //           await FirebaseFirestore.instance
+                  //               .collection('Users')
+                  //               .doc(FirebaseAuth.instance.currentUser!.uid)
+                  //               .update({
+                  //             'notif': p0,
+                  //           });
+                  //         },
+                  //       ),
+                  //     )),
+                  // Divider(
+                  //     thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-                  // Warm up Switch
-                  Obx(() => Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: _buildCustomSwitch(
-                          label: "Warm up",
-                          value: controller.isWarmUpEnabled.value,
-                          onToggle: (p0) async {
-                            await FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .update({
-                              'warmup': p0,
-                            });
-                          },
-                        ),
-                      )),
-                  Divider(
-                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // // Warm up Switch
+                  // Obx(() => Padding(
+                  //       padding: const EdgeInsets.all(10.0),
+                  //       child: _buildCustomSwitch(
+                  //         label: "Warm up",
+                  //         value: controller.isWarmUpEnabled.value,
+                  //         onToggle: (p0) async {
+                  //           await FirebaseFirestore.instance
+                  //               .collection('Users')
+                  //               .doc(FirebaseAuth.instance.currentUser!.uid)
+                  //               .update({
+                  //             'warmup': p0,
+                  //           });
+                  //         },
+                  //       ),
+                  //     )),
+                  // Divider(
+                  //     thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
-                  // Stretching Switch
-                  Obx(() => Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: _buildCustomSwitch(
-                          label: "Stretching",
-                          value: controller.isStretchingEnabled.value,
-                          onToggle: (p0) async {
-                            await FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .update({
-                              'stretching': p0,
-                            });
-                          },
-                        ),
-                      )),
-                  Divider(
-                      thickness: 1 * autoScale, color: AppColors.pBlackColor),
+                  // // Stretching Switch
+                  // Obx(() => Padding(
+                  //       padding: const EdgeInsets.all(10.0),
+                  //       child: _buildCustomSwitch(
+                  //         label: "Stretching",
+                  //         value: controller.isStretchingEnabled.value,
+                  //         onToggle: (p0) async {
+                  //           await FirebaseFirestore.instance
+                  //               .collection('Users')
+                  //               .doc(FirebaseAuth.instance.currentUser!.uid)
+                  //               .update({
+                  //             'stretching': p0,
+                  //           });
+                  //         },
+                  //       ),
+                  //     )),
+                  // Divider(
+                  //     thickness: 1 * autoScale, color: AppColors.pBlackColor),
 
                   // Privacy Dropdown
                   ListTile(

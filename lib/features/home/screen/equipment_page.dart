@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
@@ -9,8 +10,9 @@ import '../../../utils/global_variables.dart';
 
 class EquipmentPage extends StatefulWidget {
   String data;
+  bool? isName;
 
-  EquipmentPage({super.key, required this.data});
+  EquipmentPage({super.key, required this.data, this.isName = false});
 
   @override
   State<EquipmentPage> createState() => _EquipmentPageState();
@@ -38,7 +40,9 @@ class _EquipmentPageState extends State<EquipmentPage> {
     setState(() {
       equipmentData = equipments.where(
         (element) {
-          return element['exercise'] == 'Abdominal Crunch Machine';
+          return widget.isName!
+              ? element['name'] == widget.data
+              : element['exercise'] == widget.data;
         },
       ).first;
 
@@ -46,9 +50,25 @@ class _EquipmentPageState extends State<EquipmentPage> {
     });
   }
 
+  FlutterTts flutterTts = FlutterTts();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.volume_up,
+          size: 20,
+          color: AppColors.pBlackColor,
+        ),
+        onPressed: () async {
+          await flutterTts.setVolume(1.0);
+
+          for (int i = 0; i < equipmentData['levels'].length; i++) {
+            await flutterTts.speak(
+                'Step by step instruction for ${equipmentData['levels'][i]['level']} Level, ${equipmentData['levels'][i]['step_by_step_instructions']}');
+          }
+        },
+      ),
       body: hasLoaded
           ? SafeArea(
               child: Padding(

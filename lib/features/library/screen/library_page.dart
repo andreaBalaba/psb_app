@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:psb_app/features/home/screen/equipment_page.dart';
 import 'package:psb_app/features/library/controller/library_controller.dart';
-import 'package:psb_app/features/library/screen/equipment_page.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
@@ -12,7 +15,8 @@ class LibraryPage extends StatefulWidget {
   State<LibraryPage> createState() => _LibraryPageState();
 }
 
-class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClientMixin {
+class _LibraryPageState extends State<LibraryPage>
+    with AutomaticKeepAliveClientMixin {
   final LibraryController controller = Get.put(LibraryController());
   bool _showShadow = false; // Local variable to track shadow status
 
@@ -22,9 +26,10 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
   @override
   void initState() {
     super.initState();
-
+    getData();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (controller.scrollController.hasClients && controller.scrollController.offset > 0) {
+      if (controller.scrollController.hasClients &&
+          controller.scrollController.offset > 0) {
         setState(() {
           _showShadow = true;
         });
@@ -52,6 +57,25 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
     super.dispose();
   }
 
+  List equipmentDatas = [];
+
+  bool hasLoaded = false;
+
+  getData() async {
+    String jsonString =
+        await rootBundle.loadString('assets/images/Gym-equipments-Datas.json');
+
+    Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+    List equipments = jsonData['equipment'];
+
+    setState(() {
+      equipmentDatas = equipments;
+
+      hasLoaded = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -71,88 +95,102 @@ class _LibraryPageState extends State<LibraryPage> with AutomaticKeepAliveClient
         surfaceTintColor: AppColors.pNoColor,
         centerTitle: true,
       ),
-      body: ListView.builder(
-        controller: controller.scrollController,
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.0 * autoScale,
-          vertical: 8.0 * autoScale,
-        ),
-        itemCount: controller.equipmentList.length,
-        itemBuilder: (context, index) {
-          final equipment = controller.equipmentList[index];
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.0 * autoScale),
-            child: GestureDetector(
-              onTap: () {
-                Get.to(() => EquipmentDetailsPage(
-                  imagePath: equipment.imagePath,
-                  name: equipment.name,
-                  level: equipment.experienceLevel,
-                  duration: equipment.duration,
-                  calories: equipment.calories,
-                  description: equipment.description,
-                ));
-              },
-              child: Container(
-                height: 120 * autoScale,
-                decoration: BoxDecoration(
-                  color: controller.getCategoryColor(equipment.category),
-                  borderRadius: BorderRadius.circular(12.0 * autoScale),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 3 * autoScale,
-                      offset: Offset(0, 3 * autoScale),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 5 * autoScale),
-                    Padding(
-                      padding: EdgeInsets.all(8.0 * autoScale),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0 * autoScale),
-                        child: Image.asset(
-                          equipment.imagePath,
-                          width: 80 * autoScale,
-                          height: 80 * autoScale,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 5 * autoScale),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8.0 * autoScale, top: 16 * autoScale, bottom: 16 * autoScale),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ReusableText(
-                              text: equipment.name,
-                              fontWeight: FontWeight.bold,
-                              size: 18.0 * autoScale,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 4 * autoScale),
-                            ReusableText(
-                              text: 'See details',
-                              color: AppColors.pBlack87Color,
-                              size: 12.0 * autoScale,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+      body: hasLoaded
+          ? ListView.builder(
+              controller: controller.scrollController,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0 * autoScale,
+                vertical: 8.0 * autoScale,
               ),
+              itemCount: equipmentDatas.length,
+              itemBuilder: (context, index) {
+                final equipment = equipmentDatas[index];
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12.0 * autoScale),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() => EquipmentPage(
+                            isName: equipment['exercise'] == null,
+                            data: equipment['exercise'] ?? equipment['name'],
+                          ));
+                      // Get.to(() => EquipmentDetailsPage(
+                      //       imagePath: equipment.imagePath,
+                      //       name: equipment.name,
+                      //       level: equipment.experienceLevel,
+                      //       duration: equipment.duration,
+                      //       calories: equipment.calories,
+                      //       description: equipment.description,
+                      //     ));
+                    },
+                    child: Container(
+                      height: 120 * autoScale,
+                      decoration: BoxDecoration(
+                        color: controller.getCategoryColor('Leg Equipment'),
+                        borderRadius: BorderRadius.circular(12.0 * autoScale),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 3 * autoScale,
+                            offset: Offset(0, 3 * autoScale),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(width: 5 * autoScale),
+                          Padding(
+                            padding: EdgeInsets.all(8.0 * autoScale),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(8.0 * autoScale),
+                              child: Image.network(
+                                equipment['image'],
+                                width: 80 * autoScale,
+                                height: 80 * autoScale,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 5 * autoScale),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  right: 8.0 * autoScale,
+                                  top: 16 * autoScale,
+                                  bottom: 16 * autoScale),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ReusableText(
+                                    text: equipment['exercise'] ??
+                                        equipment['name'],
+                                    fontWeight: FontWeight.bold,
+                                    size: 18.0 * autoScale,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  SizedBox(height: 4 * autoScale),
+                                  ReusableText(
+                                    text: 'See details',
+                                    color: AppColors.pBlack87Color,
+                                    size: 12.0 * autoScale,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
             ),
-          );
-        },
-      ),
     );
   }
 }

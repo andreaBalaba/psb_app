@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
 import 'package:psb_app/features/meal/controller/meal_controller.dart';
 import 'package:psb_app/features/meal/screen/add_meal_page.dart';
 import 'package:psb_app/features/meal/screen/widget/meal_card_widget.dart';
 import 'package:psb_app/features/meal/screen/widget/meal_history_widget.dart';
-import 'package:psb_app/features/meal/screen/widget/search_bar_widget.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
-import 'package:intl/intl.dart' show DateFormat, toBeginningOfSentenceCase;
-import 'package:psb_app/utils/textfield_widget.dart';
 
 String selected = '';
 
@@ -148,16 +146,16 @@ class _MealPageState extends State<MealPage>
                           //     builder: (context) => const AddMealPage()));
                         },
                       ),
-                      const SizedBox(width: 15),
-                      _buildButton(
-                        text: "Quick add",
-                        onPressed: () {
-                          if (selected != '') {
-                            quickMealDialog();
-                          }
-                          // Action for Quick add
-                        },
-                      ),
+                      // const SizedBox(width: 15),
+                      // _buildButton(
+                      //   text: "Quick add",
+                      //   onPressed: () {
+                      //     if (selected != '') {
+                      //       quickMealDialog();
+                      //     }
+                      //     // Action for Quick add
+                      //   },
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 20),

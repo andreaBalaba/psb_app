@@ -70,20 +70,21 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: selectedLevel,
-                        icon: const Icon(Icons.arrow_drop_down, color: AppColors.pGreyColor),
+                        icon: const Icon(Icons.arrow_drop_down,
+                            color: AppColors.pGreyColor),
                         alignment: Alignment.center,
                         items: ["Beginner", "Intermediate", "Advance"]
                             .map((level) => DropdownMenuItem<String>(
-                          value: level,
-                          child: Center(
-                            child: ReusableText(
-                              text: level,
-                              fontWeight: FontWeight.w500,
-                              size: 14 * autoScale,
-                              color: AppColors.pGreyColor,
-                            ),
-                          ),
-                        ))
+                                  value: level,
+                                  child: Center(
+                                    child: ReusableText(
+                                      text: level,
+                                      fontWeight: FontWeight.w500,
+                                      size: 14 * autoScale,
+                                      color: AppColors.pGreyColor,
+                                    ),
+                                  ),
+                                ))
                             .toList(),
                         onChanged: (newValue) {
                           setState(() {
@@ -103,7 +104,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
               ),
             ),
             SizedBox(height: 20 * autoScale),
-
             Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -122,7 +122,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
               ),
             ),
             SizedBox(height: 16 * autoScale),
-
             Center(
               child: Container(
                 padding: EdgeInsets.all(12.0 * autoScale),
@@ -157,7 +156,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
                       color: AppColors.pBlackColor,
                     ),
                     SizedBox(width: 12 * autoScale),
-
                     Row(
                       children: [
                         Image.asset(
@@ -180,7 +178,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
               ),
             ),
             SizedBox(height: 20 * autoScale),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -198,7 +195,6 @@ class _EquipmentDetailsPageState extends State<EquipmentDetailsPage> {
               ],
             ),
             SizedBox(height: 10 * autoScale),
-
             Expanded(
               child: SingleChildScrollView(
                 child: ReusableText(
