@@ -52,6 +52,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         child: const Icon(
           Icons.volume_up,
@@ -87,20 +88,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                        width: 350.0,
-                        height: 250.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                            image: NetworkImage(equipmentData['image']),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+
                       // Indexed Stack
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -114,6 +102,23 @@ class _EquipmentPageState extends State<EquipmentPage> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    Container(
+                                      width: 350.0,
+                                      height: 250.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              equipmentData['levels'][i]
+                                                      ['workouts']
+                                                  .first['img']),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
                                     ReusableText(
                                       text: equipmentData['levels'][i]['level'],
                                       fontWeight: FontWeight.w600,
