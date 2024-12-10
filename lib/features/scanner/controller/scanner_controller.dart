@@ -1,5 +1,4 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/screen/equipment_page.dart';
 import 'package:tflite_v2/tflite_v2.dart';
@@ -74,6 +73,7 @@ class ScannerController extends GetxController {
                   recognitionLabel.value = recognitions[0]['label'];
 
                   Get.to(() => EquipmentPage(
+                        isName: true,
                         data: recognitions[0]['label'],
                       ));
                 } else {

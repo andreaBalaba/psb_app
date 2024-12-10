@@ -40,9 +40,7 @@ class _EquipmentPageState extends State<EquipmentPage> {
     setState(() {
       equipmentData = equipments.where(
         (element) {
-          return widget.isName!
-              ? element['name'] == widget.data
-              : element['exercise'] == widget.data;
+          return element['name'] == widget.data;
         },
       ).first;
 

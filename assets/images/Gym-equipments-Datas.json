@@ -1,7 +1,7 @@
 {
   "equipment": [
     {
-      "exercise": "Abdominal Crunch Machine",
+      "name": "Abdominal Crunch Machine",
       "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FAbdominal%20Crucnh%20Machine.jpg?alt=media&token=bb647355-65e2-4b84-af56-9aee30f731a9",
       "levels": [
         {
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "exercise": "Barbell",
+      "name": "Barbell",
       "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/equipments%2FBarbell.png?alt=media&token=7067ed14-c6b1-46d9-80b6-41f57e6bc416",
       "levels": [
         {
@@ -1108,6 +1108,6 @@
           "video_tutorial": "https://www.youtube.com/watch?v=_ARUxqrII3Y"
         }
       ]
-    }    
+    }
   ]
 }
