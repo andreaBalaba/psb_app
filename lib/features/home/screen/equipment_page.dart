@@ -48,7 +48,10 @@ class _EquipmentPageState extends State<EquipmentPage> {
     });
   }
 
+  String selectedItem = 'Beginner'; // Holds the selected item
   FlutterTts flutterTts = FlutterTts();
+
+  final List<String> items = ['Beginner', 'Intermediate', 'Advanced'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,12 +63,15 @@ class _EquipmentPageState extends State<EquipmentPage> {
           color: AppColors.pBlackColor,
         ),
         onPressed: () async {
+          int i = selectedItem == 'Beginner'
+              ? 0
+              : selectedItem == 'Intermediate'
+                  ? 1
+                  : 2;
           await flutterTts.setVolume(1.0);
 
-          for (int i = 0; i < equipmentData['levels'].length; i++) {
-            await flutterTts.speak(
-                'Step by step instruction for ${equipmentData['levels'][i]['level']} Level, ${equipmentData['levels'][i]['step_by_step_instructions']}');
-          }
+          await flutterTts.speak(
+              'Step by step instruction for ${equipmentData['levels'][i]['level']} Level, ${equipmentData['levels'][i]['step_by_step_instructions']}');
         },
       ),
       body: hasLoaded
@@ -89,93 +95,108 @@ class _EquipmentPageState extends State<EquipmentPage> {
                         height: 20,
                       ),
 
-                      // Indexed Stack
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            for (int i = 0;
-                                i < equipmentData['levels'].length;
-                                i++)
-                              SizedBox(
-                                width: 300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 350.0,
-                                      height: 250.0,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              equipmentData['levels'][i]
-                                                      ['workouts']
-                                                  .first['img']),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    ReusableText(
-                                      text: equipmentData['levels'][i]['level'],
-                                      fontWeight: FontWeight.w600,
-                                      size: 18,
-                                      color: AppColors.pBlack87Color,
-                                      decoration: null,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    ReusableText(
-                                      text:
-                                          'Set 1 of ${equipmentData['levels'][i]['workouts'].first['sets']}             ${equipmentData['levels'][i]['workouts'].first['reps']} reps/set',
-                                      fontWeight: FontWeight.w200,
-                                      size: 12,
-                                      color: AppColors.pBlack87Color,
-                                      decoration: null,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.timer_outlined,
-                                          color: Colors.green,
-                                          size: 40,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        ReusableText(
-                                          text:
-                                              '${equipmentData['levels'][i]['workouts'].first['minutes']}:00',
-                                          fontWeight: FontWeight.w600,
-                                          size: 24,
-                                          color: AppColors.pGreenColor,
-                                          decoration: null,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                          ],
+                      Center(
+                        child: DropdownButton<String>(
+                          value: selectedItem, // The currently selected item
+                          hint: const Text('Select Level'), // Placeholder text
+                          icon: const Icon(
+                              Icons.arrow_drop_down), // Dropdown icon
+                          items: items.map((String item) {
+                            return DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(item),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            // Update the selected item
+                            setState(() {
+                              selectedItem = value!;
+                            });
+                          },
                         ),
                       ),
+
+                      // Indexed Stack
+                      Builder(builder: (context) {
+                        int i = selectedItem == 'Beginner'
+                            ? 0
+                            : selectedItem == 'Intermediate'
+                                ? 1
+                                : 2;
+                        return SizedBox(
+                          width: 300,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 350.0,
+                                height: 250.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(
+                                    image: NetworkImage(equipmentData['levels']
+                                            [i]['workouts']
+                                        .first['img']),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ReusableText(
+                                text: equipmentData['levels'][i]['level'],
+                                fontWeight: FontWeight.w600,
+                                size: 18,
+                                color: AppColors.pBlack87Color,
+                                decoration: null,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ReusableText(
+                                text:
+                                    'Set 1 of ${equipmentData['levels'][i]['workouts'].first['sets']}             ${equipmentData['levels'][i]['workouts'].first['reps']} reps/set',
+                                fontWeight: FontWeight.w200,
+                                size: 12,
+                                color: AppColors.pBlack87Color,
+                                decoration: null,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.timer_outlined,
+                                    color: Colors.green,
+                                    size: 40,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  ReusableText(
+                                    text:
+                                        '${equipmentData['levels'][i]['workouts'].first['minutes']}:00',
+                                    fontWeight: FontWeight.w600,
+                                    size: 24,
+                                    color: AppColors.pGreenColor,
+                                    decoration: null,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                       const SizedBox(
                         height: 30,
                       ),

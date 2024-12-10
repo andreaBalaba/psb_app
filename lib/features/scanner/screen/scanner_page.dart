@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:psb_app/features/home/screen/equipment_page.dart';
+import 'package:psb_app/api/services/add_equipment.dart';
 import 'package:psb_app/features/scanner/controller/scanner_controller.dart';
 import 'package:psb_app/features/scanner/screen/widget/camera_widget.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -197,6 +197,134 @@ class _ScannerPageState extends State<ScannerPage> with WidgetsBindingObserver {
                           0.55, // Icon size relative to button size
                     ),
                     onPressed: () async {
+                      if (controller.recognitionLabel.value !=
+                          'No equipment detected') {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              backgroundColor: Colors.white,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40),
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Column(
+                                          children: [
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              "Detected: ${controller.recognitionLabel}",
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 24,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 15),
+                                            const Text(
+                                              "Do you want to save this equipment in the library?",
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(height: 20),
+                                            //Buttons
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      minimumSize:
+                                                          const Size(0, 45),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text(
+                                                      'NO',
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                Expanded(
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      minimumSize:
+                                                          const Size(0, 45),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                    ),
+                                                    onPressed: () async {
+                                                      String jsonString =
+                                                          await rootBundle
+                                                              .loadString(
+                                                                  'assets/images/Gym-equipments-Datas.json');
+
+                                                      Map<String, dynamic>
+                                                          jsonData = jsonDecode(
+                                                              jsonString);
+
+                                                      List equipments =
+                                                          jsonData['equipment'];
+
+                                                      addEquipment(
+                                                          equipments.where(
+                                                            (element) {
+                                                              return element[
+                                                                      'name'] ==
+                                                                  controller
+                                                                      .recognitionLabel
+                                                                      .value;
+                                                            },
+                                                          ).first,
+                                                          controller
+                                                              .recognitionLabel
+                                                              .value);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text(
+                                                      'YES',
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('No equipment detected')),
+                        );
+                      }
                       // Get.to(() => EquipmentPage(
                       //       data: 'Abdominal Crunch Machine',
                       //     ));

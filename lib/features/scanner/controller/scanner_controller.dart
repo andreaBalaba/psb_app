@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:psb_app/api/services/add_equipment.dart';
 import 'package:tflite_v2/tflite_v2.dart';
 
 class ScannerController extends GetxController {
@@ -75,107 +70,6 @@ class ScannerController extends GetxController {
               if (recognitions != null && recognitions.isNotEmpty) {
                 if (recognitions[0]['confidence'] > 0.85) {
                   recognitionLabel.value = recognitions[0]['label'];
-
-                  Get.dialog(
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Material(
-                                child: Column(
-                                  children: [
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      "Detected: ${recognitions[0]['label']}",
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 24,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 15),
-                                    const Text(
-                                      "Do you want to save this equipment in the library?",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    //Buttons
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              minimumSize: const Size(0, 45),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: const Text(
-                                              'NO',
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              minimumSize: const Size(0, 45),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                            ),
-                                            onPressed: () async {
-                                              String jsonString =
-                                                  await rootBundle.loadString(
-                                                      'assets/images/Gym-equipments-Datas.json');
-
-                                              Map<String, dynamic> jsonData =
-                                                  jsonDecode(jsonString);
-
-                                              List equipments =
-                                                  jsonData['equipment'];
-
-                                              addEquipment(
-                                                  equipments.where(
-                                                    (element) {
-                                                      return element['name'] ==
-                                                          recognitions[0]
-                                                              ['label'];
-                                                    },
-                                                  ).first,
-                                                  recognitions[0]['label']);
-                                              Get.back();
-                                            },
-                                            child: const Text(
-                                              'YES',
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
                 } else {
                   recognitionLabel.value = "No equipment detected";
                 }
