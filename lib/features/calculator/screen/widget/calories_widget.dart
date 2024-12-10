@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/calculator/controller/side_calculator_controller.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
-class CaloriesWidget extends StatelessWidget {
+class CaloriesWidget extends StatefulWidget {
   const CaloriesWidget({super.key});
 
   @override
+  State<CaloriesWidget> createState() => _CaloriesWidgetState();
+}
+
+class _CaloriesWidgetState extends State<CaloriesWidget> {
+  final CalculatorController calculatorController = Get.put(CalculatorController());
+  double autoScale = Get.width / 400;
+  bool isKgInput = true; // Track whether the input is in kg or lbs
+  bool isCmInput = true;
+
+  @override
   Widget build(BuildContext context) {
-    final CalculatorController calculatorController = Get.put(CalculatorController());
     double screenWidth = Get.width;
-    double autoScale = screenWidth / 400;
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -20,6 +29,7 @@ class CaloriesWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 20.0),
+            // Age Input
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
@@ -43,7 +53,9 @@ class CaloriesWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ReusableText(text: "y/o", size: 16 * autoScale),
                   const SizedBox(width: 10),
+                  // Gender Input
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -56,7 +68,11 @@ class CaloriesWidget extends StatelessWidget {
                               calculatorController.gender.value = value ?? "Male";
                             },
                           )),
-                          ReusableText(text: 'Male', fontWeight: FontWeight.w500, size: 16 * autoScale),
+                          ReusableText(
+                            text: 'Male',
+                            fontWeight: FontWeight.w500,
+                            size: 16 * autoScale,
+                          ),
                         ],
                       ),
                       Row(
@@ -65,10 +81,14 @@ class CaloriesWidget extends StatelessWidget {
                             value: 'Female',
                             groupValue: calculatorController.gender.value,
                             onChanged: (String? value) {
-                              calculatorController.gender.value = value ?? "Male";
+                              calculatorController.gender.value = value ?? "Female";
                             },
                           )),
-                          ReusableText(text: 'Female', fontWeight: FontWeight.w500, size: 16 * autoScale),
+                          ReusableText(
+                            text: 'Female',
+                            fontWeight: FontWeight.w500,
+                            size: 16 * autoScale,
+                          ),
                         ],
                       ),
                     ],
@@ -77,6 +97,7 @@ class CaloriesWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
+            // Weight Input
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
@@ -85,13 +106,30 @@ class CaloriesWidget extends StatelessWidget {
                   SizedBox(
                     width: screenWidth * 0.3,
                     child: TextField(
-                      controller: calculatorController.CalweightController,
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        calculatorController.weight.value = double.tryParse(value) ?? 0.0;
+                        if (value.isEmpty) {
+                          calculatorController.calweight.value = 0.0;
+                        } else {
+                          double parsedValue = double.tryParse(value) ?? 0.0;
+                          if (isKgInput) {
+                            calculatorController.calweight.value = parsedValue;
+                          } else {
+                            calculatorController.calweight.value = parsedValue / 2.20462;
+                          }
+                        }
                       },
+                      controller: TextEditingController(
+                        text: isKgInput
+                            ? (calculatorController.calweight.value == 0.0
+                            ? ''
+                            : calculatorController.calweight.value.toStringAsFixed(1))
+                            : ((calculatorController.calweight.value * 2.20462) == 0.0
+                            ? ''
+                            : (calculatorController.calweight.value * 2.20462).toStringAsFixed(1)),
+                      ),
                       decoration: InputDecoration(
-                        hintText: 'Weight',
+                        hintText: isKgInput ? 'Weight (kg)' : 'Weight (lbs)',
                         filled: true,
                         fillColor: AppColors.pWhiteColor,
                         border: OutlineInputBorder(
@@ -100,12 +138,13 @@ class CaloriesWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  ReusableText(text: "kg", size: 16 * autoScale),
+                  const SizedBox(width: 14),
+                  _buildWeightUnitToggle(),
                 ],
               ),
             ),
             const SizedBox(height: 40.0),
+            // Height Input
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
@@ -114,13 +153,30 @@ class CaloriesWidget extends StatelessWidget {
                   SizedBox(
                     width: screenWidth * 0.3,
                     child: TextField(
-                      controller: calculatorController.CalheightController,
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        calculatorController.height.value = double.tryParse(value) ?? 0.0;
+                        if (value.isEmpty) {
+                          calculatorController.calheight.value = 0.0;
+                        } else {
+                          double parsedValue = double.tryParse(value) ?? 0.0;
+                          if (isCmInput) {
+                            calculatorController.calheight.value = parsedValue;
+                          } else {
+                            calculatorController.calheight.value = parsedValue * 30.48;
+                          }
+                        }
                       },
+                      controller: TextEditingController(
+                        text: isCmInput
+                            ? (calculatorController.calheight.value == 0.0
+                            ? ''
+                            : calculatorController.calheight.value.toStringAsFixed(1))
+                            : ((calculatorController.calheight.value / 30.48) == 0.0
+                            ? ''
+                            : (calculatorController.calheight.value / 30.48).toStringAsFixed(1)),
+                      ),
                       decoration: InputDecoration(
-                        hintText: 'Height',
+                        hintText: isCmInput ? 'Height (cm)' : 'Height (ft)',
                         filled: true,
                         fillColor: AppColors.pWhiteColor,
                         border: OutlineInputBorder(
@@ -129,12 +185,13 @@ class CaloriesWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  ReusableText(text: "cm", size: 16 * autoScale),
+                  const SizedBox(width: 14),
+                  _buildHeightUnitToggle(),
                 ],
               ),
             ),
             const SizedBox(height: 40.0),
+            // Activity Dropdown and Result
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
@@ -206,12 +263,14 @@ class CaloriesWidget extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Clear inputs in the controller
-                          calculatorController.clearCaloriesInputs();
-                          // Also clear the TextEditingControllers
-                          calculatorController.CalageController.clear();
-                          calculatorController.CalweightController.clear();
-                          calculatorController.CalheightController.clear();
+                          setState(() {
+                            calculatorController.clearCaloriesInputs();
+                            calculatorController.CalageController.clear();
+                            calculatorController.calweight.value = 0.0;
+                            calculatorController.calheight.value = 0.0;
+                            isKgInput = true;
+                            isCmInput = true;
+                          });
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.pBGWhiteColor,
@@ -249,6 +308,58 @@ class CaloriesWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildWeightUnitToggle() {
+    return FlutterToggleTab(
+      width: 40 * autoScale,
+      borderRadius: 20 * autoScale,
+      height: 30 * autoScale,
+      selectedIndex: isKgInput ? 0 : 1,
+      selectedBackgroundColors: const [AppColors.pPurpleColor],
+      selectedTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 16 * autoScale,
+        fontWeight: FontWeight.w500,
+      ),
+      unSelectedTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 16 * autoScale,
+        fontWeight: FontWeight.w400,
+      ),
+      labels: const ["kg", "lbs"],
+      selectedLabelIndex: (index) {
+        setState(() {
+          isKgInput = index == 0;
+        });
+      },
+    );
+  }
+
+  Widget _buildHeightUnitToggle() {
+    return FlutterToggleTab(
+      width: 40 * autoScale,
+      borderRadius: 20 * autoScale,
+      height: 30 * autoScale,
+      selectedIndex: isCmInput ? 0 : 1,
+      selectedBackgroundColors: const [AppColors.pPurpleColor],
+      selectedTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 16 * autoScale,
+        fontWeight: FontWeight.w500,
+      ),
+      unSelectedTextStyle: TextStyle(
+        color: Colors.black,
+        fontSize: 16 * autoScale,
+        fontWeight: FontWeight.w400,
+      ),
+      labels: const ["cm", "ft"],
+      selectedLabelIndex: (index) {
+        setState(() {
+          isCmInput = index == 0;
+        });
+      },
     );
   }
 }

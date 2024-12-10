@@ -3,17 +3,25 @@ import 'package:get/get.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
+import 'package:flutter_toggle_tab/flutter_toggle_tab.dart'; // Make sure this import is added
 
-class ProteinWidget extends StatelessWidget {
+class ProteinWidget extends StatefulWidget {
   const ProteinWidget({super.key});
 
   @override
+  State<ProteinWidget> createState() => _ProteinWidgetState();
+}
+
+class _ProteinWidgetState extends State<ProteinWidget> {
+  double weightKg = 0.0; // Store weight in kg
+  double weightLbs = 0.0; // Store weight in lbs
+  bool isKgInput = true; // Track whether the input is in kg or lbs
+  double autoScale = Get.width / 400;
+
+  final TextEditingController _weightController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    final RxDouble weight = 0.0.obs;
-
-    double screenWidth = Get.width;
-    double autoScale = screenWidth / 400;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Center(
@@ -26,14 +34,29 @@ class ProteinWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: screenWidth * 0.35,
+                    width: Get.width * 0.35,
                     child: TextField(
+                      controller: _weightController,
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
-                        weight.value = double.tryParse(value) ?? 0.0;
+                        setState(() {
+                          if (value.isEmpty) {
+                            weightKg = 0.0;
+                            weightLbs = 0.0;
+                          } else {
+                            double parsedValue = double.tryParse(value) ?? 0.0;
+                            if (isKgInput) {
+                              weightKg = parsedValue;
+                              weightLbs = parsedValue * 2.20462;
+                            } else {
+                              weightLbs = parsedValue;
+                              weightKg = parsedValue / 2.20462;
+                            }
+                          }
+                        });
                       },
                       decoration: InputDecoration(
-                        hintText: 'Weight',
+                        hintText: isKgInput ? 'Weight (kg)' : 'Weight (lbs)',
                         hintStyle: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
@@ -52,19 +75,25 @@ class ProteinWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  ReusableText( text: "kg", size: 18 * autoScale),
-                  const SizedBox(width: 10),
-                  ReusableText(
-                    text: "x 0.8g",
-                    fontWeight: FontWeight.bold,
-                    size: 28 * autoScale,
-                  ),
+                  _buildUnitToggle(),
                 ],
+              ),
+              const SizedBox(height: 20),
+              ReusableText(
+                text: "x",
+                fontWeight: FontWeight.bold,
+                size: 32 * autoScale,
+              ),
+              const SizedBox(height: 20),
+              ReusableText(
+                text: "0.8g",
+                fontWeight: FontWeight.bold,
+                size: 28 * autoScale,
               ),
               const SizedBox(height: 40.0),
               Container(
                 padding: const EdgeInsets.all(20.0),
-                width: screenWidth * 0.9,
+                width: Get.width * 0.9,
                 decoration: BoxDecoration(
                   color: AppColors.pPurpleColor,
                   borderRadius: BorderRadius.circular(12.0),
@@ -78,20 +107,20 @@ class ProteinWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     const SizedBox(height: 8),
-                    Obx(() => ReusableText(
-                      text: '${(weight.value * 0.8).toInt()}g', // Display protein intake
+                    ReusableText(
+                      text: '${(weightKg * 0.8).toInt()}g',
                       size: 36 * autoScale,
                       color: AppColors.pWhiteColor,
                       fontWeight: FontWeight.bold,
-                    )),
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Image.asset(
                           ImageAssets.pDYTPic,
-                          width: screenWidth * 0.2,
-                          height: screenWidth * 0.2,
+                          width: Get.width * 0.2,
+                          height: Get.width * 0.2,
                         ),
                         const SizedBox(width: 10),
                         ReusableText(
@@ -116,6 +145,39 @@ class ProteinWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // Weight unit toggle button
+  Widget _buildUnitToggle() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 6 * autoScale, horizontal: 16.0 * autoScale),
+      child: FlutterToggleTab(
+        width: 40 * autoScale,
+        borderRadius: 20 * autoScale,
+        height: 30 * autoScale,
+        selectedIndex: isKgInput ? 0 : 1,
+        selectedBackgroundColors: const [AppColors.pPurpleColor],
+        selectedTextStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 16 * autoScale,
+          fontWeight: FontWeight.w500,
+        ),
+        unSelectedTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 16 * autoScale,
+          fontWeight: FontWeight.w400,
+        ),
+        labels: const ["kg", "lbs"],
+        selectedLabelIndex: (index) {
+          setState(() {
+            isKgInput = (index == 0);
+            _weightController.text = isKgInput
+                ? (weightKg == 0.0 ? '' : weightKg.toStringAsFixed(1))
+                : (weightLbs == 0.0 ? '' : weightLbs.toStringAsFixed(1));
+          });
+        },
       ),
     );
   }

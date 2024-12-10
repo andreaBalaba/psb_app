@@ -3,30 +3,34 @@ import 'package:get/get.dart';
 
 class CalculatorController extends GetxController {
   // Observables
-  var weight = 0.0.obs;
+  var calweight = 0.0.obs;
+  var calheight = 0.0.obs;
+  var weightKg = 0.0.obs;  // Weight in kg
+  var weightLbs = 0.0.obs; // Weight in lbs
   var height = 0.0.obs;
   var age = 0.obs;
   var gender = 'Male'.obs; // Default gender selection
   var bmi = 0.0.obs;
   var bmiCategory = ''.obs;
   var dropdownValue = 'Activity'.obs; // Default dropdown value
-  var caloriesResultText = "Enter details to calculate calories.".obs; // Default result text for calories
+  var caloriesResultText = "Enter details to calculate calories.".obs;
 
   TextEditingController ageController = TextEditingController();
-  TextEditingController weightController = TextEditingController();
-  TextEditingController heightController = TextEditingController();
+  //TextEditingController weightController = TextEditingController();
+  //TextEditingController heightController = TextEditingController();
   TextEditingController CalageController = TextEditingController();
-  TextEditingController CalweightController = TextEditingController();
-  TextEditingController CalheightController = TextEditingController();
+  //TextEditingController CalweightController = TextEditingController();
+  //TextEditingController CalheightController = TextEditingController();
+
+
 
   // Method to calculate BMI
   void calculateBMI() {
-    if (areInputsValid()) { // Only calculate if inputs are valid
+    if (areBMInputsValid()) {
       double heightInMeters = height.value / 100;
-      bmi.value = weight.value / (heightInMeters * heightInMeters);
+      bmi.value = weightKg.value / (heightInMeters * heightInMeters); // Use weight in kg for BMI calculation
       bmiCategory.value = getBMIClassification(bmi.value, age.value, gender.value);
     } else {
-      // Reset BMI if inputs are invalid
       bmi.value = 0.0;
       bmiCategory.value = '';
     }
@@ -67,12 +71,12 @@ class CalculatorController extends GetxController {
     }
 
     // Proceed with calorie calculation if inputs are valid
-    if (height.value > 0 && weight.value > 0 && age.value > 0) {
+    if (calheight.value > 0 && calweight.value > 0 && age.value > 0) {
       double bmr;
       if (gender.value == "Male") {
-        bmr = 88.362 + (13.397 * weight.value) + (4.799 * height.value) - (5.677 * age.value);
+        bmr = 88.362 + (13.397 * calweight.value) + (4.799 * calheight.value) - (5.677 * age.value);
       } else {
-        bmr = 447.593 + (9.247 * weight.value) + (3.098 * height.value) - (4.330 * age.value);
+        bmr = 447.593 + (9.247 * calweight.value) + (3.098 * calheight.value) - (4.330 * age.value);
       }
 
       double calorieMultiplier = getCalorieMultiplier();
@@ -85,7 +89,11 @@ class CalculatorController extends GetxController {
 
   // Method to check if inputs are valid
   bool areInputsValid() {
-    return weight.value > 0 && height.value > 0 && age.value > 0;
+    return calweight.value > 0 && calheight.value > 0 && age.value > 0;
+  }
+
+  bool areBMInputsValid() {
+    return weightKg.value > 0 && height.value > 0 && age.value > 0;
   }
 
   // Method to get calorie multiplier based on activity level
@@ -111,24 +119,37 @@ class CalculatorController extends GetxController {
   // Function to clear BMI inputs and results
   void clearBMIInputs() {
     height.value = 0.0;
-    weight.value = 0.0;
+    weightKg.value = 0.0;  // Clear kg weight
+    weightLbs.value = 0.0; // Clear lbs weight
     age.value = 0;
     bmi.value = 0.0;
     bmiCategory.value = '';
     ageController.clear(); // Clear controller text
-    weightController.clear(); // Clear controller text
-    heightController.clear(); // Clear controller text
+    //weightController.clear(); // Clear controller text
+   // heightController.clear(); // Clear controller text
   }
 
   // Function to clear Calories inputs and results
   void clearCaloriesInputs() {
-    height.value = 0.0;
-    weight.value = 0.0;
+    calheight.value = 0.0;
+    calweight.value = 0.0;
     age.value = 0;
     dropdownValue.value = 'Activity'; // Reset to default dropdown value
     caloriesResultText.value = "Enter details to calculate calories."; // Reset result text
     CalageController.clear();
-    CalweightController.clear();
-    CalheightController.clear();
+    //CalweightController.clear();
+    //CalheightController.clear();
   }
+
+  void updateWeight(double weight, bool isKgInput) {
+    if (isKgInput) {
+      weightKg.value = weight;
+      weightLbs.value = weight * 2.20462; // Conversion from kg to lbs
+    } else {
+      weightLbs.value = weight;
+      weightKg.value = weight / 2.20462; // Conversion from lbs to kg
+    }
+    calculateBMI();
+  }
+
 }
