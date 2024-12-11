@@ -1,0 +1,275 @@
+{
+  "other_plan": [
+    {
+      "name": "Chest Building",
+      "short_description": "Full chest workouts",
+      "plan_duration": 34,
+      "plan_calories_burned": 280,
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/Pictures%2Fchest.jpg?alt=media&token=6c16da27-496b-41ee-9fba-e407ecb2ba56",
+      "plan_info": [
+        {
+          "plan_overview": [
+            "The chest is a primary upper body muscle group consisting mainly of the pectoralis major and pectoralis minor, supported by the deltoids and triceps during pushing movements. Intermediate chest training focuses on building muscle size, strength, and definition through compound and isolation exercises.",
+            "Goals: Increase upper body strength, improve aesthetics by targeting all areas of the chest (upper, middle, lower), and enhance pushing power.",
+            "Benefits: Improves functional strength, enhances posture, and balances overall upper body musculature.",
+            "Key Considerations: Emphasize full range of motion, balanced pressing and fly movements, and avoid overtraining the shoulders."
+          ],
+          "plan_workouts": [
+            {
+              "exercise": "Bench Press (Barbell)",
+              "sets": 4,
+              "reps": 8,
+              "minutes": 10,
+              "tips": "Focus on controlled movement with a steady tempo, ensuring full range of motion.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fflat-barbell-bench-press.gif?alt=media&token=a65d8642-1ca5-4c7d-a62c-186ee6897437"
+            },
+            {
+              "exercise": "Incline Dumbbell Press",
+              "sets": 3,
+              "reps": 10,
+              "minutes": 6,
+              "tips": "Adjust the bench to a 30-45° incline to target the upper chest.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-incline-bench-press.gif?alt=media&token=8d3de5a3-6774-499b-9463-84c086050df2"
+            },
+            {
+              "exercise": "Push-Ups",
+              "sets": 3,
+              "reps": 15,
+              "minutes": 5,
+              "tips": "Keep a straight body line; consider adding a weight plate for added resistance.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fpush-up-min.gif?alt=media&token=3b7b6078-3414-4f0c-beca-255c57c46265"
+            },
+            {
+              "exercise": "Chest Dips",
+              "sets": 3,
+              "reps": 12,
+              "minutes": 5,
+              "tips": "Lean slightly forward during the dip to engage the chest more than the triceps.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fchest-dip-movement.gif?alt=media&token=fd3d5e0c-2eae-4496-a878-3323ced780e3&fbclid=IwZXh0bgNhZW0CMTEAAR2_DK9VV1D9PhhK4-qJnXb-rB3I7cVPa08x9o7JDWjPfz-a0WNEiJJGhJ0_aem_6VzHfP4MYwVkeGFXGUmvIA"
+            },
+            {
+              "exercise": "Cable Fly (High to Low)",
+              "sets": 4,
+              "reps": 12,
+              "minutes": 8,
+              "tips": "Focus on squeezing the chest muscles at the bottom of the movement.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-fly.gif?alt=media&token=e44cbaa7-faa3-4d5b-ad9a-3eaa0ade5eae"
+            }
+          ],
+          "warm_up": [
+            {
+              "activity": "Arm Swings",
+              "minutes": 1,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Farm-crossover-stretch.gif?alt=media&token=6f48aaef-04d2-4d2a-b904-122a8d77ffbf"
+            },
+            {
+              "activity": "Incline Push-Ups",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fwall-push-ups.gif?alt=media&token=b8855024-2d48-45f7-8499-53243a79e98f"
+            },
+            {
+              "activity": "Dumbbell Chest Fly",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-chest-fly-muscles-min.gif?alt=media&token=1b467636-dfef-4ede-91ff-1285c188977b&fbclid=IwZXh0bgNhZW0CMTEAAR0skYPAMl04ghlhaHbWYcttV3LNRHjsRb8U50Et9YmR5B5pz1VrKs1KeKY_aem_SAZmcnPVVZvO8NfqCmgAVw"
+            }
+          ],
+          "cool_down": [
+            {
+              "activity": "Doorway Chest Stretch",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdoorway-chest-stretch.gif?alt=media&token=a4668a9c-8bc8-47cd-8144-acde0ca7a6bb"
+            },
+            {
+              "activity": "Child’s Pose",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fchilds-pose-min.gif?alt=media&token=c7636021-21f1-46d6-91e2-49596604173a"
+            },
+            {
+              "activity": "Wall Pec Stretch",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fstanding-wall-biceps-stretch-611x1024.png?alt=media&token=55713653-30e5-4367-b860-8c1c85278b26&fbclid=IwZXh0bgNhZW0CMTEAAR3joqPlXd1UFC1wZFT5ZCAdnESa9HfMDrPVwuaJSiY3_Zq4maAl4nndOq0_aem_hWSIEB64katPg80excgYlQ"
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Leg Day",
+      "short_description": "Intense leg workouts",
+      "plan_duration": 43,
+      "plan_calories_burned": 380,
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/Pictures%2Fleg.jpg?alt=media&token=9221588a-cbf8-4ce9-9a33-16a4443ea7e1",
+      "plan_info": [
+        {
+          "plan_overview": [
+            "The legs house the body’s largest muscle groups, including the quadriceps, hamstrings, glutes, and calves. Intermediate leg workouts aim to enhance lower body power, endurance, and symmetry while improving joint stability.",
+            "Goals: Build strength and muscle mass in the lower body, enhance athletic performance, and improve functional movements like squatting and running.",
+            "Benefits: Boosts overall strength, supports healthy knees and hips, and improves balance and coordination.",
+            "Key Considerations: Use proper form to prevent injury, and include unilateral exercises (like lunges) to address muscle imbalances."
+          ],
+          "plan_workouts": [
+            {
+              "exercise": "Barbell Squats",
+              "sets": 4,
+              "reps": 8,
+              "minutes": 12,
+              "tips": "Keep the chest upright and knees tracking over the toes.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbarbell-full-squat-min.gif?alt=media&token=e5a930c3-68b8-4e38-8bab-e65eb8a97bc5"
+            },
+            {
+              "exercise": "Lunges (Walking)",
+              "sets": 3,
+              "reps": 12,
+              "minutes": 8,
+              "tips": "Use dumbbells for added resistance.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbodyweight-walking-lunge-movement.gif?alt=media&token=a8db2dd3-0462-4e60-a226-eadd49d813a7"
+            },
+            {
+              "exercise": "Romanian Deadlift (Dumbbell)",
+              "sets": 3,
+              "reps": 10,
+              "minutes": 8,
+              "tips": "Engage the hamstrings and glutes by keeping a slight bend in the knees.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdumbbell-romanian-deadlift.gif?alt=media&token=e800e47e-45cb-40fa-9e87-a4418affd9f2"
+            },
+            {
+              "exercise": "Leg Press",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 10,
+              "tips": "Adjust the foot position to emphasize quads or hamstrings.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fleg-press.gif?alt=media&token=a199177e-6486-48cb-8542-b7b781d133c6"
+            },
+            {
+              "exercise": "Calf Raises",
+              "sets": 4,
+              "reps": 15,
+              "minutes": 5,
+              "tips": "Perform on a raised platform for full range of motion.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fstanding-calf-raise.gif?alt=media&token=1ea47aff-0509-43c7-ba25-59ac383cc421"
+            }
+          ],
+          "warm_up": [
+            {
+              "activity": "Dynamic Hamstring Stretch",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fstanding-hamstring-stretch.gif?alt=media&token=ae8e1d5f-014f-4344-a506-4585d1d3b1c6"
+            },
+            {
+              "activity": "Bodyweight Squats",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbodyweight-squat.gif?alt=media&token=f74f741f-23f2-41a7-a1e6-8e6e3ff9eb84"
+            },
+            {
+              "activity": "High Knees",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fhigh-knees.gif?alt=media&token=1dabefc7-bff6-4124-9b98-b1880a2448c2"
+            }
+          ],
+          "cool_down": [
+            {
+              "activity": "Forward Fold",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fforward-bend.gif?alt=media&token=dc80f969-0265-4af5-acb8-17510f7f0fcc"
+            },
+            {
+              "activity": "Lying Quad Stretch (per Leg)",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fside-lying-quad-stretch-movement.gif?alt=media&token=a51c19bc-00c2-4442-bed4-cb0f1da60905"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Back Strength",
+      "short_description": "Full back workouts",
+      "plan_duration": 45,
+      "plan_calories_burned": 370,
+      "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/Pictures%2Fback.png?alt=media&token=191934a5-2077-4118-95d3-da972428ff6e",
+      "plan_info": [
+        {
+          "plan_overview": [
+            "The back comprises the latissimus dorsi, trapezius, rhomboids, and erector spinae, among others. Training this area develops pulling strength, spinal stability, and a well-balanced physique.",
+            "Goals: Enhance pulling power, develop a V-shaped upper body, and strengthen the posterior chain for overall athleticism.",
+            "Benefits: Improves posture, supports spinal health, and enhances performance in both sports and daily activities.",
+            "Key Considerations: Avoid relying too heavily on momentum; focus on controlled, deliberate movements to maximize back engagement and minimize injury."
+          ],
+          "plan_workouts": [
+            {
+              "exercise": "Deadlift (Barbell)",
+              "sets": 4,
+              "reps": 6,
+              "minutes": 12,
+              "tips": "Keep a straight back and drive through the hips.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbarbell-deadlift-front-view-min.gif?alt=media&token=613fef53-19fd-4bdb-a902-0cd7fc6fbb89"
+            },
+            {
+              "exercise": "Pull-Ups",
+              "sets": 4,
+              "reps": 8,
+              "minutes": 8,
+              "tips": "Use an assisted pull-up machine or bands if needed.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fpull-up.gif?alt=media&token=53aa1953-426a-47bb-b67c-e89c82fcc79b"
+            },
+            {
+              "exercise": "Bent-Over Rows (Barbell)",
+              "sets": 3,
+              "reps": 10,
+              "minutes": 7,
+              "tips": "Maintain a neutral spine throughout the movement.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fbarbell-bent-over-row.gif?alt=media&token=147a2728-8ecb-4c6c-b8e7-ea64ddbadd3b"
+            },
+            {
+              "exercise": "Lat Pulldown",
+              "sets": 4,
+              "reps": 10,
+              "minutes": 10,
+              "tips": "Focus on pulling the bar to the chest with controlled movements.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-lat-pulldown.gif?alt=media&token=72a105a7-2571-4d39-9890-b7cc0fa8db6a"
+            },
+            {
+              "exercise": "Face Pulls",
+              "sets": 4,
+              "reps": 12,
+              "minutes": 8,
+              "tips": "Keep elbows high and retract the shoulder blades.",
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcable-face-pull.gif?alt=media&token=d834b130-1154-4f34-9ba5-fda91945f99c"
+            }
+          ],
+          "warm_up": [
+            {
+              "activity": "Cat-Cow Stretch",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fcat-cow-pose.gif?alt=media&token=cb0a0017-7f4e-44b3-930a-cdeae3f69685"
+            },
+            {
+              "activity": "Arm Circles",
+              "minutes": 1,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Farm-circles.gif?alt=media&token=440f59ea-1f5a-4534-80db-60256ea9d850"
+            },
+            {
+              "activity": "Dead Hang from a Bar",
+              "minutes": 1,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fdead-hang.gif?alt=media&token=21644535-b3f0-4205-be24-99bbf001d3fc"
+            }
+          ],
+          "cool_down": [
+            {
+              "activity": "Child’s Pose",
+              "minutes": 2,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fchilds-pose-min.gif?alt=media&token=c7636021-21f1-46d6-91e2-49596604173a"
+            },
+            {
+              "activity": "Lat Stretch (Side Reach per Side)",
+              "minutes": 1,
+              "image": "https://firebasestorage.googleapis.com/v0/b/psbapp-32784.firebasestorage.app/o/workouts%2Fstanding-lat-stretch.gif?alt=media&token=6c7417bc-d279-4437-8c3d-b0864573d671"
+            }
+
+          ]
+        }
+      ]
+    }
+  ]
+}

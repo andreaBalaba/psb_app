@@ -8,8 +8,9 @@ import '../../../utils/global_variables.dart';
 
 class DailyTaskPage extends StatefulWidget {
   dynamic data;
+  int? calories;
 
-  DailyTaskPage({super.key, required this.data});
+  DailyTaskPage({super.key, required this.data, this.calories});
 
   @override
   State<DailyTaskPage> createState() => _DailyTaskPageState();
@@ -143,7 +144,8 @@ class _DailyTaskPageState extends State<DailyTaskPage> {
                       width: 5,
                     ),
                     ReusableText(
-                      text: '${widget.data['calories_burned']} cal',
+                      text:
+                          '${widget.data['calories_burned'] ?? widget.calories} cal',
                       fontWeight: FontWeight.w600,
                       size: 22,
                       color: AppColors.pDarkOrangeColor,
@@ -177,7 +179,8 @@ class _DailyTaskPageState extends State<DailyTaskPage> {
                           .update({
                         '${DateTime.now().weekday.toString()}.calories':
                             FieldValue.increment(
-                                widget.data['calories_burned']),
+                                widget.data['calories_burned'] ??
+                                    widget.calories),
                       });
                       await FirebaseFirestore.instance
                           .collection('Weekly')

@@ -1,73 +1,108 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
+import 'package:psb_app/features/home/screen/hit_it_rigt_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
-class WorkoutPlanList extends StatelessWidget {
+class WorkoutPlanList extends StatefulWidget {
   const WorkoutPlanList({super.key});
 
   @override
+  State<WorkoutPlanList> createState() => _WorkoutPlanListState();
+}
+
+class _WorkoutPlanListState extends State<WorkoutPlanList> {
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  bool hasLoaded = false;
+
+  List workOuts = [];
+
+  getData() async {
+    String jsonString =
+        await rootBundle.loadString('assets/images/Hit_it_right_plan.json');
+
+    Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+    setState(() {
+      workOuts = jsonData['other_plan'];
+      hasLoaded = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(workOuts);
     final HomeController controller = Get.find<HomeController>();
     double autoScale = Get.width / 360;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return hasLoaded
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ReusableText(
-                text: "Hit it right",
-                size: 24 * autoScale,
-                fontWeight: FontWeight.bold,
-              ),
-              InkWell(
-                onTap: () {
-
-                },
-                child: ReusableText(
-                  text: "See all",
-                  color: AppColors.pGreenColor,
-                  fontWeight: FontWeight.w600,
-                  size: 16 * autoScale,
-
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ReusableText(
+                      text: "Hit it right",
+                      size: 24 * autoScale,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    const SizedBox(),
+                  ],
                 ),
               ),
+              SizedBox(height: 6 * autoScale),
+              SizedBox(
+                  height: 220 * autoScale,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
+                    itemCount: workOuts.length, // Limit to 3
+                    itemBuilder: (context, index) {
+                      final workout = workOuts[index];
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: index == 0
+                              ? 3.0 * autoScale
+                              : 0, // Add left padding for the first item
+                          right: index == 2
+                              ? 0 * autoScale
+                              : 10.0, // Add right padding for all items
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => HitItRigtPage(
+                                  data: workout,
+                                ));
+                          },
+                          child: _WorkoutPlanCard(
+                              imagePath: workout['image'],
+                              title: workout['name'],
+                              subtitle: workout['short_description'],
+                              duration: workout['plan_duration'].toString(),
+                              calories:
+                                  workout['plan_calories_burned'].toString()),
+                        ),
+                      );
+                    },
+                  )),
             ],
-          ),
-        ),
-        SizedBox(height: 6 * autoScale),
-        SizedBox(
-          height: 220 * autoScale,
-          child: Obx(() => ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 16.0 * autoScale),
-            itemCount: controller.workoutPlans.length > 3 ? 3 : controller.workoutPlans.length, // Limit to 3
-            itemBuilder: (context, index) {
-              final workout = controller.workoutPlans[index];
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: index == 0 ? 3.0 * autoScale : 0,  // Add left padding for the first item
-                  right: index == 2 ? 0 * autoScale : 10.0,                  // Add right padding for all items
-                ),
-                child: _WorkoutPlanCard(
-                  imagePath: workout.imagePath,
-                  title: workout.title,
-                  subtitle: workout.subtitle,
-                  duration: workout.duration,
-                  calories: workout.calories,
-                ),
-              );
-            },
-          )),
-        ),
-      ],
-    );
+          )
+        : const Center(
+            child: CircularProgressIndicator(),
+          );
   }
 }
 
@@ -113,8 +148,9 @@ class _WorkoutPlanCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12 * autoScale)),
-              child: Image.asset(
+              borderRadius:
+                  BorderRadius.vertical(top: Radius.circular(12 * autoScale)),
+              child: Image.network(
                 imagePath,
                 height: 100 * autoScale,
                 width: double.infinity,
@@ -128,17 +164,17 @@ class _WorkoutPlanCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                      text: title,
-                      fontWeight: FontWeight.bold,
-                      size: 22 * autoScale,
-                      color: AppColors.pBlackColor,
-                      overflow: TextOverflow.ellipsis,
+                    text: title,
+                    fontWeight: FontWeight.bold,
+                    size: 22 * autoScale,
+                    color: AppColors.pBlackColor,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   ReusableText(
-                      text: subtitle,
-                      size: 14 * autoScale,
-                      color: AppColors.pGreyColor,
-                      overflow: TextOverflow.ellipsis,
+                    text: subtitle,
+                    size: 14 * autoScale,
+                    color: AppColors.pGreyColor,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(height: 6 * autoScale),
                   Row(
@@ -172,17 +208,18 @@ class _WorkoutPlanCard extends StatelessWidget {
   }
 
   Widget _buildInfoChip(
-      BuildContext context, {
-        required String iconPath,
-        required String label,
-        required Color color,
-        required Color backgroundColor,
-        required Color borderColor,
-      }) {
+    BuildContext context, {
+    required String iconPath,
+    required String label,
+    required Color color,
+    required Color backgroundColor,
+    required Color borderColor,
+  }) {
     double autoScale = Get.width / 360;
 
     return Container(
-      padding: EdgeInsets.all( 3.0 * autoScale), // Reduced padding for smaller chip
+      padding:
+          EdgeInsets.all(3.0 * autoScale), // Reduced padding for smaller chip
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(16.0 * autoScale), // Smaller radius
@@ -198,11 +235,11 @@ class _WorkoutPlanCard extends StatelessWidget {
           ),
           SizedBox(width: 4.0 * autoScale),
           ReusableText(
-              text: label,
-              size: 11.0 * autoScale, // Increased text size
-              fontWeight: FontWeight.w500,
-              color: color,
-            ),
+            text: label,
+            size: 11.0 * autoScale, // Increased text size
+            fontWeight: FontWeight.w500,
+            color: color,
+          ),
         ],
       ),
     );
