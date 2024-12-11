@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
@@ -45,7 +44,9 @@ class DailyTaskList extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () async {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const DailyTaskPage()));
+                            builder: (context) => DailyTaskPage(
+                                  data: task,
+                                )));
                         // if (!workouts!.contains(task.title)) {
                         //   FirebaseFirestore.instance
                         //       .collection('Daily Plan')
@@ -72,9 +73,8 @@ class DailyTaskList extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.circular(8 * autoScale),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/chest-workout.png'),
+                                image: DecorationImage(
+                                  image: NetworkImage(task['image']),
                                   fit: BoxFit.cover,
                                 ),
                               ),

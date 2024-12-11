@@ -1,15 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
 import '../../../utils/global_variables.dart';
 
-class DailyTaskPage extends StatelessWidget {
-  const DailyTaskPage({super.key});
+class DailyTaskPage extends StatefulWidget {
+  dynamic data;
 
+  DailyTaskPage({super.key, required this.data});
+
+  @override
+  State<DailyTaskPage> createState() => _DailyTaskPageState();
+}
+
+class _DailyTaskPageState extends State<DailyTaskPage> {
+  bool isDone = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -34,8 +45,8 @@ class DailyTaskPage extends StatelessWidget {
                   height: 250.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/chest-workout.png'),
+                    image: DecorationImage(
+                      image: NetworkImage(widget.data['image']),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -43,8 +54,8 @@ class DailyTaskPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const ReusableText(
-                  text: 'Flat bench press ',
+                ReusableText(
+                  text: widget.data['exercise'],
                   fontWeight: FontWeight.w600,
                   size: 18,
                   color: AppColors.pBlack87Color,
@@ -55,8 +66,8 @@ class DailyTaskPage extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const ReusableText(
-                  text: 'Set of 5',
+                ReusableText(
+                  text: 'Set 1 of ${widget.data['sets']}',
                   fontWeight: FontWeight.w200,
                   size: 12,
                   color: AppColors.pBlack87Color,
@@ -67,20 +78,20 @@ class DailyTaskPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.timer_outlined,
                       color: Colors.green,
                       size: 40,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     ReusableText(
-                      text: '0:00',
+                      text: '${widget.data['minutes']}:00',
                       fontWeight: FontWeight.w600,
                       size: 24,
                       color: AppColors.pGreenColor,
@@ -93,14 +104,17 @@ class DailyTaskPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const ReusableText(
-                  text: 'Great, you can proceed now !',
-                  fontWeight: FontWeight.w600,
-                  size: 18,
-                  color: AppColors.pBlack87Color,
-                  decoration: null,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
+                Visibility(
+                  visible: isDone,
+                  child: const ReusableText(
+                    text: 'Great, you can proceed now !',
+                    fontWeight: FontWeight.w600,
+                    size: 18,
+                    color: AppColors.pBlack87Color,
+                    decoration: null,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -128,8 +142,8 @@ class DailyTaskPage extends StatelessWidget {
                     const SizedBox(
                       width: 5,
                     ),
-                    const ReusableText(
-                      text: '300 cal',
+                    ReusableText(
+                      text: '${widget.data['calories_burned']} cal',
                       fontWeight: FontWeight.w600,
                       size: 22,
                       color: AppColors.pDarkOrangeColor,
@@ -143,9 +157,37 @@ class DailyTaskPage extends StatelessWidget {
                   height: 50,
                 ),
                 ReusableButton(
-                  text: "Finish",
-                  onPressed: () {
-                    Navigator.pop(context);
+                  text: isDone ? "Finish" : 'Start',
+                  onPressed: () async {
+                    if (!isDone) {
+                      setState(() {
+                        isDone = true;
+                      });
+                    } else {
+                      await FirebaseFirestore.instance
+                          .collection('Weekly')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .update({
+                        '${DateTime.now().weekday.toString()}.workouts':
+                            FieldValue.increment(1),
+                      });
+                      await FirebaseFirestore.instance
+                          .collection('Weekly')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .update({
+                        '${DateTime.now().weekday.toString()}.calories':
+                            FieldValue.increment(
+                                widget.data['calories_burned']),
+                      });
+                      await FirebaseFirestore.instance
+                          .collection('Weekly')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .update({
+                        '${DateTime.now().weekday.toString()}.mins':
+                            FieldValue.increment(widget.data['minutes']),
+                      });
+                      Navigator.pop(context);
+                    }
                   },
                   color: AppColors.pGreenColor,
                   fontColor: AppColors.pWhiteColor,

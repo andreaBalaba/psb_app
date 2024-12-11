@@ -1,6 +1,6 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:psb_app/utils/global_variables.dart';
 import 'package:psb_app/utils/reusable_text.dart';
 
@@ -58,8 +58,15 @@ class WorkoutChartWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: "$weeklyHours ", style: const TextStyle(color: AppColors.pBlackColor)),
-                          TextSpan(text: weeklyHours == 1 ? "hr" : "hrs", style: TextStyle(fontSize: 14 * autoScale, color: AppColors.pBGGreyColor)),
+                          TextSpan(
+                              text: "$weeklyHours ",
+                              style: const TextStyle(
+                                  color: AppColors.pBlackColor)),
+                          TextSpan(
+                              text: weeklyHours == 1 ? "hr" : "hrs",
+                              style: TextStyle(
+                                  fontSize: 14 * autoScale,
+                                  color: AppColors.pBGGreyColor)),
                         ],
                       ),
                       textAlign: TextAlign.center,
@@ -75,8 +82,15 @@ class WorkoutChartWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
-                          TextSpan(text: weeklyMinutes > 0 ? "$weeklyMinutes " : "", style: const TextStyle(color: AppColors.pBlackColor)),
-                          TextSpan(text: (weeklyMinutes == 1) ? "min" : "mins", style: TextStyle(fontSize: 14 * autoScale, color: AppColors.pBGGreyColor)),
+                          TextSpan(
+                              text: weeklyMinutes > 0 ? "$weeklyMinutes " : "",
+                              style: const TextStyle(
+                                  color: AppColors.pBlackColor)),
+                          TextSpan(
+                              text: (weeklyMinutes == 1) ? "min" : "mins",
+                              style: TextStyle(
+                                  fontSize: 14 * autoScale,
+                                  color: AppColors.pBGGreyColor)),
                         ],
                       ),
                       textAlign: TextAlign.center,
@@ -98,18 +112,26 @@ class WorkoutChartWidget extends StatelessWidget {
                     tooltipRoundedRadius: 8,
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
                       int minutes = rod.toY.toInt();
-                      String unit = minutes == 1 ? "min" : "mins"; // Adjust unit based on minute value
+                      String unit = minutes == 1
+                          ? "min"
+                          : "mins"; // Adjust unit based on minute value
                       return BarTooltipItem(
                         "$minutes $unit",
-                        const TextStyle(color: AppColors.pWhiteColor, fontFamily: 'Poppins'),
+                        const TextStyle(
+                            color: AppColors.pWhiteColor,
+                            fontFamily: 'Poppins'),
                       );
                     },
                   ),
                 ),
                 titlesData: FlTitlesData(
                   show: true,
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide top labels
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)), // Hide right labels
+                  topTitles: const AxisTitles(
+                      sideTitles:
+                          SideTitles(showTitles: false)), // Hide top labels
+                  rightTitles: const AxisTitles(
+                      sideTitles:
+                          SideTitles(showTitles: false)), // Hide right labels
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
@@ -118,9 +140,7 @@ class WorkoutChartWidget extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: ReusableText(
-                            text: days[value.toInt()],
-                            size: 14 * autoScale
-                          ),
+                              text: days[value.toInt()], size: 14 * autoScale),
                         );
                       },
                       reservedSize: 28,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
+import 'package:psb_app/api/services/add_weekly.dart';
 import 'package:psb_app/features/assessment/screen/get_started_page.dart';
 import 'package:psb_app/features/authentication/screen/legal%20docs/privacy_policy.dart';
 import 'package:psb_app/features/authentication/screen/legal%20docs/terms_and_condition.dart';
@@ -211,6 +212,7 @@ class _SignUpPageState extends State<SignUpPage> {
           // New user: add additional user info to Firestore
 
           addUser(user.displayName ?? 'Unknown User', user.email ?? '');
+          addWeekly();
 
           // Optionally, navigate to a welcome or setup page for new users
         }
@@ -393,6 +395,7 @@ class _SignUpPageState extends State<SignUpPage> {
       //     emailController.text);
 
       addUser(_usernameController.text, _emailController.text);
+      addWeekly();
 
       Get.offAll(() => const GetStarted(), transition: Transition.noTransition);
     } on FirebaseAuthException catch (e) {

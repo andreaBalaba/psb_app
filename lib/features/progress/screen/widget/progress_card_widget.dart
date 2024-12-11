@@ -165,9 +165,12 @@ class _ProgressCardsWidgetState extends State<ProgressCardsWidget> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await FirebaseFirestore.instance
-                            .collection('Users')
+                            .collection('Weekly')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .update({'water': tempWaterIntake});
+                            .update({
+                          '${DateTime.now().weekday.toString()}.water':
+                              tempWaterIntake,
+                        });
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
@@ -261,9 +264,12 @@ class _ProgressCardsWidgetState extends State<ProgressCardsWidget> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await FirebaseFirestore.instance
-                            .collection('Users')
+                            .collection('Weekly')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .update({'sleep': tempSleepHours});
+                            .update({
+                          '${DateTime.now().weekday.toString()}.sleep':
+                              tempSleepHours,
+                        });
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(

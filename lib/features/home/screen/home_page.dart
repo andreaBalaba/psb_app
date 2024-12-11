@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/api/services/add_daily_plan.dart';
+import 'package:psb_app/api/services/add_weekly.dart';
 import 'package:psb_app/features/home/controller/home_controller.dart';
 import 'package:psb_app/features/home/screen/widget/daily_task_widget.dart';
 import 'package:psb_app/features/home/screen/widget/today_plan_card_widget.dart';
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    getWeeklyData();
     getDailyData();
   }
 
@@ -72,6 +74,24 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
+  }
+
+  getWeeklyData() {
+    FirebaseFirestore.instance
+        .collection('Weekly')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (DateTime.now().weekday == 1) {
+          if (documentSnapshot['year'] != DateTime.now().year &&
+              documentSnapshot['month'] != DateTime.now().month &&
+              documentSnapshot['day'] != DateTime.now().day) {
+            addWeekly();
+          }
+        }
+      }
+    });
   }
 
   @override

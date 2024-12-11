@@ -95,7 +95,7 @@ class _ProgressPageState extends State<ProgressPage> {
           children: [
             StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('Users')
+                    .collection('Weekly')
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -108,17 +108,19 @@ class _ProgressPageState extends State<ProgressPage> {
                     return const Center(child: CircularProgressIndicator());
                   }
                   dynamic data = snapshot.data;
+
                   return ProgressCardsWidget(
-                    sleep: data['sleep'],
-                    calories: widget.data['calories'],
-                    steps: widget.data['steps'],
-                    water: data['water'],
+                    sleep: data[DateTime.now().weekday.toString()]['sleep'],
+                    calories: data[DateTime.now().weekday.toString()]
+                        ['calories'],
+                    steps: data[DateTime.now().weekday.toString()]['steps'],
+                    water: data[DateTime.now().weekday.toString()]['water'],
                   );
                 }),
             const SizedBox(height: 20),
             StreamBuilder<DocumentSnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection('Users')
+                  .collection('Weekly')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
               builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -133,37 +135,14 @@ class _ProgressPageState extends State<ProgressPage> {
 
                 dynamic data = snapshot.data;
 
-                // Check for data integrity before proceeding
-                if (data == null ||
-                    data['workouts'] == null ||
-                    data['workouts']['weekly_schedule'] == null ||
-                    widget.workouts == null) {
-                  return const Center(child: Text('Invalid data structure'));
-                }
-
-                // Helper method to calculate sum for a specific day
-                int calculateDailySum(int dayIndex) {
-                  List<dynamic> exercises = data['workouts']['weekly_schedule']
-                      [dayIndex]['exercises'];
-                  int sum = 0;
-                  for (int i = 0; i < exercises.length; i++) {
-                    if (i < widget.workouts!.length &&
-                        widget.workouts![i]['minutes'] != null) {
-                      sum +=
-                          int.parse(widget.workouts![i]['minutes'].toString());
-                    }
-                  }
-                  return sum;
-                }
-
                 // Calculate sums for each day of the week
-                int sum1 = calculateDailySum(0);
-                int sum2 = calculateDailySum(1);
-                int sum3 = calculateDailySum(2);
-                int sum4 = calculateDailySum(3);
-                int sum5 = calculateDailySum(4);
-                int sum6 = calculateDailySum(5);
-                int sum7 = calculateDailySum(6);
+                int sum1 = data['1']['mins'];
+                int sum2 = data['2']['mins'];
+                int sum3 = data['3']['mins'];
+                int sum4 = data['4']['mins'];
+                int sum5 = data['5']['mins'];
+                int sum6 = data['6']['mins'];
+                int sum7 = data['7']['mins'];
 
                 return WorkoutChartWidget(
                   weeklyAverage:

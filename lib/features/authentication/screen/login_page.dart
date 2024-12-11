@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
+import 'package:psb_app/api/services/add_weekly.dart';
 import 'package:psb_app/features/authentication/screen/signup_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -312,6 +313,7 @@ class _LogInPageState extends State<LogInPage> {
           // New user: add additional user info to Firestore
 
           addUser(user.displayName ?? 'Unknown User', user.email ?? '');
+          addWeekly();
 
           // Optionally, navigate to a welcome or setup page for new users
         }
