@@ -60,7 +60,109 @@ class UserHeader extends StatelessWidget {
                   color: AppColors.pGreyColor,
                 ),
                 onPressed: () {
-                  // Implement edit functionality here
+                  final TextEditingController nameController = TextEditingController();
+
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        title: const ReusableText(
+                          text: 'Please enter your name',
+                          size: 18,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.pBlackColor,
+                          align: TextAlign.center,
+                        ),
+                        content: TextField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your name',
+                            hintStyle: TextStyle(fontFamily: 'Poppins', fontSize: 16 * autoScale, color: AppColors.pGreyColor),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(color: Colors.grey),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(color: Colors.grey),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(color: Colors.grey),
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+                        actionsPadding: EdgeInsets.zero,
+                        actions: [
+                          SizedBox(height: 16 * autoScale),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(color: Colors.grey.shade300),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () => Navigator.of(context).pop(),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          right: BorderSide(color: Colors.grey.shade300),
+                                        ),
+                                      ),
+                                      child: const ReusableText(
+                                        text: 'Cancel',
+                                        size: 16,
+                                        align: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      if (nameController.text.isNotEmpty) {
+                                        try {
+                                          await FirebaseFirestore.instance
+                                              .collection('Users')
+                                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                                              .update({
+                                            'name': nameController.text.trim(),
+                                          });
+                                          Navigator.of(context).pop();
+                                        } catch (e) {
+                                          print('Error updating name: $e');
+                                        }
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(vertical: 12),
+                                      child: const ReusableText(
+                                        text: 'Save',
+                                        size: 16,
+                                        align: TextAlign.center,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
             ],
