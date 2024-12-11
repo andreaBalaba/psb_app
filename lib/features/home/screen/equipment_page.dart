@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:psb_app/utils/reusable_button.dart';
 import 'package:psb_app/utils/reusable_text.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../utils/global_variables.dart';
 
@@ -156,42 +157,287 @@ class _EquipmentPageState extends State<EquipmentPage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              ReusableText(
-                                text:
-                                    'Set 1 of ${equipmentData['levels'][i]['workouts'].first['sets']}             ${equipmentData['levels'][i]['workouts'].first['reps']} reps/set',
-                                fontWeight: FontWeight.w200,
-                                size: 12,
-                                color: AppColors.pBlack87Color,
-                                decoration: null,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.timer_outlined,
-                                    color: Colors.green,
-                                    size: 40,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  ReusableText(
-                                    text:
-                                        '${equipmentData['levels'][i]['workouts'].first['minutes']}:00',
-                                    fontWeight: FontWeight.w600,
-                                    size: 24,
-                                    color: AppColors.pGreenColor,
-                                    decoration: null,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ],
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          ReusableText(
+                                            text:
+                                                'Set 1 of ${equipmentData['levels'][i]['workouts'].first['sets']}             ${equipmentData['levels'][i]['workouts'].first['reps']} reps/set',
+                                            fontWeight: FontWeight.w200,
+                                            size: 12,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                Icons.timer_outlined,
+                                                color: Colors.green,
+                                                size: 40,
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              ReusableText(
+                                                text:
+                                                    '${equipmentData['levels'][i]['workouts'].first['minutes']}:00',
+                                                fontWeight: FontWeight.w600,
+                                                size: 24,
+                                                color: AppColors.pGreenColor,
+                                                decoration: null,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Overview',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          ReusableText(
+                                            text: equipmentData['levels'][i]
+                                                ['overview'],
+                                            fontWeight: FontWeight.w200,
+                                            size: 12,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Basic Alternatives',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          ReusableText(
+                                            text: equipmentData['levels'][i]
+                                                    ['basics_and_alternatives']
+                                                ['alternative'],
+                                            fontWeight: FontWeight.w200,
+                                            size: 12,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 20,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Correct Execution',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          Column(
+                                            children: [
+                                              for (int j = 0;
+                                                  j <
+                                                      equipmentData['levels'][i]
+                                                              [
+                                                              'correct_execution']
+                                                          .length;
+                                                  j++)
+                                                ReusableText(
+                                                  text: equipmentData['levels']
+                                                          [i]
+                                                      ['correct_execution'][j],
+                                                  fontWeight: FontWeight.w200,
+                                                  size: 12,
+                                                  color:
+                                                      AppColors.pBlack87Color,
+                                                  decoration: null,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 20,
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Step by Step Instructions',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              for (int j = 0;
+                                                  j <
+                                                      equipmentData['levels'][i]
+                                                              [
+                                                              'step_by_step_instructions']
+                                                          .length;
+                                                  j++)
+                                                ReusableText(
+                                                  text: equipmentData['levels']
+                                                          [i][
+                                                      'step_by_step_instructions'][j],
+                                                  fontWeight: FontWeight.w200,
+                                                  size: 12,
+                                                  color:
+                                                      AppColors.pBlack87Color,
+                                                  decoration: null,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 20,
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Common Mistakes',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              for (int j = 0;
+                                                  j <
+                                                      equipmentData['levels'][i]
+                                                              [
+                                                              'common_mistakes']
+                                                          .length;
+                                                  j++)
+                                                ReusableText(
+                                                  text: equipmentData['levels']
+                                                      [i]['common_mistakes'][j],
+                                                  fontWeight: FontWeight.w200,
+                                                  size: 12,
+                                                  color:
+                                                      AppColors.pBlack87Color,
+                                                  decoration: null,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 20,
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 300,
+                                      child: Column(
+                                        children: [
+                                          const ReusableText(
+                                            text: 'Video Tutorial',
+                                            fontWeight: FontWeight.w600,
+                                            size: 18,
+                                            color: AppColors.pBlack87Color,
+                                            decoration: null,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await launchUrlString(
+                                                  equipmentData['levels'][i]
+                                                      ['video_tutorial']);
+                                            },
+                                            child: ReusableText(
+                                              text: equipmentData['levels'][i]
+                                                  ['video_tutorial'],
+                                              fontWeight: FontWeight.w800,
+                                              size: 18,
+                                              color: AppColors.pGreenColor,
+                                              decoration: null,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 20,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

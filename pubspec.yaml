@@ -59,6 +59,7 @@ dependencies:
   video_player: ^2.9.2
   flutter_markdown: ^0.7.4+3
   flutter_tts:
+  url_launcher:
 
 
 dev_dependencies:
