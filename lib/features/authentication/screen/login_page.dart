@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:psb_app/api/services/add_user.dart';
 import 'package:psb_app/api/services/add_weekly.dart';
+import 'package:psb_app/features/assessment/screen/get_started_page.dart';
 import 'package:psb_app/features/authentication/screen/signup_page.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
 import 'package:psb_app/utils/global_assets.dart';
@@ -287,49 +288,66 @@ class _LogInPageState extends State<LogInPage> {
 
   Future<void> registerWithGoogle(BuildContext context) async {
     try {
-      // Attempt to sign in the user with Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        // User canceled the Google sign-in
+        // User canceled sign-in
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Google sign in cancelled.')),
+        );
         return;
       }
 
-      // Get Google authentication details
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // Sign in to Firebase with Google credentials
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Check if user is new or existing
+        // Check if the user is new
         if (userCredential.additionalUserInfo?.isNewUser ?? false) {
-          // New user: add additional user info to Firestore
-
-          addUser(user.displayName ?? 'Unknown User', user.email ?? '');
+          // New user: add to Firestore and navigate to get started
+          await addUser(user.displayName ?? 'Unknown User', user.email ?? '');
           addWeekly();
 
-          // Optionally, navigate to a welcome or setup page for new users
+          Get.offAll(() => const GetStarted(), transition: Transition.noTransition);
+        } else {
+          // Existing user: navigate to home
+          Get.offAll(() => const HomePage(), transition: Transition.noTransition);
         }
-
-        Get.offAll(() => const HomePage(),
-            transition: Transition.noTransition); //temporary
       }
-    } on FirebaseAuthException catch (e) {
-      // Handle Firebase-specific errors
+    } catch (e) {
+      String errorMessage;
+
+      if (e is FirebaseAuthException) {
+        switch (e.code) {
+          case 'account-exists-with-different-credential':
+            errorMessage = 'An account already exists with this email.';
+            break;
+          case 'invalid-credential':
+            errorMessage = 'The credentials are invalid.';
+            break;
+          case 'operation-not-allowed':
+            errorMessage = 'Google sign-in is not enabled.';
+            break;
+          case 'user-disabled':
+            errorMessage = 'This account has been disabled.';
+            break;
+          case 'user-not-found':
+            errorMessage = 'No account found with this email.';
+            break;
+          default:
+            errorMessage = 'Sign in failed. Please try again.';
+        }
+      } else {
+        errorMessage = 'An unexpected error occurred.';
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? "Authentication error")),
-      );
-    } on Exception catch (e) {
-      // Handle general errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+          SnackBar(content: Text(errorMessage))
       );
     }
   }
@@ -413,18 +431,57 @@ class _LogInPageState extends State<LogInPage> {
   }
 
   login(context) async {
+    // First validate inputs
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter both email and password.'),
+        ),
+      );
+      return;
+    }
+
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
 
       Get.offAll(() => const HomePage(),
-          transition: Transition.noTransition); //temporary
+          transition: Transition.noTransition);
+
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      String errorMessage;
+
+      switch (e.code) {
+        case 'invalid-credential':
+        case 'INVALID_LOGIN_CREDENTIALS':
+        case 'wrong-password':
+        case 'user-not-found':
+        // Group common authentication failures under one user-friendly message
+          errorMessage = 'Incorrect email or password.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'Please enter a valid email address.';
+          break;
+        case 'user-disabled':
+          errorMessage = 'This account has been disabled.';
+          break;
+        case 'too-many-requests':
+          errorMessage = 'Too many failed attempts. Please try again later.';
+          break;
+        default:
+          errorMessage = 'An error occurred. Please try again.';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('An error occurred. Please try again.'),
+        ),
+      );
     }
   }
 }

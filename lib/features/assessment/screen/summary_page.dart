@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psb_app/features/home/screen/home_page.dart';
@@ -11,130 +13,123 @@ class SummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double autoScale = Get.width / 400;
+    final double autoScale = Get.width / 360;
     final double screenHeight = Get.height;
-
-    // Example workout plan list for a new user
-    final List<String> workoutPlan = [
-      'Week 1 : Wake up your body',
-      'Week 2 : Burn Fat',
-      'Week 3 : Build Strength',
-      'Week 4 : Increase Endurance',
-      'Week 5 : Toning',
-      'Week 6 : Advanced Burn'
-    ];
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: AppColors.pWhiteColor,
         elevation: 0,
-        toolbarHeight: 30.0,
+        centerTitle: true,
+        title: ReusableText(
+          text: 'Based on your answers, here is your plan:',
+          size: 22 * autoScale,
+          fontWeight: FontWeight.bold,
+          align: TextAlign.center,
+          maxLines: 2,
+        ),
+        toolbarHeight: 100.0,
         automaticallyImplyLeading: false,
         surfaceTintColor: AppColors.pNoColor,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header message
-              Center(
-                child: ReusableText(
-                  text: 'Based on your answers, you will be',
-                  size: 18 * autoScale,
-                  fontWeight: FontWeight.bold,
-                  align: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: 20.0 * autoScale),
-              // Target weight and date
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 32 * autoScale,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                    ),
-                    children: const [
-                      TextSpan(text: "75 kg", style: TextStyle(color: AppColors.pSOrangeColor)),
-                      TextSpan(text: " on ", style: TextStyle(color: AppColors.pBlackColor)),
-                      TextSpan(text: "Dec 25", style: TextStyle(color: AppColors.pSOrangeColor)),
-                    ],
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('Users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('Something went wrong'));
+          }
+
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+          final workoutPlan = userData['workouts'] as Map<String, dynamic>;
+          final overview = workoutPlan['overview'] as Map<String, dynamic>;
+
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0 * autoScale),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.0 * autoScale),
+                  ReusableText(
+                    text: 'Designed for you',
+                    size: 20 * autoScale,
+                    fontWeight: FontWeight.bold,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: 30.0 * autoScale),
-              // Designed for you section
-              ReusableText(
-                text: 'Designed for you',
-                size: 18 * autoScale,
-                fontWeight: FontWeight.bold,
-              ),
-              SizedBox(height: 10.0 * autoScale),
-              Container(
-                padding: EdgeInsets.all(16.0 * autoScale),
-                decoration: BoxDecoration(
-                  color:AppColors.pPitchColor,
-                  borderRadius: BorderRadius.circular(12 * autoScale),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildIconTextRow(
-                      imagePath: IconAssets.pTargetIcon,
-                      label: 'Focus Area',
-                      value: 'Full body',
-                      autoScale: autoScale,
+                  SizedBox(height: 20.0 * autoScale),
+                  Container(
+                    padding: EdgeInsets.all(16.0 * autoScale),
+                    decoration: BoxDecoration(
+                      color: AppColors.pPitchColor,
+                      borderRadius: BorderRadius.circular(12 * autoScale),
                     ),
-                    SizedBox(height: 10.0 * autoScale),
-                    _buildIconTextRow(
-                      imagePath: IconAssets.pDurationIcon,
-                      label: 'Duration',
-                      value: '10 - 30 mins',
-                      autoScale: autoScale,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildIconTextRow(
+                          imagePath: IconAssets.pTargetIcon,
+                          label: 'Focus Area',
+                          value: overview['focus_area'],
+                          autoScale: autoScale,
+                        ),
+                        SizedBox(height: 10.0 * autoScale),
+                        _buildIconTextRow(
+                          imagePath: IconAssets.pDurationIcon,
+                          label: 'Duration',
+                          value: '${overview['workout_duration_minutes']} mins',
+                          autoScale: autoScale,
+                        ),
+                        SizedBox(height: 10.0 * autoScale),
+                        _buildIconTextRow(
+                          imagePath: IconAssets.pWaterIntakeIcon,
+                          label: 'Water Intake',
+                          value: overview['daily_water_intake_glass'],
+                          autoScale: autoScale,
+                        ),
+                        SizedBox(height: 10.0 * autoScale),
+                        _buildIconTextRow(
+                          imagePath: IconAssets.pBurnCaloriesIcon,
+                          label: 'Daily burned calories',
+                          value: '${overview['daily_calories_burned']} kcal',
+                          autoScale: autoScale,
+                        ),
+                      ],
                     ),
-                    SizedBox(height: 10.0 * autoScale),
-                    _buildIconTextRow(
-                      imagePath: IconAssets.pWaterIntakeIcon,
-                      label: 'Water Intake',
-                      value: '10 glass a day',
-                      autoScale: autoScale,
-                    ),
-                    SizedBox(height: 10.0 * autoScale),
-                    _buildIconTextRow(
-                      imagePath: IconAssets.pBurnCaloriesIcon,
-                      label: 'Daily burned calories',
-                      value: '500 kcal',
-                      autoScale: autoScale,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 30.0 * autoScale),
+                  ReusableText(
+                    text: 'Weekly Schedule',
+                    size: 20 * autoScale,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(height: 20.0 * autoScale),
+                  ...(workoutPlan['weekly_schedule'] as List)
+                      .map((day) => _buildPlanItem(
+                    '${day['day'].toString().capitalizeFirst}: ${day['focus']}',
+                    autoScale,
+                  ))
+                      .toList(),
+                  SizedBox(height: 20.0 * autoScale),
+                ],
               ),
-              SizedBox(height: 20.0 * autoScale),
-              // Plan Preview
-              ReusableText(
-                text: 'Plan Preview',
-                size: 18 * autoScale,
-                fontWeight: FontWeight.bold,
-              ),
-              SizedBox(height: 10.0 * autoScale),
-
-              // Display each plan item in the list
-              ...workoutPlan.map((item) => _buildPlanItem(item, autoScale)),
-
-              // Add space at the bottom of the scroll view
-              SizedBox(height: 20.0 * autoScale),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.only(left: 20.0 * autoScale, right: 20.0 * autoScale, top: 20.0 * autoScale, bottom: 40.0 * autoScale),
+        padding: EdgeInsets.only(
+            left: 20.0 * autoScale,
+            right: 20.0 * autoScale,
+            top: 20.0 * autoScale,
+            bottom: 40.0 * autoScale
+        ),
         child: SizedBox(
           height: screenHeight * 0.065,
           width: double.infinity,
@@ -193,14 +188,19 @@ class SummaryPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: 20.0 * autoScale, bottom: 16.0 * autoScale),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.circle, color: AppColors.pGreenColor, size: 8 * autoScale),
+          Padding(
+            padding: EdgeInsets.only(top: 6.0 * autoScale),
+            child: Icon(Icons.circle, color: AppColors.pGreenColor, size: 8 * autoScale),
+          ),
           SizedBox(width: 8.0 * autoScale),
-          ReusableText(
-            text: text,
-            size: 16 * autoScale,
-            fontWeight: FontWeight.bold,
+          Expanded(
+            child: ReusableText(
+              text: text,
+              size: 18 * autoScale,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

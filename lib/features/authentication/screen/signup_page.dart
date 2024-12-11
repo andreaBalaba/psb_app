@@ -25,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
 
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
@@ -34,9 +34,35 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _isPasswordVisible = false;
   bool _isTermsAccepted = false;
-  final bool _passwordsMatch = true;
+  late bool _passwordsMatch = true;
+  bool _hasTypedInConfirmPassword = false;
 
   double get autoScale => Get.width / 360;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Add listeners to text controllers
+    _passwordController.addListener(_validatePasswords);
+    _confirmPasswordController.addListener(_validatePasswords);
+  }
+
+  @override
+  void dispose() {
+    // Dispose controllers to avoid memory leaks
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _validatePasswords() {
+    setState(() {
+      _passwordsMatch = _passwordController.text ==
+          _confirmPasswordController.text;
+      _hasTypedInConfirmPassword = _confirmPasswordController.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +92,26 @@ class _SignUpPageState extends State<SignUpPage> {
                 _buildTextField("Password", _passwordController, true,
                     _passwordFocusNode, _confirmPasswordFocusNode),
                 SizedBox(height: 25 * autoScale),
-                _buildTextField("Confirm Password", _confirmPasswordController,
-                    true, _confirmPasswordFocusNode, null),
-                if (!_passwordsMatch)
-                  Padding(
-                    padding: EdgeInsets.only(top: 8 * autoScale),
-                    child: ReusableText(
-                      text: 'Passwords do not match',
-                      color: AppColors.pSOrangeColor,
-                      size: 12 * autoScale,
-                    ),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTextField("Confirm Password",
+                        _confirmPasswordController, true, _confirmPasswordFocusNode, null),
+                    if (_hasTypedInConfirmPassword)
+                      Padding(
+                        padding: EdgeInsets.only(top: 8 * autoScale),
+                        child: ReusableText(
+                          text: _passwordsMatch
+                              ? 'Passwords match'
+                              : 'Passwords do not match',
+                          color: _passwordsMatch
+                              ? AppColors.pGreenColor
+                              : AppColors.pSOrangeColor,
+                          size: 12 * autoScale,
+                        ),
+                      ),
+                  ],
+                ),
                 SizedBox(height: 20 * autoScale),
                 _buildContinueDivider(),
                 SizedBox(height: 20 * autoScale),
@@ -96,8 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildTextField(
-      String hintText,
+  Widget _buildTextField(String hintText,
       TextEditingController controller,
       bool isPasswordField,
       FocusNode currentFocusNode,
@@ -121,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
         focusNode: currentFocusNode,
         obscureText: isPasswordField && !_isPasswordVisible,
         textInputAction:
-            nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
+        nextFocusNode != null ? TextInputAction.next : TextInputAction.done,
         onSubmitted: (_) {
           if (nextFocusNode != null) {
             FocusScope.of(context).requestFocus(nextFocusNode);
@@ -145,18 +179,18 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
           suffixIcon: isPasswordField
               ? IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: AppColors.pGrey800Color,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                )
+            icon: Icon(
+              _isPasswordVisible
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              color: AppColors.pGrey800Color,
+            ),
+            onPressed: () {
+              setState(() {
+                _isPasswordVisible = !_isPasswordVisible;
+              });
+            },
+          )
               : null,
         ),
       ),
@@ -185,17 +219,43 @@ class _SignUpPageState extends State<SignUpPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<void> registerWithGoogle(BuildContext context) async {
+    // First check terms and conditions
+    if (!_isTermsAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please accept the Terms and Conditions to continue.'),
+        ),
+      );
+      return;
+    }
+
     try {
-      // Attempt to sign in the user with Google
+      // Attempt to sign in with Google first (shows Google account picker)
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      // Check mounted before showing SnackBar
+      if (!mounted) return;
+
       if (googleUser == null) {
         // User canceled the Google sign-in
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Google sign in cancelled.'),
+          ),
+        );
         return;
       }
 
+      // After user selects account, show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
+      );
+
       // Get Google authentication details
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = await googleUser
+          .authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -203,32 +263,50 @@ class _SignUpPageState extends State<SignUpPage> {
 
       // Sign in to Firebase with Google credentials
       final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;
 
       if (user != null) {
         // Check if user is new or existing
         if (userCredential.additionalUserInfo?.isNewUser ?? false) {
           // New user: add additional user info to Firestore
-
-          addUser(user.displayName ?? 'Unknown User', user.email ?? '');
+          await addUser(user.displayName ?? 'Unknown User', user.email ?? '');
           addWeekly();
-
-          // Optionally, navigate to a welcome or setup page for new users
         }
 
+        Navigator.pop(context); // Remove loading indicator
         Get.offAll(() => const GetStarted(),
             transition: Transition.noTransition);
       }
     } on FirebaseAuthException catch (e) {
-      // Handle Firebase-specific errors
+      Navigator.pop(context); // Remove loading indicator
+      String errorMessage = 'Something went wrong. Please try again.';
+
+      switch (e.code) {
+        case 'account-exists-with-different-credential':
+          errorMessage = 'This email is already used with a different account';
+          break;
+        case 'invalid-credential':
+          errorMessage = 'Unable to sign in. Please try again';
+          break;
+        case 'operation-not-allowed':
+          errorMessage = 'Google sign-in is not available right now';
+          break;
+        case 'user-disabled':
+          errorMessage = 'This account has been disabled';
+          break;
+        case 'user-not-found':
+          errorMessage = 'No account found with this email';
+          break;
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message ?? "Authentication error")),
+        SnackBar(content: Text(errorMessage)),
       );
-    } on Exception catch (e) {
-      // Handle general errors
+    } catch (e) {
+      Navigator.pop(context); // Remove loading indicator
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+        const SnackBar(content: Text('Something went wrong. Please try again')),
       );
     }
   }
@@ -238,10 +316,7 @@ class _SignUpPageState extends State<SignUpPage> {
       width: double.infinity,
       height: 50 * autoScale,
       child: ElevatedButton.icon(
-        onPressed: () {
-          // Google sign-in logic here
-          registerWithGoogle(context);
-        },
+        onPressed: () => registerWithGoogle(context),
         icon: Image.asset(
           IconAssets.pGoogleIcon,
           height: 33 * autoScale,
@@ -385,25 +460,42 @@ class _SignUpPageState extends State<SignUpPage> {
 
   register(context) async {
     try {
+      // Validate input fields
+      if (_emailController.text.isEmpty || _passwordController.text.isEmpty ||
+          _usernameController.text.isEmpty) {
+        throw Exception('Please fill in all fields');
+      }
+
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
 
-      // signup(nameController.text, numberController.text, addressController.text,
-      //     emailController.text);
-
       addUser(_usernameController.text, _emailController.text);
       addWeekly();
 
       Get.offAll(() => const GetStarted(), transition: Transition.noTransition);
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      String errorMessage;
+      switch (e.code) {
+        case 'weak-password':
+          errorMessage = 'The password provided is too weak';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'An account already exists for this email';
+          break;
+        case 'invalid-email':
+          errorMessage = 'Please enter a valid email address';
+          break;
+        default:
+          errorMessage = e.message ?? 'An error occurred during registration';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)));
     } on Exception catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString())));
     }
   }
 }
